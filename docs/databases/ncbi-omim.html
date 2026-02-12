@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NCBI OMIM — Mendelian gene-disease associations, phenotype-genotype relationships, and inheritance patterns.">
+  <title>NCBI OMIM – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.omim.org/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>NCBI OMIM</h1>
+        <p class="subtitle">Online Mendelian Inheritance in Man — Gene-Disease Associations and Phenotype-Genotype Relationships</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>NCBI OMIM</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          OMIM (Online Mendelian Inheritance in Man) is a comprehensive database of human genes and genetic disorders.
+          It catalogs known Mendelian diseases and phenotypes, providing detailed gene-disease associations, inheritance patterns,
+          clinical features, and molecular mechanisms for over 25,000 entries covering both genes and hereditary phenotypes.
+        </p>
+
+        <div class="info-box">
+          <strong>Clinical Relevance</strong> — OMIM is essential for understanding single-gene disorders, establishing genotype-phenotype
+          correlations, and identifying disease-causing variants in the context of known genetic diseases.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Gene-disease association curation</li>
+              <li>Phenotype and inheritance pattern documentation</li>
+              <li>Clinical features and diagnostic criteria</li>
+              <li>Molecular basis of genetic diseases</li>
+              <li>References to primary literature</li>
+              <li>Cross-links to other genetic databases</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Identify diseases associated with a gene</li>
+              <li>Understand phenotype-genotype relationships</li>
+              <li>Determine inheritance patterns</li>
+              <li>Find clinical diagnostic criteria</li>
+              <li>Discover molecular mechanisms of disease</li>
+              <li>Retrieve curated disease information</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Gene-Disease Associations</strong></td>
+              <td>Links between genes and associated Mendelian disorders</td>
+              <td><code>omim_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Phenotype Information</strong></td>
+              <td>Clinical features, symptoms, and diagnostic criteria</td>
+              <td><code>omim_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Inheritance Patterns</strong></td>
+              <td>Autosomal dominant, recessive, X-linked, mitochondrial modes</td>
+              <td><code>omim_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Clinical Features</strong></td>
+              <td>Detailed phenotypic manifestations and disease characteristics</td>
+              <td><code>omim_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Molecular Mechanisms</strong></td>
+              <td>Pathophysiological basis of genetic disorders</td>
+              <td><code>omim_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Reference Citations</strong></td>
+              <td>Links to PubMed articles supporting disease data</td>
+              <td><code>omim_search</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Gene-Disease and Phenotype Search</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>omim_search</code></strong></p>
+            <p class="text-muted">Search OMIM for gene-disease associations and phenotype information.</p>
+            <p><strong>Parameters:</strong> gene (string: gene symbol or name), disease (string, optional: disease name or OMIM ID)</p>
+            <p><strong>Returns:</strong> Gene ID, associated diseases/phenotypes, inheritance patterns, clinical features, OMIM MIM numbers, references</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Search Examples:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><code>gene="BRCA1"</code> — Find all BRCA1-associated diseases</li>
+                <li><code>gene="TP53", disease="Li-Fraumeni"</code> — Gene-specific disease search</li>
+                <li><code>disease="cystic fibrosis"</code> — Find genes associated with a disease</li>
+                <li><code>gene="CFTR", disease="pancreatic disease"</code> — Detailed phenotype association</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Find diseases associated with a gene</h3>
+          <pre><code>"What genetic diseases are associated with the BRCA1 gene?"</code></pre>
+          <p class="text-muted">Tool: <code>omim_search</code> with gene="BRCA1"</p>
+        </div>
+
+        <div class="card">
+          <h3>Identify inheritance patterns</h3>
+          <pre><code>"What is the inheritance pattern for cystic fibrosis mutations in the CFTR gene?"</code></pre>
+          <p class="text-muted">Tool: <code>omim_search</code> with gene="CFTR", disease="cystic fibrosis"</p>
+        </div>
+
+        <div class="card">
+          <h3>Understand phenotype-genotype relationships</h3>
+          <pre><code>"Show me the clinical features of Marfan syndrome associated with FBN1 mutations."</code></pre>
+          <p class="text-muted">Tool: <code>omim_search</code> with gene="FBN1", disease="Marfan syndrome"</p>
+        </div>
+
+        <div class="card">
+          <h3>Retrieve genes for a disease</h3>
+          <pre><code>"Which genes are responsible for familial hypercholesterolemia?"</code></pre>
+          <p class="text-muted">Tool: <code>omim_search</code> with disease="familial hypercholesterolemia"</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Search Strategies</h2>
+
+        <h3>By Gene Symbol</h3>
+        <p>
+          Search by standard gene symbols (e.g., "BRCA1", "TP53", "CFTR") to retrieve all associated genetic disorders.
+          OMIM integrates with NCBI Gene for standardized nomenclature.
+        </p>
+
+        <h3>By Disease Name</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li>Use exact disease names or OMIM MIM numbers</li>
+          <li>Search for phenotype descriptions</li>
+          <li>Retrieve inheritance pattern information</li>
+        </ul>
+
+        <h3>By Inheritance Pattern</h3>
+        <p style="margin-top: 1rem;">
+          Filter results by inheritance mode: autosomal dominant (AD), autosomal recessive (AR), X-linked (XL), or mitochondrial (MT).
+        </p>
+
+        <h3>Cross-Database Links</h3>
+        <p style="margin-top: 1rem;">
+          OMIM entries link to ClinVar, UniProt, Ensembl, and other databases for comprehensive disease variant analysis.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          OMIM data enriches genetic analysis workflows:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With ClinVar:</strong> Annotate variants with disease associations from OMIM</li>
+          <li><strong>With Ensembl:</strong> Identify disease-causing variants in known genes</li>
+          <li><strong>With UniProt:</strong> Correlate protein function with genetic disease mechanisms</li>
+          <li><strong>With HPO:</strong> Map phenotypes to genetic disorders</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.omim.org/" target="_blank">OMIM Official Site</a></li>
+          <li><a href="https://www.omim.org/help/faq" target="_blank">OMIM FAQ and Help</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/omim/" target="_blank">OMIM on NCBI</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/clinvar/" target="_blank">ClinVar (Variant-Disease Database)</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.omim.org/" target="_blank">OMIM</a>
+        <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">NCBI Home</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-clinvar.html">NCBI ClinVar</a>
+        <a href="./hpo.html">Human Phenotype Ontology</a>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

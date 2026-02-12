@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HPO — Human Phenotype Ontology for standardized phenotype terminology and disease associations.">
+  <title>HPO – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://hpo.jax.org/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>HPO</h1>
+        <p class="subtitle">Human Phenotype Ontology — Standardized Phenotype Terminology</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>HPO</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          The Human Phenotype Ontology (HPO) is a standardized, hierarchical vocabulary of human phenotypic abnormalities.
+          It provides a comprehensive framework for describing clinical manifestations observed in diseases,
+          linking phenotypes to diseases, genes, and variants. HPO enables systematic phenotype annotation and supports
+          computational analysis of genetic diseases.
+        </p>
+
+        <div class="info-box">
+          <strong>Structured Phenotype Vocabulary</strong> — HPO provides standardized terms for clinical observations,
+          enabling precise phenotype annotation and computational phenotype-driven diagnosis and gene discovery.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Standardized phenotype terms</li>
+              <li>Hierarchical organization</li>
+              <li>Disease associations</li>
+              <li>Gene-phenotype links</li>
+              <li>Multi-level hierarchy</li>
+              <li>Variant annotations</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Describe clinical phenotypes</li>
+              <li>Find genes causing phenotypes</li>
+              <li>Diagnose genetic diseases</li>
+              <li>Prioritize candidate genes</li>
+              <li>Study disease similarity</li>
+              <li>Annotate genetic variants</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Phenotype Terms</strong></td>
+              <td>HPO terms with definitions, comments, and synonyms</td>
+              <td><code>hpo_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Term Relationships</strong></td>
+              <td>Parent-child relationships in the HPO hierarchy</td>
+              <td><code>hpo_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Disease Associations</strong></td>
+              <td>Links between HPO terms and diseases (via OMIM, Orphanet)</td>
+              <td><code>hpo_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Gene-Phenotype Links</strong></td>
+              <td>Associations between genes and phenotypes through disease-gene relationships</td>
+              <td><code>hpo_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Frequency Information</strong></td>
+              <td>Phenotype frequency in diseases (common, uncommon, rare)</td>
+              <td><code>hpo_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Inheritance Patterns</strong></td>
+              <td>Autosomal dominant, recessive, X-linked, and other inheritance modes</td>
+              <td><code>hpo_search</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Phenotype Search and Analysis</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>hpo_search</code></strong></p>
+            <p class="text-muted">Search HPO terms and retrieve gene-disease-phenotype associations.</p>
+            <p><strong>Parameters:</strong> term (string: phenotype term), gene (string, optional: gene symbol or Ensembl ID), disease (string, optional: disease name or OMIM ID)</p>
+            <p><strong>Returns:</strong> HPO term ID, definition, synonyms, parent/child terms, associated genes, disease associations, frequency information</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>HPO Term Categories:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Phenotypic abnormality</li>
+                <li>Organ abnormality</li>
+                <li>Inheritance pattern</li>
+                <li>Clinical course</li>
+                <li>Mortality/Natality</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Find phenotypes for a disease</h3>
+          <pre><code>"What are the clinical phenotypes associated with cystic fibrosis according to HPO?"</code></pre>
+          <p class="text-muted">Tool: <code>hpo_search</code> with disease="cystic fibrosis"</p>
+        </div>
+
+        <div class="card">
+          <h3>Find genes causing a phenotype</h3>
+          <pre><code>"Which genes cause intellectual disability phenotypes in humans?"</code></pre>
+          <p class="text-muted">Tool: <code>hpo_search</code> with term="Intellectual disability"</p>
+        </div>
+
+        <div class="card">
+          <h3>Link genes and phenotypes</h3>
+          <pre><code>"What phenotypes are associated with mutations in the BRCA1 gene?"</code></pre>
+          <p class="text-muted">Tool: <code>hpo_search</code> with gene="BRCA1"</p>
+        </div>
+
+        <div class="card">
+          <h3>Study disease phenotype overlap</h3>
+          <pre><code>"Find common phenotypes between cancer and cardiovascular diseases in HPO."</code></pre>
+          <p class="text-muted">Tool: <code>hpo_search</code> with multiple phenotype/disease queries</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>HPO Hierarchy & Organization</h2>
+
+        <h3>Hierarchical Structure</h3>
+        <p>
+          HPO is organized as a directed acyclic graph (DAG) where terms can have multiple parent and child terms.
+          This allows flexible, multi-perspective categorization of phenotypes.
+        </p>
+
+        <h3 class="mt-4">Main Phenotype Categories</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>Abnormality of blood:</strong> Anemia, leukopenia, platelet disorders</li>
+          <li><strong>Abnormality of the nervous system:</strong> Seizures, developmental delay, neuropathy</li>
+          <li><strong>Abnormality of the cardiovascular system:</strong> Cardiac defects, arrhythmias</li>
+          <li><strong>Abnormality of the respiratory system:</strong> Cystic fibrosis, lung disease</li>
+          <li><strong>Abnormality of metabolism:</strong> Metabolic disorders, lysosomal storage</li>
+          <li><strong>Abnormality of the immune system:</strong> Immunodeficiency, autoimmunity</li>
+          <li><strong>Skeletal abnormality:</strong> Bone dysplasias, limb malformations</li>
+        </ul>
+
+        <h3 class="mt-4">Frequency Terms</h3>
+        <p>
+          HPO includes frequency modifiers indicating how common a phenotype is in a disease:
+        </p>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>Very frequent:</strong> Present in &gt; 80% of cases</li>
+          <li><strong>Frequent:</strong> Present in 30-80% of cases</li>
+          <li><strong>Occasionally:</strong> Present in 5-29% of cases</li>
+          <li><strong>Rare:</strong> Present in &lt; 5% of cases</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Disease-Gene-Phenotype Network</h2>
+
+        <h3>Integrated Knowledge</h3>
+        <p>
+          HPO connects phenotypes to genetic diseases and disease-causing genes, enabling:
+        </p>
+        <ul style="margin-left: 1.5rem;">
+          <li>Phenotype-driven gene discovery</li>
+          <li>Clinical diagnostic support</li>
+          <li>Disease similarity assessment</li>
+          <li>Prioritization of candidate variants</li>
+          <li>Rare disease diagnosis</li>
+        </ul>
+
+        <h3 class="mt-4">Data Sources</h3>
+        <p>
+          HPO integrates disease information from OMIM (Online Mendelian Inheritance in Man)
+          and Orphanet, providing comprehensive coverage of Mendelian and rare genetic diseases.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          HPO enhances clinical and genetic analysis:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With Ensembl:</strong> Annotate variants with disease phenotypes</li>
+          <li><strong>With ClinVar:</strong> Link clinical assertions to phenotypic outcomes</li>
+          <li><strong>With UniProt:</strong> Correlate protein function loss with phenotypic consequences</li>
+          <li><strong>With PubMed:</strong> Find literature describing phenotypes and genetic associations</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://hpo.jax.org/" target="_blank">HPO Official Site</a></li>
+          <li><a href="https://hpo.jax.org/app/" target="_blank">HPO Browser</a></li>
+          <li><a href="https://hpo.jax.org/app/download/ontology" target="_blank">HPO Downloads</a></li>
+          <li><a href="https://github.com/obophenotype/human-phenotype-ontology" target="_blank">HPO GitHub Repository</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://hpo.jax.org/" target="_blank">HPO</a>
+        <a href="https://www.jax.org/" target="_blank">Jackson Laboratory</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-clinvar.html">ClinVar</a>
+        <a href="./ncbi-pubmed.html">PubMed</a>
+        <a href="./ensembl.html">Ensembl</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

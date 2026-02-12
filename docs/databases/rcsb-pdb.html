@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RCSB PDB — 3D protein structures, X-ray crystallography, NMR, and cryo-EM data.">
+  <title>RCSB PDB – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.rcsb.org/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>RCSB PDB</h1>
+        <p class="subtitle">3D Protein Structures, X-ray Crystallography, NMR, and Cryo-EM Data</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>RCSB PDB</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          The Research Collaboratory for Structural Bioinformatics (RCSB) maintains the Protein Data Bank (PDB),
+          a global repository of 3D structures of proteins, nucleic acids, and other biological macromolecules.
+          PDB contains over 200,000 experimentally determined structures from X-ray crystallography, NMR spectroscopy,
+          and cryo-electron microscopy (cryo-EM).
+        </p>
+
+        <div class="info-box">
+          <strong>Experimental Diversity</strong> — PDB includes structures solved by multiple techniques with varying
+          resolutions, providing insights into protein dynamics, drug binding, and molecular mechanisms.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>3D atomic coordinates</li>
+              <li>Multiple experimental methods</li>
+              <li>High-resolution structure data</li>
+              <li>Ligand and binding site information</li>
+              <li>Biological assembly models</li>
+              <li>Structure quality metrics</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Visualize protein 3D structure</li>
+              <li>Study drug-protein interactions</li>
+              <li>Analyze enzyme mechanisms</li>
+              <li>Compare homologous structures</li>
+              <li>Map variants to structural regions</li>
+              <li>Design novel therapeutics</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Coordinate Files</strong></td>
+              <td>3D atomic coordinates in PDB/mmCIF formats with quality metrics</td>
+              <td><code>pdb_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Experimental Methods</strong></td>
+              <td>X-ray crystallography, NMR, cryo-EM, and other techniques</td>
+              <td><code>pdb_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Resolution Data</strong></td>
+              <td>Spatial resolution, R-factor, and structure quality information</td>
+              <td><code>pdb_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Ligand Information</strong></td>
+              <td>Small molecule ligands, ions, and their binding sites</td>
+              <td><code>pdb_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Biological Assembly</strong></td>
+              <td>Quaternary structure and multichain assemblies</td>
+              <td><code>pdb_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Sequence Mappings</strong></td>
+              <td>Links to UniProt, gene accessions, and ortholog structures</td>
+              <td><code>pdb_search</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Structure Search</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>pdb_search</code></strong></p>
+            <p class="text-muted">Search PDB structures by protein name, PDB ID, or experimental method.</p>
+            <p><strong>Parameters:</strong> query (string: protein name or PDB ID), method (string, optional: x-ray, nmr, cryo-em, all)</p>
+            <p><strong>Returns:</strong> PDB ID, title, organism, method, resolution, release date, ligands, UniProt links</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Experimental Methods:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><strong>X-ray Crystallography:</strong> Highest resolution, most structures (~85%)</li>
+                <li><strong>NMR Spectroscopy:</strong> Solution structures, dynamics information (~5%)</li>
+                <li><strong>Cryo-EM:</strong> Large complexes, membrane proteins (~8%)</li>
+                <li><strong>Others:</strong> Small-angle scattering, electron microscopy, etc. (~2%)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Find structures of a protein</h3>
+          <pre><code>"What 3D structures of human hemoglobin are available in PDB?"</code></pre>
+          <p class="text-muted">Tool: <code>pdb_search</code> with query="hemoglobin"</p>
+        </div>
+
+        <div class="card">
+          <h3>Search by experimental method</h3>
+          <pre><code>"Find all cryo-EM structures of the ribosome."</code></pre>
+          <p class="text-muted">Tool: <code>pdb_search</code> with query="ribosome" and method="cryo-em"</p>
+        </div>
+
+        <div class="card">
+          <h3>Retrieve a specific structure</h3>
+          <pre><code>"Get structure information for PDB entry 1A8O (BRCA1-DNA binding domain)."</code></pre>
+          <p class="text-muted">Tool: <code>pdb_search</code> with query="1A8O"</p>
+        </div>
+
+        <div class="card">
+          <h3>Find drug-target complexes</h3>
+          <pre><code>"What structures show how kinase inhibitors bind to the EGFR protein?"</code></pre>
+          <p class="text-muted">Tool: <code>pdb_search</code> with query="EGFR AND inhibitor"</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Structure Quality & Resolution</h2>
+
+        <h3>Resolution Guidelines</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>&lt; 2.0 Å:</strong> Excellent — Atomic positions well-determined, side-chain orientations clear</li>
+          <li><strong>2.0-2.5 Å:</strong> Good — Protein fold and secondary structure clearly visible</li>
+          <li><strong>2.5-3.0 Å:</strong> Fair — Main chain visible, some side-chain ambiguity</li>
+          <li><strong>&gt; 3.0 Å:</strong> Low — Useful for overall fold but limited detail</li>
+          <li><strong>NMR/Cryo-EM:</strong> Reported as ensemble size or local resolution maps</li>
+        </ul>
+
+        <h3 class="mt-4">Quality Metrics</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>R-factor/R-free:</strong> Agreement between model and experimental data</li>
+          <li><strong>RMSD:</strong> Root-mean-square deviation for homologous structures</li>
+          <li><strong>Ramachandran Plot:</strong> Phi/psi angle distribution validation</li>
+          <li><strong>Molprobity Score:</strong> Overall structure quality assessment</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>File Formats & Downloads</h2>
+
+        <h3>Standard Formats</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>PDB Format:</strong> Classic text format with coordinate records</li>
+          <li><strong>mmCIF:</strong> Crystallographic Information File (modern standard)</li>
+          <li><strong>Ligand SDF:</strong> Small molecule structures in 3D</li>
+          <li><strong>FASTA:</strong> Sequence files for alignment and analysis</li>
+        </ul>
+
+        <h3 class="mt-4">Visualization Tools</h3>
+        <p>
+          Access structure visualization through the RCSB PDB website interface,
+          or download coordinates for analysis with tools like PyMOL, Chimera, or Jmol.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          PDB structures integrate with other bioinformatics data:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With UniProt:</strong> Map protein sequences to 3D structure regions</li>
+          <li><strong>With Ensembl:</strong> Connect genomic variants to protein structure positions</li>
+          <li><strong>With ClinVar:</strong> Visualize disease-associated mutations in 3D context</li>
+          <li><strong>With STRING:</strong> View protein-protein interactions in structural context</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.rcsb.org/" target="_blank">RCSB PDB Official Site</a></li>
+          <li><a href="https://www.rcsb.org/docs/general-help" target="_blank">PDB Search & Documentation</a></li>
+          <li><a href="https://data.rcsb.org/" target="_blank">PDB REST API</a></li>
+          <li><a href="https://www.pymol.org/" target="_blank">PyMOL Visualization Tool</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.rcsb.org/" target="_blank">RCSB PDB</a>
+        <a href="https://www.wwpdb.org/" target="_blank">wwPDB</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./uniprot.html">UniProt</a>
+        <a href="./ensembl.html">Ensembl</a>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

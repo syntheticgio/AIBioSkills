@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="gnomAD — Population allele frequencies, variant quality, and population genetics.">
+  <title>gnomAD – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://gnomad.broadinstitute.org/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>gnomAD</h1>
+        <p class="subtitle">Population Allele Frequencies, Variant Quality, and Population Genetics</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>gnomAD</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          gnomAD (Genome Aggregation Database) is a freely available database of variant frequencies from sequencing data
+          of ~1 million unrelated individuals. It provides population allele frequencies, quality metrics, and constraint scores
+          for all types of genetic variants, enabling better variant interpretation in clinical and research contexts.
+        </p>
+
+        <div class="info-box">
+          <strong>Large-Scale Population Database</strong> — gnomAD combines exome and whole-genome sequencing data
+          from diverse populations, providing unbiased frequency estimates for rare and common variants.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Population allele frequencies</li>
+              <li>Exome and genome coverage maps</li>
+              <li>Variant quality metrics</li>
+              <li>Population stratification</li>
+              <li>Constraint and depletion scores</li>
+              <li>Coverage distribution</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Filter common variants</li>
+              <li>Assess variant pathogenicity</li>
+              <li>Explore population differences</li>
+              <li>Identify population-specific variants</li>
+              <li>Evaluate constraint on genes</li>
+              <li>Check coverage in regions</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Allele Frequencies</strong></td>
+              <td>Variant frequencies in overall and population-specific cohorts</td>
+              <td><code>gnomad_get_variant</code></td>
+            </tr>
+            <tr>
+              <td><strong>Population Breakdown</strong></td>
+              <td>Frequency by ancestry (European, African, Asian, etc.)</td>
+              <td><code>gnomad_get_variant</code></td>
+            </tr>
+            <tr>
+              <td><strong>Quality Metrics</strong></td>
+              <td>Depth of coverage, genotype quality, filter status</td>
+              <td><code>gnomad_get_variant</code></td>
+            </tr>
+            <tr>
+              <td><strong>Constraint Scores</strong></td>
+              <td>Probability of Intolerance to Loss-of-function (pLI), Z-scores</td>
+              <td><code>gnomad_get_variant</code></td>
+            </tr>
+            <tr>
+              <td><strong>Coverage Maps</strong></td>
+              <td>Per-base coverage for exome and genome sequencing</td>
+              <td><code>gnomad_get_variant</code></td>
+            </tr>
+            <tr>
+              <td><strong>Variant Annotations</strong></td>
+              <td>VEP annotations, consequence predictions, functional impact</td>
+              <td><code>gnomad_get_variant</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Variant Frequency Lookup</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>gnomad_get_variant</code></strong></p>
+            <p class="text-muted">Retrieve population allele frequencies for a genetic variant.</p>
+            <p><strong>Parameters:</strong> variant (string: rsID, HGVS, or coordinates), population (string, optional: all, afr, ami, asj, eas, fin, nfe, sas, other)</p>
+            <p><strong>Returns:</strong> Allele frequency, population breakdown, quality metrics, constraint scores, coverage</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Population Codes:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><code>afr</code> — African</li>
+                <li><code>ami</code> — Amish</li>
+                <li><code>asj</code> — Ashkenazi Jewish</li>
+                <li><code>eas</code> — East Asian</li>
+                <li><code>fin</code> — Finnish</li>
+                <li><code>nfe</code> — Non-Finnish European</li>
+                <li><code>sas</code> — South Asian</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Check variant frequency in populations</h3>
+          <pre><code>"What is the allele frequency of rs1234567 in gnomAD? Show population breakdown."</code></pre>
+          <p class="text-muted">Tool: <code>gnomad_get_variant</code> with variant="rs1234567"</p>
+        </div>
+
+        <div class="card">
+          <h3>Filter common variants</h3>
+          <pre><code>"Is the variant chr1:1000000:A/G common in European populations in gnomAD?"</code></pre>
+          <p class="text-muted">Tool: <code>gnomad_get_variant</code> with variant="chr1:1000000:A/G" and population="nfe"</p>
+        </div>
+
+        <div class="card">
+          <h3>Identify population-specific variants</h3>
+          <pre><code>"Show variants in the PCSK9 gene that are found only in African populations."</code></pre>
+          <p class="text-muted">Tool: <code>gnomad_get_variant</code> with population="afr" filter</p>
+        </div>
+
+        <div class="card">
+          <h3>Assess variant rarity</h3>
+          <pre><code>"How rare is this variant (c.123A>G) in the general population according to gnomAD?"</code></pre>
+          <p class="text-muted">Tool: <code>gnomad_get_variant</code> with variant="c.123A>G"</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Understanding Allele Frequencies</h2>
+
+        <h3>Frequency Interpretation</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>AF &gt; 5%:</strong> Common variant (usually benign)</li>
+          <li><strong>1% < AF ≤ 5%:</strong> Intermediate frequency</li>
+          <li><strong>0.1% < AF ≤ 1%:</strong> Rare variant</li>
+          <li><strong>AF ≤ 0.1%:</strong> Very rare variant (likely pathogenic if damaging)</li>
+          <li><strong>AF = 0:</strong> Absent in gnomAD (novel or ultra-rare)</li>
+        </ul>
+
+        <h3 class="mt-4">Constraint Scores (pLI & Z-scores)</h3>
+        <p>
+          gnomAD computes constraint metrics reflecting how intolerant genes are to loss-of-function variants:
+        </p>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>pLI ≥ 0.9:</strong> Highly constrained (intolerant of LoF mutations)</li>
+          <li><strong>0.1 < pLI < 0.9:</strong> Moderately constrained</li>
+          <li><strong>pLI ≤ 0.1:</strong> Unconstrained (tolerant of LoF mutations)</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Data Quality & Caveats</h2>
+
+        <h3>Coverage & Callable Bases</h3>
+        <p>
+          gnomAD provides per-base coverage information. Some regions may have low coverage,
+          reducing sensitivity to rare variants. Always check coverage for regions of interest.
+        </p>
+
+        <h3>Population Representation</h3>
+        <p style="margin-top: 1rem;">
+          gnomAD includes diverse populations but may underrepresent some groups.
+          Population-specific frequencies should be interpreted within context.
+        </p>
+
+        <h3 class="mt-4">Filter Status</h3>
+        <p>
+          Variants are marked as "PASS" or filtered based on quality criteria.
+          Always check filter status when analyzing data.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          gnomAD integrates with clinical and population genetics workflows:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With ClinVar:</strong> Compare allele frequencies to clinical significance</li>
+          <li><strong>With Ensembl:</strong> Filter variants by gnomAD frequency and consequences</li>
+          <li><strong>With NCBI Datasets:</strong> Context genes with population variant data</li>
+          <li><strong>With UniProt:</strong> Link frequent variants to protein regions</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://gnomad.broadinstitute.org/" target="_blank">gnomAD Official Site</a></li>
+          <li><a href="https://gnomad.broadinstitute.org/about" target="_blank">gnomAD Documentation</a></li>
+          <li><a href="https://gnomad.broadinstitute.org/api" target="_blank">gnomAD API</a></li>
+          <li><a href="https://www.broadinstitute.org/" target="_blank">Broad Institute</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://gnomad.broadinstitute.org/" target="_blank">gnomAD</a>
+        <a href="https://www.broadinstitute.org/" target="_blank">Broad Institute</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-clinvar.html">NCBI ClinVar</a>
+        <a href="./ensembl.html">Ensembl</a>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

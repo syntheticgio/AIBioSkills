@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ensembl — Genomic coordinates, sequences, variants, orthologs, and regulatory features.">
+  <title>Ensembl – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.ensembl.org/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>Ensembl</h1>
+        <p class="subtitle">Genomic Coordinates, Sequences, Variants, Orthologs, and Regulatory Features</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>Ensembl</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          Ensembl is the primary European bioinformatics resource for genomic annotation, maintained by the EBI (European Bioinformatics Institute).
+          It provides automatically annotated genomes for 100+ species, with comprehensive information on genes, variants, regulatory features, and evolutionary relationships.
+        </p>
+
+        <div class="info-box">
+          <strong>Coverage:</strong> Ensembl covers human, model organisms (mouse, fruit fly, yeast, nematode, zebrafish),
+          and over 90 additional species with consistent annotation pipelines.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Gene lookup and sequences</li>
+              <li>Genomic coordinate conversion (liftover)</li>
+              <li>Regional variant information</li>
+              <li>Ortholog and paralog identification</li>
+              <li>Regulatory element annotation</li>
+              <li>Protein domain mapping</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Get gene coordinates on a chromosome</li>
+              <li>Find all variants in a genomic region</li>
+              <li>Identify orthologs in other species</li>
+              <li>Map variants to protein domains</li>
+              <li>Convert coordinates between genome builds</li>
+              <li>Find regulatory elements near a gene</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Gene Information</strong></td>
+              <td>Gene symbols, IDs, descriptions, chromosomal location, exon structure</td>
+              <td><code>ensembl_lookup_gene</code></td>
+            </tr>
+            <tr>
+              <td><strong>Sequences</strong></td>
+              <td>Genomic, CDS, and protein sequences in FASTA format</td>
+              <td><code>ensembl_get_sequence</code></td>
+            </tr>
+            <tr>
+              <td><strong>Variants</strong></td>
+              <td>Sequence variants in genomic regions with frequency and consequence info</td>
+              <td><code>ensembl_get_variants</code></td>
+            </tr>
+            <tr>
+              <td><strong>Homologs</strong></td>
+              <td>Orthologs and paralogs across multiple species</td>
+              <td><code>ensembl_get_homologs</code></td>
+            </tr>
+            <tr>
+              <td><strong>Regulation</strong></td>
+              <td>Enhancers, promoters, transcription factor binding sites</td>
+              <td><code>ensembl_get_regulation</code></td>
+            </tr>
+            <tr>
+              <td><strong>Coordinate Liftover</strong></td>
+              <td>Convert genomic coordinates between assembly versions</td>
+              <td><code>liftover_coordinates</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+        
+        <div class="card">
+          <div class="card-header">
+            <h3>Gene Lookup</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>ensembl_lookup_gene</code></strong></p>
+            <p class="text-muted">Find genes by symbol or Ensembl ID.</p>
+            <p><strong>Parameters:</strong> gene (string: ID or symbol), species (optional)</p>
+            <p><strong>Returns:</strong> Gene ID, description, location, strand, exons, biotype</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Sequence Retrieval</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>ensembl_get_sequence</code></strong></p>
+            <p class="text-muted">Retrieve gene, CDS, or protein sequences.</p>
+            <p><strong>Parameters:</strong> gene_id (string), type (optional: genomic, cds, protein)</p>
+            <p><strong>Returns:</strong> FASTA sequence with metadata</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Variant & Homolog Search</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>ensembl_get_variants</code></strong></p>
+            <p class="text-muted">Find variants in a genomic region.</p>
+            <p><strong>Parameters:</strong> region (string, e.g. "1:1000000-2000000"), species (optional)</p>
+            <p><strong>Returns:</strong> Variant locations, alleles, consequences, frequencies</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong><code>ensembl_get_homologs</code></strong></p>
+              <p class="text-muted">Find orthologs in other species.</p>
+              <p><strong>Parameters:</strong> gene_id (string), target_species (optional)</p>
+              <p><strong>Returns:</strong> Orthologous genes with %identity, alignment information</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Genomic Utilities</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>liftover_coordinates</code></strong></p>
+            <p class="text-muted">Convert genomic coordinates between assembly versions (e.g., hg19 ↔ hg38).</p>
+            <p><strong>Parameters:</strong> region (string), from_build (string), to_build (string)</p>
+            <p><strong>Returns:</strong> Converted coordinates with mapping quality information</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+        
+        <div class="card">
+          <h3>Lookup a gene and get its sequence</h3>
+          <pre><code>"Find the BRCA1 gene in the latest human assembly and get both the genomic and protein sequences."</code></pre>
+          <p class="text-muted">Tools: <code>ensembl_lookup_gene</code> + <code>ensembl_get_sequence</code></p>
+        </div>
+
+        <div class="card">
+          <h3>Find variants in a region</h3>
+          <pre><code>"What variants are found on chromosome 17 between positions 41196312 and 41277500 (BRCA1 region)?"</code></pre>
+          <p class="text-muted">Tool: <code>ensembl_get_variants</code></p>
+        </div>
+
+        <div class="card">
+          <h3>Identify orthologs</h3>
+          <pre><code>"Find orthologs of the human TP53 gene in mouse, zebrafish, and fruit fly."</code></pre>
+          <p class="text-muted">Tool: <code>ensembl_get_homologs</code></p>
+        </div>
+
+        <div class="card">
+          <h3>Coordinate conversion</h3>
+          <pre><code>"Convert the genomic coordinates chr1:1000000-2000000 from hg19 to hg38."</code></pre>
+          <p class="text-muted">Tool: <code>liftover_coordinates</code></p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Supported Species</h2>
+        <p>Ensembl annotates 100+ species including:</p>
+        <ul style="columns: 2; margin-left: 1.5rem;">
+          <li>Human (<em>Homo sapiens</em>)</li>
+          <li>Mouse (<em>Mus musculus</em>)</li>
+          <li>Rat (<em>Rattus norvegicus</em>)</li>
+          <li>Fruit fly (<em>Drosophila melanogaster</em>)</li>
+          <li>Yeast (<em>Saccharomyces cerevisiae</em>)</li>
+          <li>Nematode (<em>Caenorhabditis elegans</em>)</li>
+          <li>Zebrafish (<em>Danio rerio</em>)</li>
+          <li>Chicken (<em>Gallus gallus</em>)</li>
+          <li>Dog (<em>Canis familiaris</em>)</li>
+          <li>Primate species, plants, fungi, and more...</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.ensembl.org/" target="_blank">Ensembl Official Site</a></li>
+          <li><a href="https://rest.ensembl.org/" target="_blank">Ensembl REST API Documentation</a></li>
+          <li><a href="https://www.ensembl.org/info/about/ftp/index.html" target="_blank">Download Ensembl Data</a></li>
+          <li><a href="https://www.ensembl.org/info/docs/index.html" target="_blank">Ensembl Documentation</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.ensembl.org/" target="_blank">Ensembl</a>
+        <a href="https://www.ebi.ac.uk/" target="_blank">EBI Home</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+        <a href="./uniprot.html">UniProt</a>
+        <a href="./ncbi-clinvar.html">ClinVar</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

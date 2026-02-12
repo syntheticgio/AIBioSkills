@@ -2,6 +2,21 @@
 
 An MCP (Model Context Protocol) server for bioinformatics that provides unified access to NCBI Datasets, Ensembl, and UniProt — plus local sequence analysis via BioPython. AI assistants can search, summarize, and download genomic and protein data without the user needing to know which database to query.
 
+**Compatible with:** Claude Desktop, [OpenCode](https://opencode.ai), and any MCP-compatible client.
+
+## 📖 Database Reference Documentation
+
+Comprehensive documentation for all 24+ integrated bioinformatics databases is available in the **[docs/](docs/)** directory:
+
+- **NCBI Databases:** [Datasets](docs/databases/ncbi-datasets.html), [BLAST](docs/databases/ncbi-blast.html), [ClinVar](docs/databases/ncbi-clinvar.html), [PubMed](docs/databases/ncbi-pubmed.html), [COSMIC](docs/databases/ncbi-cosmic.html), [OMIM](docs/databases/ncbi-omim.html), [Gene Links](docs/databases/ncbi-gene-links.html)
+- **Genomic & Sequence:** [Ensembl](docs/databases/ensembl.html), [UniProt](docs/databases/uniprot.html), [RCSB PDB](docs/databases/rcsb-pdb.html), [InterPro](docs/databases/interpro.html), [AlphaFold](docs/databases/alphafold.html)
+- **Pathways & Interactions:** [STRING](docs/databases/string.html), [KEGG](docs/databases/kegg.html), [Reactome](docs/databases/reactome.html)
+- **Expression & Population:** [gnomAD](docs/databases/gnomad.html), [GTEx](docs/databases/gtex.html), [Expression Atlas](docs/databases/expression-atlas.html), [ENCODE](docs/databases/encode.html)
+- **Annotations & Literature:** [HPO](docs/databases/hpo.html), [Disease Ontology](docs/databases/disease-ontology.html), [PubMed Central](docs/databases/pmc.html), [Semantic Scholar](docs/databases/semantic-scholar.html)
+- **Pharmacogenomics:** [PharmGKB](docs/databases/pharmgkb.html)
+
+👉 **[View all database docs →](docs/)**
+
 ## Features
 
 ### NCBI Datasets CLI Tools

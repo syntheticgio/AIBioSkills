@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ENCODE — Encyclopedia of DNA Elements with ChIP-seq, ATAC-seq, and RNA-seq data.">
+  <title>ENCODE – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.encodeproject.org/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>ENCODE</h1>
+        <p class="subtitle">Encyclopedia of DNA Elements — ChIP-seq, ATAC-seq, and RNA-seq Datasets</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>ENCODE</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          ENCODE (Encyclopedia of DNA Elements) is an international collaborative project that aims to identify and characterize all functional
+          elements in the human genome. It provides comprehensive ChIP-seq datasets for transcription factors and histone modifications, ATAC-seq
+          for chromatin accessibility, RNA-seq for gene expression, and many other assay types across diverse cell types and tissues.
+        </p>
+
+        <div class="info-box">
+          <strong>Functional Genomics</strong> — ENCODE datasets reveal transcription factor binding sites, chromatin states, gene regulatory elements,
+          and cell-type-specific regulatory landscapes across hundreds of experiments.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>ChIP-seq datasets for transcription factors</li>
+              <li>Histone modification ChIP-seq data</li>
+              <li>ATAC-seq chromatin accessibility data</li>
+              <li>RNA-seq gene expression data</li>
+              <li>DNase-seq open chromatin profiles</li>
+              <li>Peak calls and processed files</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Find transcription factor binding sites</li>
+              <li>Identify gene regulatory elements</li>
+              <li>Analyze chromatin accessibility</li>
+              <li>Discover cell-type-specific enhancers</li>
+              <li>Map chromatin states and domains</li>
+              <li>Correlate regulatory elements with variants</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ChIP-seq Peak Calls</strong></td>
+              <td>Transcription factor and histone modification binding sites</td>
+              <td><code>encode_get_experiments</code></td>
+            </tr>
+            <tr>
+              <td><strong>ATAC-seq Peaks</strong></td>
+              <td>Open chromatin regions and accessible DNA elements</td>
+              <td><code>encode_get_experiments</code></td>
+            </tr>
+            <tr>
+              <td><strong>RNA-seq Data</strong></td>
+              <td>Gene expression and transcript abundance</td>
+              <td><code>encode_get_experiments</code></td>
+            </tr>
+            <tr>
+              <td><strong>DNase-seq Data</strong></td>
+              <td>DNase-sensitive sites and open chromatin regions</td>
+              <td><code>encode_get_experiments</code></td>
+            </tr>
+            <tr>
+              <td><strong>Chromatin State Maps</strong></td>
+              <td>Segmented chromatin states across cell types</td>
+              <td><code>encode_get_experiments</code></td>
+            </tr>
+            <tr>
+              <td><strong>Experiment Metadata</strong></td>
+              <td>Cell type, antibody information, processing methods, file URLs</td>
+              <td><code>encode_get_experiments</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>ENCODE Experiment Retrieval and Analysis</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>encode_get_experiments</code></strong></p>
+            <p class="text-muted">Query ENCODE experiments and retrieve ChIP-seq, ATAC-seq, and RNA-seq datasets.</p>
+            <p><strong>Parameters:</strong> gene (string: gene symbol or genomic region), experiment_type (string, optional: ChIP-seq, ATAC-seq, RNA-seq, DNase-seq)</p>
+            <p><strong>Returns:</strong> Experiment accessions, peak calls, processed files, file URLs, metadata, quality metrics</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Experiment Types:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><code>ChIP-seq</code> — Transcription factor and histone modification binding</li>
+                <li><code>ATAC-seq</code> — Chromatin accessibility profiling</li>
+                <li><code>DNase-seq</code> — Digital DNase hypersensitivity</li>
+                <li><code>RNA-seq</code> — Gene expression measurements</li>
+                <li><code>RAMPAGE</code> — Promoter identification</li>
+                <li><code>Rampage</code> — 5' cap analysis</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Find transcription factor binding sites</h3>
+          <pre><code>"Show me ChIP-seq data for TP53 binding sites across cell types."</code></pre>
+          <p class="text-muted">Tool: <code>encode_get_experiments</code> with gene="TP53", experiment_type="ChIP-seq"</p>
+        </div>
+
+        <div class="card">
+          <h3>Analyze chromatin accessibility</h3>
+          <pre><code>"Retrieve ATAC-seq data for the BRCA1 region to identify open chromatin."</code></pre>
+          <p class="text-muted">Tool: <code>encode_get_experiments</code> with gene="BRCA1", experiment_type="ATAC-seq"</p>
+        </div>
+
+        <div class="card">
+          <h3>Identify regulatory elements</h3>
+          <pre><code>"What enhancers and regulatory elements are associated with the CFTR gene?"</code></pre>
+          <p class="text-muted">Tool: <code>encode_get_experiments</code> with gene="CFTR"</p>
+        </div>
+
+        <div class="card">
+          <h3>Examine histone modifications</h3>
+          <pre><code>"Find H3K27ac ChIP-seq data for active enhancers in the MYC locus."</code></pre>
+          <p class="text-muted">Tool: <code>encode_get_experiments</code> with gene="MYC", experiment_type="ChIP-seq"</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Search Strategies</h2>
+
+        <h3>Transcription Factor Mapping</h3>
+        <p>
+          Find all ChIP-seq experiments for a specific transcription factor across cell types and tissues.
+          Identify cell-type-specific and shared binding sites.
+        </p>
+
+        <h3>Regulatory Element Discovery</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li>Use ATAC-seq to identify open chromatin regions</li>
+          <li>Correlate with transcription factor binding</li>
+          <li>Map histone modifications to regulatory states</li>
+        </ul>
+
+        <h3>Cell Type-Specific Analysis</h3>
+        <p style="margin-top: 1rem;">
+          Filter experiments by cell type, tissue, or disease state to understand cell-type-specific gene regulation.
+        </p>
+
+        <h3>Integration with Variant Data</h3>
+        <p style="margin-top: 1rem;">
+          Map disease-associated variants to regulatory elements identified in ENCODE, linking variants to functional consequences.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          ENCODE enriches regulatory genomics research:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With Ensembl:</strong> Map regulatory elements to gene coordinates</li>
+          <li><strong>With ClinVar:</strong> Link disease variants to regulatory elements</li>
+          <li><strong>With GTEx:</strong> Correlate expression with regulatory variation</li>
+          <li><strong>With GnomAD:</strong> Investigate variant pathogenicity in regulatory regions</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.encodeproject.org/" target="_blank">ENCODE Official Site</a></li>
+          <li><a href="https://www.encodeproject.org/help/" target="_blank">ENCODE Help and Documentation</a></li>
+          <li><a href="https://www.nature.com/articles/s41586-020-2493-6" target="_blank">ENCODE Phase 3 Paper</a></li>
+          <li><a href="https://www.regulatory-genomics.org/encyclopedia-of-elements/" target="_blank">Regulatory Genomics Overview</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.encodeproject.org/" target="_blank">ENCODE Project</a>
+        <a href="https://www.genome.ucsc.edu/" target="_blank">UCSC Genome Browser</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+        <a href="./ensembl.html">Ensembl</a>
+        <a href="./gtex.html">GTEx</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

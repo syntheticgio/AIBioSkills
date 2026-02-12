@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="InterPro — Protein domains, families, and functional sites database integrating multiple signature databases.">
+  <title>InterPro – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.ebi.ac.uk/interpro/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>InterPro</h1>
+        <p class="subtitle">Protein Domains, Families, and Functional Sites Database</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>InterPro</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          InterPro is the integrated protein signature database that provides comprehensive annotations for
+          protein domains, families, and functional sites. It integrates curated signatures from multiple
+          databases including Pfam, SMART, ProDom, PRINTS, ProSite, TIGRFAMs, and SUPERFAMILY, providing
+          a unified platform for protein classification and functional annotation.
+        </p>
+
+        <div class="info-box">
+          <strong>Unified Classification</strong> — InterPro combines signature methods from multiple sources,
+          allowing comprehensive protein domain detection and family classification across all organisms.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Integrated protein signatures</li>
+              <li>Domain and family classification</li>
+              <li>Functional site prediction</li>
+              <li>Multi-database integration</li>
+              <li>GO term annotations</li>
+              <li>Pathway associations</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Identify protein domains and motifs</li>
+              <li>Classify uncharacterized proteins</li>
+              <li>Find functional sites and binding regions</li>
+              <li>Study protein evolution</li>
+              <li>Predict protein function from sequence</li>
+              <li>Map disease variants to domains</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Protein Domains</strong></td>
+              <td>Conserved domains with position coordinates and E-values</td>
+              <td><code>interpro_get_domains</code></td>
+            </tr>
+            <tr>
+              <td><strong>Family Information</strong></td>
+              <td>Protein family classifications and homology groups</td>
+              <td><code>interpro_get_domains</code></td>
+            </tr>
+            <tr>
+              <td><strong>Functional Sites</strong></td>
+              <td>Active sites, binding sites, and post-translational modification sites</td>
+              <td><code>interpro_get_domains</code></td>
+            </tr>
+            <tr>
+              <td><strong>Database Mappings</strong></td>
+              <td>Cross-references to Pfam, SMART, ProSite, PRINTS, TIGRFAMs, SUPERFAMILY</td>
+              <td><code>interpro_get_domains</code></td>
+            </tr>
+            <tr>
+              <td><strong>GO Annotations</strong></td>
+              <td>Gene Ontology terms for biological process, molecular function, cellular component</td>
+              <td><code>interpro_get_domains</code></td>
+            </tr>
+            <tr>
+              <td><strong>Statistical Scores</strong></td>
+              <td>E-values, bit scores, and significance metrics for domain hits</td>
+              <td><code>interpro_get_domains</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>Integrated Signature Databases</h2>
+
+        <h3>Database Overview</h3>
+        <p>InterPro integrates signatures from seven major databases:</p>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>Pfam:</strong> Protein families based on hidden Markov models (HMMs)</li>
+          <li><strong>SMART:</strong> Domain sequence alignments and HMMS for modular proteins</li>
+          <li><strong>ProDom:</strong> Protein domain families derived from clustering</li>
+          <li><strong>PRINTS:</strong> Fingerprints—sets of conserved motifs</li>
+          <li><strong>ProSite:</strong> Patterns and profiles for functional sites</li>
+          <li><strong>TIGRFAMs:</strong> Hidden Markov models for protein families and domains</li>
+          <li><strong>SUPERFAMILY:</strong> Structural domain classification based on SCOP</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Domain and Family Search</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>interpro_get_domains</code></strong></p>
+            <p class="text-muted">Identify protein domains, families, and functional sites in a protein sequence.</p>
+            <p><strong>Parameters:</strong> protein (string: protein sequence or identifier), uniprot_id (string, optional)</p>
+            <p><strong>Returns:</strong> Domain name, identifier, position range, E-value, database source, GO annotations, confidence score</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Input Options:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Raw amino acid sequence (FASTA format)</li>
+                <li>UniProt accession number (e.g., P12345)</li>
+                <li>UniProt entry name (e.g., TP53_HUMAN)</li>
+                <li>Gene symbol with organism</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Identify domains in a protein</h3>
+          <pre><code>"What protein domains does the human TP53 protein contain?"</code></pre>
+          <p class="text-muted">Tool: <code>interpro_get_domains</code> with uniprot_id="P04637" (TP53_HUMAN)</p>
+        </div>
+
+        <div class="card">
+          <h3>Analyze a protein sequence</h3>
+          <pre><code>"Identify all domains in this protein sequence: MDDLESHGC..."</code></pre>
+          <p class="text-muted">Tool: <code>interpro_get_domains</code> with protein sequence input</p>
+        </div>
+
+        <div class="card">
+          <h3>Find functional sites</h3>
+          <pre><code>"What active sites and binding regions does the EGFR protein have according to InterPro?"</code></pre>
+          <p class="text-muted">Tool: <code>interpro_get_domains</code> with uniprot_id for EGFR protein</p>
+        </div>
+
+        <div class="card">
+          <h3>Compare domain architecture</h3>
+          <pre><code>"Show the domain structure of BRCA1 protein and which databases identify these domains."</code></pre>
+          <p class="text-muted">Tool: <code>interpro_get_domains</code> with uniprot_id for BRCA1</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Domain Architecture & Classification</h2>
+
+        <h3>Understanding Domain Hits</h3>
+        <p>
+          Each domain hit includes position information (start and end amino acids),
+          allowing you to map domain structure along the protein sequence and identify
+          multi-domain architectures common in modular proteins.
+        </p>
+
+        <h3 class="mt-4">E-value Interpretation</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>&lt; 1e-10:</strong> Highly significant hits, reliable domain prediction</li>
+          <li><strong>1e-10 to 1e-5:</strong> Significant hits, good confidence</li>
+          <li><strong>1e-5 to 0.01:</strong> Moderate confidence, consider context</li>
+          <li><strong>&gt; 0.01:</strong> Weak hits, likely false positives</li>
+        </ul>
+
+        <h3 class="mt-4">GO Term Annotations</h3>
+        <p>
+          InterPro-identified domains are linked to Gene Ontology terms, providing
+          functional predictions at three levels: biological process, molecular function,
+          and cellular component.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          InterPro domains enhance analysis across the datasets ecosystem:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With UniProt:</strong> Correlate curated domain annotations with InterPro predictions</li>
+          <li><strong>With PDB:</strong> Map InterPro domains to known protein structures</li>
+          <li><strong>With Ensembl:</strong> Link genomic variants to predicted functional domains</li>
+          <li><strong>With ClinVar:</strong> Assess impact of variants on domain integrity</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.ebi.ac.uk/interpro/" target="_blank">InterPro Official Site</a></li>
+          <li><a href="https://www.ebi.ac.uk/interpro/help/" target="_blank">InterPro Documentation</a></li>
+          <li><a href="https://www.ebi.ac.uk/interpro/api/" target="_blank">InterPro REST API</a></li>
+          <li><a href="https://www.ebi.ac.uk/interpro/entry/" target="_blank">Browse InterPro Entries</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.ebi.ac.uk/interpro/" target="_blank">InterPro</a>
+        <a href="https://www.ebi.ac.uk/" target="_blank">EBI Home</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./uniprot.html">UniProt</a>
+        <a href="./rcsb-pdb.html">RCSB PDB</a>
+        <a href="./ensembl.html">Ensembl</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

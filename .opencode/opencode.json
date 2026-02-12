@@ -1,0 +1,10 @@
+{
+	"$schema": "https://opencode.ai/config.json",
+	"mcp": {
+		"datasets-mcp": {
+			"type": "local",
+			"command": ["datasets-mcp-server"],
+			"enabled": true
+		}
+	}
+}

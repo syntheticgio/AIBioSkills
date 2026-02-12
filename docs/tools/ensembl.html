@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ensembl Tools — AIBioSkills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --color-bg: #0b0f19; --color-surface: #131825; --color-surface-2: #1a2035; --color-border: #242d42; --color-text: #e2e8f0; --color-text-muted: #8892a8; --color-accent: #6366f1; --color-accent-light: #818cf8; --color-accent-glow: rgba(99, 102, 241, 0.15); --color-green: #34d399; --color-green-glow: rgba(52, 211, 153, 0.15); --color-amber: #fbbf24; --color-rose: #fb7185; --color-cyan: #22d3ee; --radius: 12px; --radius-sm: 8px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 60px 0; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--color-border); }
+    nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    nav .logo { font-weight: 700; font-size: 1.1rem; background: linear-gradient(135deg, var(--color-accent-light), var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    nav .nav-links { display: flex; gap: 28px; list-style: none; }
+    nav .nav-links a { color: var(--color-text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    nav .nav-links a:hover { color: var(--color-text); }
+    .breadcrumb { padding: 20px 0; color: var(--color-text-muted); font-size: 0.9rem; }
+    .breadcrumb a { color: var(--color-accent-light); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .section-label { text-transform: uppercase; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--color-accent-light); margin-bottom: 8px; }
+    .section-title { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 12px; }
+    .section-desc { color: var(--color-text-muted); font-size: 1.05rem; margin-bottom: 32px; }
+    .page-header { padding: 60px 0 40px; border-bottom: 1px solid var(--color-border); background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(34, 211, 238, 0.15), transparent); }
+    .page-header h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; }
+    .page-header .icon { width: 56px; height: 56px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; }
+    .page-header p { color: var(--color-text-muted); font-size: 1.15rem; max-width: 700px; line-height: 1.6; }
+    .section { padding: 48px 0; border-bottom: 1px solid var(--color-border); }
+    .section:last-child { border-bottom: none; }
+    .tool-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 28px; transition: border-color 0.2s, transform 0.2s; }
+    .tool-card:hover { border-color: var(--color-accent); transform: translateY(-2px); }
+    .tool-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--color-cyan); }
+    .tool-card > p { color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+    .tool-card .params { background: var(--color-bg); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 20px; }
+    .tool-card .params h4 { font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .param-item { display: flex; gap: 12px; margin-bottom: 10px; font-size: 0.9rem; }
+    .param-item code { color: var(--color-accent-light); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: var(--color-accent-glow); padding: 2px 8px; border-radius: 4px; }
+    .param-item span { color: var(--color-text-muted); }
+    .example-box { background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 16px; }
+    .example-box:hover { border-color: var(--color-accent); }
+    .example-box h4 { font-size: 0.8rem; font-weight: 600; color: var(--color-amber); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .example-box .query { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--color-text); margin-bottom: 14px; line-height: 1.6; }
+    .example-box .query .label { color: var(--color-text-muted); }
+    .example-box pre { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 14px 18px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: var(--color-text-muted); max-height: 250px; }
+    .example-box pre .key { color: var(--color-accent-light); }
+    .example-box pre .string { color: var(--color-green); }
+    .example-box pre .number { color: var(--color-amber); }
+    .example-box pre .null { color: var(--color-rose); }
+    footer { border-top: 1px solid var(--color-border); padding: 40px 0; text-align: center; color: var(--color-text-muted); font-size: 0.85rem; }
+    footer a { color: var(--color-accent-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 640px) { .page-header h1 { font-size: 1.8rem; } .tool-card { padding: 20px; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="../" class="logo">AIBioSkills</a>
+    <ul class="nav-links">
+      <li><a href="../#tools">Tools</a></li>
+      <li><a href="../#skills">Skills</a></li>
+      <li><a href="../#agents">Agents</a></li>
+      <li><a href="../#install">Install</a></li>
+      <li><a href="https://github.com/syntheticgio/datasets-mcp">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="section-label">MCP Tools</div>
+    <h1><span class="icon" style="background:rgba(34,211,238,0.12);color:#22d3ee">E</span> Ensembl</h1>
+    <p>Gene lookup, sequences, variants, homologs, regulatory features, and coordinate liftover from the Ensembl REST API.</p>
+  </div>
+</div>
+
+<div class="container">
+  <section>
+    <div class="section-label">Tool Details</div>
+
+    <h2 class="section-title">ensembl_lookup_gene</h2>
+    <div class="tool-card">
+      <h3>Gene Lookup</h3>
+      <p>Look up a gene via Ensembl by stable ID or by symbol and species. Returns genomic coordinates, biotype, description, and cross-references.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>id</code> <span>Ensembl stable ID (e.g., 'ENSG00000141510')</span></div>
+        <div class="param-item"><code>symbol</code> <span>Gene symbol (e.g., 'TP53'). Requires 'species'.</span></div>
+        <div class="param-item"><code>species</code> <span>Species name (e.g., 'homo_sapiens')</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Lookup by Ensembl ID</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get gene information for ENSG00000141510"</div>
+        <pre>{ <span class="key">"id"</span>: <span class="string">"ENSG00000141510"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Lookup by symbol</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find BRCA1 gene in human"</div>
+        <pre>{
+  <span class="key">"symbol"</span>: <span class="string">"BRCA1"</span>,
+  <span class="key">"species"</span>: <span class="string">"homo_sapiens"</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Lookup gene in other species</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find TP53 in mouse"</div>
+        <pre>{
+  <span class="key">"symbol"</span>: <span class="string">"Tp53"</span>,
+  <span class="key">"species"</span>: <span class="string">"mus_musculus"</span>
+}</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">ensembl_get_sequence</h2>
+    <div class="tool-card">
+      <h3>Retrieve Sequences</h3>
+      <p>Retrieve nucleotide or protein sequences from Ensembl by stable ID. Supports genomic, cDNA, CDS, and protein sequence types.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>id</code> <span>Ensembl stable ID (gene, transcript, or protein)</span></div>
+        <div class="param-item"><code>seq_type</code> <span>'genomic', 'cdna', 'cds', or 'protein' (default: cdna)</span></div>
+        <div class="param-item"><code>format</code> <span>'json' or 'fasta' (default: json)</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Get cDNA sequence</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get the cDNA sequence for TP53"</div>
+        <pre>{
+  <span class="key">"id"</span>: <span class="string">"ENSG00000141510"</span>,
+  <span class="key">"seq_type"</span>: <span class="string">"cdna"</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Get protein sequence</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get the protein sequence for BRCA1"</div>
+        <pre>{
+  <span class="key">"id"</span>: <span class="string">"ENSG00000012048"</span>,
+  <span class="key">"seq_type"</span>: <span class="string">"protein"</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Get genomic sequence</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get genomic sequence for EGFR"</div>
+        <pre>{
+  <span class="key">"id"</span>: <span class="string">"ENSG00000146648"</span>,
+  <span class="key">"seq_type"</span>: <span class="string">"genomic"</span>
+}</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">ensembl_get_variants</h2>
+    <div class="tool-card">
+      <h3>Regional Variants</h3>
+      <p>Get known genetic variants in a genomic region from Ensembl. Returns variant IDs, alleles, consequences, and clinical significance.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>region</code> <span>Genomic region as chr:start-end (e.g., '7:140453136-140624564')</span></div>
+        <div class="param-item"><code>species</code> <span>Species name (default: homo_sapiens)</span></div>
+        <div class="param-item"><code>limit</code> <span>Maximum variants (default: 100)</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Get variants in BRCA1 region</h4>
+        <div class="query"><span class="label">Natural language:</span> "Show variants in the BRCA1 gene region"</div>
+        <pre>{ <span class="key">"region"</span>: <span class="string">"17:43044295-43170245"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Variant scan of a region</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find variants in a 10kb region on chromosome 7"</div>
+        <pre>{
+  <span class="key">"region"</span>: <span class="string">"7:140453136-140463136"</span>,
+  <span class="key">"limit"</span>: <span class="number">50</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: TP53 variant region</h4>
+        <div class="query"><span class="label">Natural language:</span> "Show variants in TP53 genomic region"</div>
+        <pre>{
+  <span class="key">"region"</span>: <span class="string">"17:7661779-7687550"</span>,
+  <span class="key">"limit"</span>: <span class="number">200</span>
+}</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">ensembl_get_homologs</h2>
+    <div class="tool-card">
+      <h3>Orthologs and Paralogs</h3>
+      <p>Find homologous genes (orthologs/paralogs) for an Ensembl gene ID. Useful for cross-species gene comparisons.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>id</code> <span>Ensembl gene ID (e.g., 'ENSG00000141510')</span></div>
+        <div class="param-item"><code>homology_type</code> <span>'orthologues', 'paralogues', or 'all' (default: all)</span></div>
+        <div class="param-item"><code>target_species</code> <span>Target species for orthologs (e.g., 'mus_musculus')</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Find all orthologs</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find orthologs of human TP53 in other species"</div>
+        <pre>{
+  <span class="key">"id"</span>: <span class="string">"ENSG00000141510"</span>,
+  <span class="key">"homology_type"</span>: <span class="string">"orthologues"</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Mouse ortholog only</h4>
+        <div class="query"><span class="label">Natural language:</span> "What is the mouse ortholog of human BRCA1?"</div>
+        <pre>{
+  <span class="key">"id"</span>: <span class="string">"ENSG00000012048"</span>,
+  <span class="key">"target_species"</span>: <span class="string">"mus_musculus"</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Find paralogs</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find paralogs of the KRAS gene"</div>
+        <pre>{
+  <span class="key">"id"</span>: <span class="string">"ENSG00000133703"</span>,
+  <span class="key">"homology_type"</span>: <span class="string">"paralogues"</span>
+}</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">ensembl_get_regulation</h2>
+    <div class="tool-card">
+      <h3>Regulatory Features</h3>
+      <p>Get regulatory features (promoters, enhancers, CTCF binding sites, open chromatin, TF binding sites) in a genomic region.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>region</code> <span>Genomic region as chr:start-end</span></div>
+        <div class="param-item"><code>species</code> <span>Species name (default: homo_sapiens)</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Get regulatory elements near TP53</h4>
+        <div class="query"><span class="label">Natural language:</span> "Show regulatory features near TP53"</div>
+        <pre>{ <span class="key">"region"</span>: <span class="string">"17:7661779-7687550"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Find enhancers in a region</h4>
+        <div class="query"><span class="label">Natural language:</span> "What regulatory elements are in this region?"</div>
+        <pre>{ <span class="key">"region"</span>: <span class="string">"7:140453136-140624564"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Promoter regions</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find promoter and enhancer elements"</div>
+        <pre>{ <span class="key">"region"</span>: <span class="string">"1:1-1000000"</span> }</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">liftover_coordinates</h2>
+    <div class="tool-card">
+      <h3>Coordinate Liftover</h3>
+      <p>Convert genomic coordinates between genome assemblies (e.g., GRCh37/hg19 to GRCh38/hg38 or vice versa) using Ensembl.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>region</code> <span>Genomic region as chr:start-end</span></div>
+        <div class="param-item"><code>source_assembly</code> <span>'GRCh37' or 'GRCh38' (default: GRCh37)</span></div>
+        <div class="param-item"><code>target_assembly</code> <span>'GRCh37' or 'GRCh38' (default: GRCh38)</span></div>
+        <div class="param-item"><code>species</code> <span>Species name (default: human)</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Convert hg19 to hg38</h4>
+        <div class="query"><span class="label">Natural language:</span> "Convert this position from hg19 to hg38"</div>
+        <pre>{
+  <span class="key">"region"</span>: <span class="string">"17:43044295-43170245"</span>,
+  <span class="key">"source_assembly"</span>: <span class="string">"GRCh37"</span>,
+  <span class="key">"target_assembly"</span>: <span class="string">"GRCh38"</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Convert hg38 to hg19</h4>
+        <div class="query"><span class="label">Natural language:</span> "Convert this hg38 coordinate to hg19"</div>
+        <pre>{
+  <span class="key">"region"</span>: <span class="string">"chr7:140453136-140624564"</span>,
+  <span class="key">"source_assembly"</span>: <span class="string">"GRCh38"</span>,
+  <span class="key">"target_assembly"</span>: <span class="string">"GRCh37"</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Single position conversion</h4>
+        <div class="query"><span class="label">Natural language:</span> "What is the hg38 coordinate for position 7:140500000?"</div>
+        <pre>{
+  <span class="key">"region"</span>: <span class="string">"7:140500000-140500000"</span>,
+  <span class="key">"source_assembly"</span>: <span class="string">"GRCh37"</span>,
+  <span class="key">"target_assembly"</span>: <span class="string">"GRCh38"</span>
+}</pre>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<footer>
+  <div class="container">
+    <p><strong>datasets-mcp-server</strong> — Open source bioinformatics MCP server</p>
+  </div>
+</footer>
+
+</body>
+</html>

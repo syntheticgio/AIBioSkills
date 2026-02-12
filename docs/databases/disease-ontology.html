@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Disease Ontology — Standardized disease terminology, hierarchies, and disease-gene associations.">
+  <title>Disease Ontology – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://disease-ontology.org/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>Disease Ontology</h1>
+        <p class="subtitle">Standardized Disease Terminology, Hierarchies, and Disease-Gene Associations</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>Disease Ontology</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          The Disease Ontology (DO) is a standardized, hierarchically organized vocabulary of human diseases. It provides disease definitions,
+          disease-disease relationships, and cross-links to disease databases including OMIM, MeSH, ICD-9, and ICD-10. The DO integrates disease
+          nomenclature with genetic information to support computational disease analysis, machine learning applications, and clinical research.
+        </p>
+
+        <div class="info-box">
+          <strong>Standardized Terminology</strong> — Disease Ontology provides a unified classification system for over 12,000 human diseases,
+          enabling consistent disease annotation, computational analysis, and integration with genetic and phenotypic data.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Comprehensive disease vocabulary</li>
+              <li>Hierarchical disease classification</li>
+              <li>Disease-disease relationships</li>
+              <li>Cross-references to standard databases</li>
+              <li>Disease-gene associations</li>
+              <li>Standardized disease identifiers</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Standardize disease terminology in data</li>
+              <li>Find parent and child disease terms</li>
+              <li>Map between disease nomenclatures</li>
+              <li>Identify disease-specific genes</li>
+              <li>Integrate disease data across systems</li>
+              <li>Classify and annotate clinical data</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Disease Terms</strong></td>
+              <td>Standardized disease names and Disease Ontology IDs</td>
+              <td><code>disease_ontology_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Disease Definitions</strong></td>
+              <td>Detailed description of disease characteristics</td>
+              <td><code>disease_ontology_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Hierarchical Structure</strong></td>
+              <td>Parent/child disease relationships and disease classification</td>
+              <td><code>disease_ontology_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>External Cross-References</strong></td>
+              <td>Links to OMIM, MeSH, ICD-9, ICD-10, SNOMED CT, and other standards</td>
+              <td><code>disease_ontology_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Disease-Gene Associations</strong></td>
+              <td>Genes associated with diseases from DisGeNET and other sources</td>
+              <td><code>disease_ontology_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Semantic Relationships</strong></td>
+              <td>Alternative names, synonyms, and disease relationships</td>
+              <td><code>disease_ontology_search</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Disease Terminology and Classification</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>disease_ontology_search</code></strong></p>
+            <p class="text-muted">Search Disease Ontology for standardized disease terms and disease-gene associations.</p>
+            <p><strong>Parameters:</strong> disease_term (string: disease name or synonym), gene (string, optional: associated gene symbol)</p>
+            <p><strong>Returns:</strong> Disease ID, definition, parent/child terms, synonyms, cross-references, associated genes, confidence scores</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Search Examples:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><code>disease_term="breast cancer"</code> — Find standard breast cancer term</li>
+                <li><code>disease_term="cystic fibrosis", gene="CFTR"</code> — Disease-gene association</li>
+                <li><code>disease_term="neurodegenerative disease"</code> — Find parent category</li>
+                <li><code>gene="TP53"</code> — Find all diseases associated with TP53</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Standardize disease terminology</h3>
+          <pre><code>"What is the standardized Disease Ontology term for 'familial breast and ovarian cancer'?"</code></pre>
+          <p class="text-muted">Tool: <code>disease_ontology_search</code> with disease_term="familial breast and ovarian cancer"</p>
+        </div>
+
+        <div class="card">
+          <h3>Find disease hierarchy</h3>
+          <pre><code>"What are the parent disease categories for acute leukemia, and what subtypes exist?"</code></pre>
+          <p class="text-muted">Tool: <code>disease_ontology_search</code> with disease_term="acute leukemia"</p>
+        </div>
+
+        <div class="card">
+          <h3>Retrieve disease-gene associations</h3>
+          <pre><code>"Which genes are associated with Marfan syndrome according to the Disease Ontology?"</code></pre>
+          <p class="text-muted">Tool: <code>disease_ontology_search</code> with disease_term="Marfan syndrome"</p>
+        </div>
+
+        <div class="card">
+          <h3>Map between disease nomenclatures</h3>
+          <pre><code>"What are the ICD-10, MeSH, and OMIM codes for Type 2 Diabetes Mellitus?"</code></pre>
+          <p class="text-muted">Tool: <code>disease_ontology_search</code> with disease_term="Type 2 Diabetes Mellitus"</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Search Strategies</h2>
+
+        <h3>Disease Terminology Standardization</h3>
+        <p>
+          Use Disease Ontology to normalize disease names across different sources (clinical data, literature, databases).
+          Map between common names and standardized terms.
+        </p>
+
+        <h3>Hierarchical Disease Classification</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li>Navigate disease hierarchies from broad categories to specific subtypes</li>
+          <li>Identify parent diseases to group related conditions</li>
+          <li>Find disease siblings to understand disease families</li>
+        </ul>
+
+        <h3>Disease-Gene Network Analysis</h3>
+        <p style="margin-top: 1rem;">
+          Integrate disease ontology terms with gene annotations to build disease-specific gene networks,
+          enabling systems biology and computational drug discovery.
+        </p>
+
+        <h3>Cross-Database Integration</h3>
+        <p style="margin-top: 1rem;">
+          Link Disease Ontology IDs to OMIM, MeSH, SNOMED CT, and ICD codes for integration with clinical,
+          research, and administrative systems.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          Disease Ontology bridges genomic and clinical research:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With OMIM:</strong> Link genetic diseases to standardized ontology terms</li>
+          <li><strong>With HPO:</strong> Combine disease ontology with phenotype annotations</li>
+          <li><strong>With ClinVar:</strong> Annotate variants with Disease Ontology classifications</li>
+          <li><strong>With PubMed:</strong> Search literature using standardized disease terminology</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://disease-ontology.org/" target="_blank">Disease Ontology Official Site</a></li>
+          <li><a href="https://disease-ontology.org/about/" target="_blank">Disease Ontology About</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3888846/" target="_blank">Disease Ontology Paper</a></li>
+          <li><a href="https://www.disgenet.org/" target="_blank">DisGeNET (Disease-Gene Database)</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://disease-ontology.org/" target="_blank">Disease Ontology</a>
+        <a href="https://www.ohdsi.org/" target="_blank">OHDSI (OMOP)</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./hpo.html">Human Phenotype Ontology</a>
+        <a href="./ncbi-omim.html">NCBI OMIM</a>
+        <a href="./ncbi-clinvar.html">NCBI ClinVar</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

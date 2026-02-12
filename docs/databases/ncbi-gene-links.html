@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NCBI Gene Links — Gene relationships, networks, and functional associations.">
+  <title>NCBI Gene Links – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.ncbi.nlm.nih.gov/gene/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>NCBI Gene Links</h1>
+        <p class="subtitle">Gene Relationships, Networks, and Functional Associations</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>NCBI Gene Links</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          NCBI Gene Links provides comprehensive information about relationships between genes, including orthologous genes across species,
+          paralogous relationships, gene neighborhoods, and functional associations. The database integrates homology information from multiple sources
+          and computational predictions to reveal gene networks and evolutionary relationships.
+        </p>
+
+        <div class="info-box">
+          <strong>Network Analysis</strong> — Gene Links enables identification of functionally related genes, exploration of orthologous relationships
+          across organisms, and discovery of gene clusters with coordinated function or regulation.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Orthologous gene identification across species</li>
+              <li>Paralogous relationships and gene families</li>
+              <li>Gene neighborhood analysis</li>
+              <li>Functional association networks</li>
+              <li>Gene synteny visualization</li>
+              <li>Cross-species gene mapping</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Find orthologs of a human gene in model organisms</li>
+              <li>Identify paralogous genes with similar functions</li>
+              <li>Analyze gene neighborhoods and chromosomal clusters</li>
+              <li>Discover functionally related genes</li>
+              <li>Explore evolutionary relationships</li>
+              <li>Map genes between species</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Orthologous Genes</strong></td>
+              <td>Corresponding genes in other species with sequence similarity</td>
+              <td><code>ncbi_gene_links</code></td>
+            </tr>
+            <tr>
+              <td><strong>Paralogous Genes</strong></td>
+              <td>Related genes within the same organism from common ancestor</td>
+              <td><code>ncbi_gene_links</code></td>
+            </tr>
+            <tr>
+              <td><strong>Gene Neighborhoods</strong></td>
+              <td>Adjacent genes and chromosomal clusters</td>
+              <td><code>ncbi_gene_links</code></td>
+            </tr>
+            <tr>
+              <td><strong>Functional Categories</strong></td>
+              <td>GO terms, pathways, and functional annotations</td>
+              <td><code>ncbi_gene_links</code></td>
+            </tr>
+            <tr>
+              <td><strong>Association Types</strong></td>
+              <td>Homology, synteny, interaction, and co-expression relationships</td>
+              <td><code>ncbi_gene_links</code></td>
+            </tr>
+            <tr>
+              <td><strong>Species Information</strong></td>
+              <td>Organism taxonomy, gene identifiers, and mapping coordinates</td>
+              <td><code>ncbi_gene_links</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Gene Relationship and Network Analysis</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>ncbi_gene_links</code></strong></p>
+            <p class="text-muted">Query gene relationships, orthologs, and functional associations.</p>
+            <p><strong>Parameters:</strong> gene_id (string: NCBI Gene ID or symbol), organism (string, optional: species name, default Human)</p>
+            <p><strong>Returns:</strong> Related genes, association types, functional categories, species mapping, homology relationships, confidence scores</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Association Types:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><code>ortholog</code> — Gene in another species derived from common ancestor</li>
+                <li><code>paralog</code> — Related gene from duplication event</li>
+                <li><code>neighbor</code> — Adjacent gene on same chromosome</li>
+                <li><code>functional</code> — Genes in same pathway or GO category</li>
+                <li><code>interaction</code> — Protein-protein interaction partners</li>
+                <li><code>synteny</code> — Conserved gene order across species</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Find orthologs across species</h3>
+          <pre><code>"What are the orthologs of human BRCA1 in mouse, zebrafish, and fruit fly?"</code></pre>
+          <p class="text-muted">Tool: <code>ncbi_gene_links</code> with gene_id="BRCA1"</p>
+        </div>
+
+        <div class="card">
+          <h3>Identify paralogous genes</h3>
+          <pre><code>"Show me all paralogous genes related to CFTR in the human genome."</code></pre>
+          <p class="text-muted">Tool: <code>ncbi_gene_links</code> with gene_id="CFTR", organism="Homo sapiens"</p>
+        </div>
+
+        <div class="card">
+          <h3>Analyze gene neighborhoods</h3>
+          <pre><code>"What genes are located near TP53 on chromosome 17?"</code></pre>
+          <p class="text-muted">Tool: <code>ncbi_gene_links</code> with gene_id="TP53"</p>
+        </div>
+
+        <div class="card">
+          <h3>Discover functional relationships</h3>
+          <pre><code>"Which genes are functionally related to BRCA2 based on pathways and GO annotations?"</code></pre>
+          <p class="text-muted">Tool: <code>ncbi_gene_links</code> with gene_id="BRCA2"</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Search Strategies</h2>
+
+        <h3>Cross-Species Comparisons</h3>
+        <p>
+          Identify orthologous genes across mammalian species (human, mouse, rat), model organisms (C. elegans, Drosophila, zebrafish),
+          and plants for evolutionary studies and functional characterization.
+        </p>
+
+        <h3>Gene Family Analysis</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li>Retrieve all paralogous genes from gene duplication events</li>
+          <li>Analyze domain structure conservation</li>
+          <li>Identify functionally divergent family members</li>
+        </ul>
+
+        <h3>Neighborhood Genomics</h3>
+        <p style="margin-top: 1rem;">
+          Examine genes in syntenic blocks, identify co-regulated gene clusters, and discover genes with similar evolutionary history.
+        </p>
+
+        <h3>Functional Clustering</h3>
+        <p style="margin-top: 1rem;">
+          Link genes through shared GO terms, KEGG pathways, Reactome pathways, and computational interaction predictions.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          Gene Links enhances comparative genomics and network analysis:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With Ensembl:</strong> Map orthologs and explore syntenic regions</li>
+          <li><strong>With KEGG/Reactome:</strong> Analyze genes in conserved pathways</li>
+          <li><strong>With STRING:</strong> Investigate protein-protein interaction networks</li>
+          <li><strong>With NCBI Datasets:</strong> Retrieve genomic coordinates for related genes</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.ncbi.nlm.nih.gov/gene/" target="_blank">NCBI Gene Home</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/genome/" target="_blank">NCBI Genome Resources</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/homologene/" target="_blank">HomoloGene Database</a></li>
+          <li><a href="https://www.ensembl.org/" target="_blank">Ensembl (Ortholog Mapping)</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.ncbi.nlm.nih.gov/gene/" target="_blank">NCBI Gene</a>
+        <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">NCBI Home</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+        <a href="./ensembl.html">Ensembl</a>
+        <a href="./string.html">STRING</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

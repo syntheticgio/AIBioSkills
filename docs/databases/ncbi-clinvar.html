@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NCBI ClinVar — Clinical variant interpretations, disease associations, and pathogenicity assertions.">
+  <title>NCBI ClinVar – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.ncbi.nlm.nih.gov/clinvar/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>NCBI ClinVar</h1>
+        <p class="subtitle">Clinical Variant Interpretations, Disease Associations, and Pathogenicity Assertions</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>NCBI ClinVar</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          NCBI ClinVar is a freely accessible, public archive of relationships among variations in human DNA sequences and phenotypes.
+          It aggregates clinical and functional interpretations of genetic variants from the biomedical literature and submitter organizations.
+          ClinVar provides evidence-based classifications for pathogenic, benign, and uncertain variants across diseases.
+        </p>
+
+        <div class="info-box">
+          <strong>Curated Clinical Data</strong> — ClinVar compiles assertions from clinical genetics labs, research groups, and major databases
+          with evidence supporting interpretations of pathogenic, benign, or uncertain classification.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Variant pathogenicity classifications</li>
+              <li>Disease associations and phenotypes</li>
+              <li>Assertion evidence levels (gold star, criteria provided)</li>
+              <li>Multiple clinical assertion sources</li>
+              <li>Variant consequences and functional impact</li>
+              <li>Allele frequency data</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Assess pathogenicity of a clinical variant</li>
+              <li>Find all variants associated with a disease</li>
+              <li>Filter variants by evidence quality (stars)</li>
+              <li>Identify conflicting interpretations</li>
+              <li>Support clinical variant interpretation</li>
+              <li>Analyze disease-gene relationships</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Variant Classifications</strong></td>
+              <td>Pathogenic, benign, or uncertain significance with evidence levels</td>
+              <td><code>clinvar_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Disease Associations</strong></td>
+              <td>Phenotypes, diseases, and condition-variant relationships</td>
+              <td><code>clinvar_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Assertion Sources</strong></td>
+              <td>Submitter information, review status, assertion criteria</td>
+              <td><code>clinvar_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Gene-Phenotype Data</strong></td>
+              <td>Gene symbols, protein consequences, functional predictions</td>
+              <td><code>clinvar_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Conflicting Interpretations</strong></td>
+              <td>Variants with multiple competing pathogenicity assertions</td>
+              <td><code>clinvar_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Allele Frequency</strong></td>
+              <td>Frequency data and ExAC/gnomAD integration</td>
+              <td><code>clinvar_search</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Variant Search & Classification</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>clinvar_search</code></strong></p>
+            <p class="text-muted">Search for clinical variants by name, location, or gene.</p>
+            <p><strong>Parameters:</strong> variant (string: rsID, HGVS, or location), gene (string, optional)</p>
+            <p><strong>Returns:</strong> Significance, disease associations, assertion level, evidence quality, submitter info</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Significance Values:</strong> Pathogenic, Likely Pathogenic, Uncertain Significance, Likely Benign, Benign</p>
+              <p><strong>Assertion Levels:</strong> Gold Star (expert curation), Criteria Provided (explicit ACMG criteria), Conflicting Interpretations</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Assess pathogenicity of a known variant</h3>
+          <pre><code>"What is the clinical significance of rs1234567? Is it pathogenic?"</code></pre>
+          <p class="text-muted">Tool: <code>clinvar_search</code> with variant="rs1234567"</p>
+        </div>
+
+        <div class="card">
+          <h3>Find variants in a disease gene</h3>
+          <pre><code>"What pathogenic variants have been reported in the BRCA1 gene?"</code></pre>
+          <p class="text-muted">Tool: <code>clinvar_search</code> with gene="BRCA1"</p>
+        </div>
+
+        <div class="card">
+          <h3>Search by HGVS notation</h3>
+          <pre><code>"What does ClinVar say about the variant NM_007294.3:c.68_69delAG in BRCA1?"</code></pre>
+          <p class="text-muted">Tool: <code>clinvar_search</code> with variant="NM_007294.3:c.68_69delAG"</p>
+        </div>
+
+        <div class="card">
+          <h3>Find high-confidence assertions</h3>
+          <pre><code>"Show me only gold-star variants associated with familial hypercholesterolemia."</code></pre>
+          <p class="text-muted">Tool: <code>clinvar_search</code> with gene and filter by assertion level</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Clinical Interpretation Framework</h2>
+        <p>
+          ClinVar integrates with the American College of Medical Genetics (ACMG) classification system:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>Pathogenic:</strong> Strong evidence of disease causation</li>
+          <li><strong>Likely Pathogenic:</strong> Probable disease association</li>
+          <li><strong>Uncertain Significance:</strong> Insufficient or conflicting evidence</li>
+          <li><strong>Likely Benign:</strong> Probable lack of impact</li>
+          <li><strong>Benign:</strong> No evidence of pathogenicity</li>
+        </ul>
+
+        <h3 class="mt-4">Evidence Quality (Stars)</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>⭐⭐⭐⭐ Four stars:</strong> Expert curation with detailed review</li>
+          <li><strong>⭐⭐⭐ Three stars:</strong> Criteria provided, multiple submitter agreement</li>
+          <li><strong>⭐⭐ Two stars:</strong> Criteria provided, single submitter</li>
+          <li><strong>⭐ One star:</strong> Submitted without explicit criteria</li>
+          <li><strong>No stars:</strong> Conflicting interpretations or insufficient data</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          ClinVar works seamlessly with other tools in the MCP server:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With NCBI Datasets:</strong> Get gene info, then query ClinVar for disease variants</li>
+          <li><strong>With Ensembl:</strong> Find variants in a region with Ensembl, then assess clinical significance with ClinVar</li>
+          <li><strong>With gnomAD:</strong> Cross-reference allele frequencies and clinical assertions</li>
+          <li><strong>With UniProt:</strong> Connect protein domains to clinically significant variants</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.ncbi.nlm.nih.gov/clinvar/" target="_blank">NCBI ClinVar Official Site</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/clinvar/docs/" target="_blank">ClinVar Documentation</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/clinvar/docs/submission/" target="_blank">ClinVar Submission Guide</a></li>
+          <li><a href="https://www.acmg.net/" target="_blank">ACMG Standards & Guidelines</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.ncbi.nlm.nih.gov/clinvar/" target="_blank">NCBI ClinVar</a>
+        <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">NCBI Home</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+        <a href="./ensembl.html">Ensembl</a>
+        <a href="./gnomad.html">gnomAD</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

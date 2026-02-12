@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="COSMIC — Catalogue of Somatic Mutations in Cancer with disease-centric mutation patterns.">
+  <title>COSMIC – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://cancer.sanger.ac.uk/cosmic" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>COSMIC</h1>
+        <p class="subtitle">Catalogue of Somatic Mutations in Cancer — Disease-Centric Cancer Mutations</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>COSMIC</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          COSMIC (Catalogue of Somatic Mutations in Cancer) is the world's largest and most comprehensive
+          resource of somatic mutations in human cancer. It provides detailed information about mutations
+          found in cancer tissues, including frequency, cancer types affected, and functional consequences.
+          COSMIC enables researchers to understand cancer-specific mutation patterns and identify oncogenes and tumor suppressors.
+        </p>
+
+        <div class="info-box">
+          <strong>Cancer-Centric Mutation Database</strong> — COSMIC specializes in somatic mutations found in cancers,
+          capturing disease-specific mutation frequencies and cancer-associated mutation hotspots.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Somatic cancer mutations</li>
+              <li>Cancer type associations</li>
+              <li>Mutation frequencies</li>
+              <li>Functional consequences</li>
+              <li>Tissue origin mapping</li>
+              <li>Sample metadata</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Identify cancer-driver genes</li>
+              <li>Study cancer mutation patterns</li>
+              <li>Find disease-specific hotspots</li>
+              <li>Assess cancer prognosis</li>
+              <li>Predict treatment response</li>
+              <li>Discover oncogenic mechanisms</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Somatic Mutations</strong></td>
+              <td>SNVs and small indels found in cancer samples</td>
+              <td><code>cosmic_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Cancer Type Distribution</strong></td>
+              <td>Frequency of mutations across cancer types and tissues</td>
+              <td><code>cosmic_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Mutation Consequences</strong></td>
+              <td>Functional effects (missense, nonsense, frameshift, splice site)</td>
+              <td><code>cosmic_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Recurrence Information</strong></td>
+              <td>How frequently mutations occur across patients</td>
+              <td><code>cosmic_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Cancer Driver Assessment</strong></td>
+              <td>Annotation of mutations as driver or passenger</td>
+              <td><code>cosmic_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Sample and Tissue Information</strong></td>
+              <td>Cancer tissue origin, histology, and patient data</td>
+              <td><code>cosmic_search</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Cancer Mutation Search and Analysis</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>cosmic_search</code></strong></p>
+            <p class="text-muted">Search for somatic mutations in cancer samples and retrieve cancer-specific data.</p>
+            <p><strong>Parameters:</strong> gene (string: gene symbol or Ensembl ID), cancer_type (string, optional: specific cancer type or "all")</p>
+            <p><strong>Returns:</strong> Mutation details (position, nucleotide change, protein change), cancer type frequencies, sample count, tissue origin, functional impact, driver status</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Major Cancer Types:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Lung cancer (small cell, non-small cell)</li>
+                <li>Breast cancer (ductal, lobular)</li>
+                <li>Colorectal cancer</li>
+                <li>Melanoma</li>
+                <li>Leukemia (AML, ALL, CML)</li>
+                <li>Lymphoma (Hodgkin, non-Hodgkin)</li>
+                <li>Ovarian cancer</li>
+                <li>Liver cancer</li>
+                <li>Pancreatic cancer</li>
+                <li>And many others...</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Find mutations in a cancer gene</h3>
+          <pre><code>"What somatic mutations in TP53 are found in breast cancer according to COSMIC?"</code></pre>
+          <p class="text-muted">Tool: <code>cosmic_search</code> with gene="TP53" and cancer_type="breast cancer"</p>
+        </div>
+
+        <div class="card">
+          <h3>Study cancer-specific hotspots</h3>
+          <pre><code>"What are the most frequent mutations in KRAS across all cancer types in COSMIC?"</code></pre>
+          <p class="text-muted">Tool: <code>cosmic_search</code> with gene="KRAS" and cancer_type="all"</p>
+        </div>
+
+        <div class="card">
+          <h3>Identify driver mutations</h3>
+          <pre><code>"Which mutations in EGFR are classified as driver mutations in lung cancer?"</code></pre>
+          <p class="text-muted">Tool: <code>cosmic_search</code> with gene="EGFR" and cancer_type="lung cancer"</p>
+        </div>
+
+        <div class="card">
+          <h3>Compare mutations across cancers</h3>
+          <pre><code>"Show the differences in BRCA1 mutation patterns between breast and ovarian cancer."</code></pre>
+          <p class="text-muted">Tool: <code>cosmic_search</code> with gene="BRCA1" for different cancer types</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Somatic Mutation Analysis</h2>
+
+        <h3>Mutation Frequency & Recurrence</h3>
+        <p>
+          COSMIC tracks how frequently specific mutations occur across cancer patients, helping
+          identify driver mutations that confer selective advantage in cancer development. Recurrent
+          mutations at the same position across multiple patients indicate strong cancer association.
+        </p>
+
+        <h3 class="mt-4">Mutation Consequence Types</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>Missense:</strong> Amino acid substitution, often affecting protein function</li>
+          <li><strong>Nonsense:</strong> Stop codon creation, premature termination</li>
+          <li><strong>Frameshift:</strong> Insertions/deletions causing reading frame shift</li>
+          <li><strong>Splice Site:</strong> Affects mRNA splicing, may alter protein</li>
+          <li><strong>Silent:</strong> Synonymous change, typically no functional effect</li>
+          <li><strong>Inframe Indel:</strong> Insertion/deletion maintaining reading frame</li>
+        </ul>
+
+        <h3 class="mt-4">Cancer-Specific Patterns</h3>
+        <p>
+          Different cancer types show characteristic mutation signatures. For example:
+        </p>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>Lung Cancer:</strong> High frequency of KRAS and TP53 mutations; smoking-associated patterns</li>
+          <li><strong>Breast Cancer:</strong> TP53, GATA3, and PIK3CA mutations common</li>
+          <li><strong>Melanoma:</strong> BRAF V600E mutation extremely frequent; UV-induced signatures</li>
+          <li><strong>Leukemia:</strong> Gene fusions and chromosomal translocations characteristic</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Driver vs. Passenger Mutations</h2>
+
+        <h3>Classification</h3>
+        <p>
+          COSMIC distinguishes between:
+        </p>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>Driver Mutations:</strong> Confer selective advantage in cancer development, often found in oncogenes or tumor suppressors</li>
+          <li><strong>Passenger Mutations:</strong> Occur in cancer but don't directly contribute to transformation</li>
+          <li><strong>CGC Annotation:</strong> Cross-reference with Cancer Gene Census for known cancer-associated genes</li>
+        </ul>
+
+        <h3 class="mt-4">Functional Impact Assessment</h3>
+        <p>
+          COSMIC provides information about functional consequences of mutations,
+          helping prioritize mutations for experimental and clinical investigation.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          COSMIC data enhances cancer genomics and clinical research:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With Ensembl:</strong> Map COSMIC mutations to genomic coordinates and genes</li>
+          <li><strong>With ClinVar:</strong> Compare somatic and germline mutation annotations</li>
+          <li><strong>With UniProt:</strong> Understand functional consequences at protein level</li>
+          <li><strong>With GTEx:</strong> Correlate cancer mutations with tissue-specific expression</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://cancer.sanger.ac.uk/cosmic" target="_blank">COSMIC Official Site</a></li>
+          <li><a href="https://cancer.sanger.ac.uk/cosmic/help" target="_blank">COSMIC Help & Documentation</a></li>
+          <li><a href="https://cancer.sanger.ac.uk/cosmic/download" target="_blank">COSMIC Downloads</a></li>
+          <li><a href="https://cancer.sanger.ac.uk/census" target="_blank">Cancer Gene Census</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://cancer.sanger.ac.uk/cosmic" target="_blank">COSMIC</a>
+        <a href="https://www.sanger.ac.uk/" target="_blank">Wellcome Sanger Institute</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-clinvar.html">ClinVar</a>
+        <a href="./gnomad.html">gnomAD</a>
+        <a href="./ensembl.html">Ensembl</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

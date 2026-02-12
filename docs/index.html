@@ -156,6 +156,9 @@
       transition: border-color 0.2s;
     }
     .db-chip:hover { border-color: var(--color-accent); }
+    .db-chip-link { text-decoration: none; display: block; color: var(--color-text); }
+    .db-chip-link:hover { color: var(--color-text); }
+    .db-chip-link:visited { color: var(--color-text); }
     .db-dot {
       width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
     }
@@ -171,6 +174,9 @@
       transition: border-color 0.2s, transform 0.2s;
     }
     .tool-card:hover { border-color: var(--color-accent); transform: translateY(-2px); }
+    .tool-card-link { text-decoration: none; display: block; color: var(--color-text); }
+    .tool-card-link:hover { color: var(--color-text); text-decoration: none; }
+    .tool-card-link:visited { color: var(--color-text); }
     .tool-card h3 {
       font-size: 1.05rem; font-weight: 700; margin-bottom: 8px;
       display: flex; align-items: center; gap: 10px;
@@ -294,7 +300,8 @@
     <div class="logo">AIBioSkills</div>
     <ul class="nav-links">
       <li><a href="#tools">Tools</a></li>
-      <li><a href="#skills">Skills & Agents</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#agents">Agents</a></li>
       <li><a href="#install">Install</a></li>
       <li><a href="https://github.com/syntheticgio/datasets-mcp">GitHub</a></li>
     </ul>
@@ -309,7 +316,7 @@
     <div class="hero-badges">
       <span class="badge"><span class="num">50+</span> Tools</span>
       <span class="badge"><span class="num">20+</span> Databases</span>
-      <span class="badge"><span class="num">6</span> Skills</span>
+      <span class="badge"><span class="num">7</span> Skills</span>
       <span class="badge"><span class="num">6</span> Agents</span>
     </div>
     <div class="btn-group">
@@ -328,12 +335,54 @@
         <div class="label">Databases & APIs</div>
       </div>
       <div class="stat-card">
-        <div class="num">12</div>
-        <div class="label">Skills & Agents</div>
+        <div class="num">7</div>
+        <div class="label">Skills</div>
       </div>
       <div class="stat-card">
-        <div class="num">0</div>
-        <div class="label">API Keys Required</div>
+        <div class="num">6</div>
+        <div class="label">Agents</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Use Cases -->
+<section style="background: var(--color-surface);">
+  <div class="container">
+    <div class="section-label">Use Cases</div>
+    <div class="section-title">What Can You Do?</div>
+    <p class="section-desc">Ask questions in natural language. The assistant picks the right tools automatically.</p>
+
+    <div class="tool-categories">
+      <div class="tool-card" style="border-left: 3px solid var(--color-accent-light);">
+        <h3>Gene Research</h3>
+        <p>"Tell me everything about TP53 — function, domains, structures, variants, interactions, and pathways."</p>
+        <p style="color: var(--color-accent-light); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/gene-report TP53</p>
+      </div>
+      <div class="tool-card" style="border-left: 3px solid var(--color-green);">
+        <h3>Variant Interpretation</h3>
+        <p>"What is the clinical significance of BRAF V600E? Show population frequencies, domain impact, and phenotype associations."</p>
+        <p style="color: var(--color-green); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/clinical-variant-agent BRAF V600E</p>
+      </div>
+      <div class="tool-card" style="border-left: 3px solid var(--color-amber);">
+        <h3>Drug Target Assessment</h3>
+        <p>"Is EGFR druggable? Show me ligand-bound structures, binding sites, COSMIC hotspots, and disease rationale."</p>
+        <p style="color: var(--color-amber); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/drug-target-report EGFR</p>
+      </div>
+      <div class="tool-card" style="border-left: 3px solid var(--color-cyan);">
+        <h3>Comparative Genomics</h3>
+        <p>"Compare BRCA1 across human, mouse, zebrafish, and chicken — show me conservation and divergent regions."</p>
+        <p style="color: var(--color-cyan); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/comparative-genomics-agent BRCA1 human mouse zebrafish chicken</p>
+      </div>
+      <div class="tool-card" style="border-left: 3px solid var(--color-rose);">
+        <h3>Gene List Analysis</h3>
+        <p>"What biological themes connect TP53, BRCA1, EGFR, PTEN, and RB1? Show shared pathways, interactions, and expression."</p>
+        <p style="color: var(--color-rose); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/gene-list-agent TP53,BRCA1,EGFR,PTEN,RB1</p>
+      </div>
+      <div class="tool-card" style="border-left: 3px solid #a78bfa;">
+        <h3>Paper Analysis</h3>
+        <p>"Analyze all statistical methods in PMID 33057194 — check assumptions, appropriateness, and interpretation."</p>
+        <p style="color: #a78bfa; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/statistical-methods-agent 33057194</p>
       </div>
     </div>
   </div>
@@ -371,28 +420,28 @@
 
     <div class="section-label">Connected Databases</div>
     <div class="db-grid">
-      <div class="db-chip"><span class="db-dot" style="background:#6366f1"></span>NCBI Datasets</div>
-      <div class="db-chip"><span class="db-dot" style="background:#818cf8"></span>NCBI BLAST</div>
-      <div class="db-chip"><span class="db-dot" style="background:#a78bfa"></span>PubMed</div>
-      <div class="db-chip"><span class="db-dot" style="background:#34d399"></span>Ensembl</div>
-      <div class="db-chip"><span class="db-dot" style="background:#22d3ee"></span>UniProt</div>
-      <div class="db-chip"><span class="db-dot" style="background:#fbbf24"></span>ClinVar</div>
-      <div class="db-chip"><span class="db-dot" style="background:#fb7185"></span>gnomAD</div>
-      <div class="db-chip"><span class="db-dot" style="background:#f97316"></span>PDB / RCSB</div>
-      <div class="db-chip"><span class="db-dot" style="background:#34d399"></span>AlphaFold</div>
-      <div class="db-chip"><span class="db-dot" style="background:#6366f1"></span>InterPro</div>
-      <div class="db-chip"><span class="db-dot" style="background:#818cf8"></span>STRING</div>
-      <div class="db-chip"><span class="db-dot" style="background:#a78bfa"></span>KEGG</div>
-      <div class="db-chip"><span class="db-dot" style="background:#22d3ee"></span>Reactome</div>
-      <div class="db-chip"><span class="db-dot" style="background:#fbbf24"></span>GTEx</div>
-      <div class="db-chip"><span class="db-dot" style="background:#fb7185"></span>HPO</div>
-      <div class="db-chip"><span class="db-dot" style="background:#f97316"></span>COSMIC</div>
-      <div class="db-chip"><span class="db-dot" style="background:#34d399"></span>OMIM</div>
-      <div class="db-chip"><span class="db-dot" style="background:#6366f1"></span>ENCODE</div>
-      <div class="db-chip"><span class="db-dot" style="background:#818cf8"></span>Expression Atlas</div>
-      <div class="db-chip"><span class="db-dot" style="background:#a78bfa"></span>PharmGKB</div>
-      <div class="db-chip"><span class="db-dot" style="background:#22d3ee"></span>Disease Ontology</div>
-      <div class="db-chip"><span class="db-dot" style="background:#fbbf24"></span>Semantic Scholar</div>
+      <a href="databases/ncbi-datasets.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#6366f1"></span>NCBI Datasets</div></a>
+      <a href="databases/ncbi-blast.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#818cf8"></span>NCBI BLAST</div></a>
+      <a href="databases/ncbi-pubmed.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#a78bfa"></span>PubMed</div></a>
+      <a href="databases/ensembl.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#34d399"></span>Ensembl</div></a>
+      <a href="databases/uniprot.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#22d3ee"></span>UniProt</div></a>
+      <a href="databases/ncbi-clinvar.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#fbbf24"></span>ClinVar</div></a>
+      <a href="databases/gnomad.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#fb7185"></span>gnomAD</div></a>
+      <a href="databases/rcsb-pdb.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#f97316"></span>PDB / RCSB</div></a>
+      <a href="databases/alphafold.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#34d399"></span>AlphaFold</div></a>
+      <a href="databases/interpro.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#6366f1"></span>InterPro</div></a>
+      <a href="databases/string.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#818cf8"></span>STRING</div></a>
+      <a href="databases/kegg.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#a78bfa"></span>KEGG</div></a>
+      <a href="databases/reactome.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#22d3ee"></span>Reactome</div></a>
+      <a href="databases/gtex.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#fbbf24"></span>GTEx</div></a>
+      <a href="databases/hpo.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#fb7185"></span>HPO</div></a>
+      <a href="databases/ncbi-cosmic.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#f97316"></span>COSMIC</div></a>
+      <a href="databases/ncbi-omim.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#34d399"></span>OMIM</div></a>
+      <a href="databases/encode.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#6366f1"></span>ENCODE</div></a>
+      <a href="databases/expression-atlas.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#818cf8"></span>Expression Atlas</div></a>
+      <a href="databases/pharmgkb.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#a78bfa"></span>PharmGKB</div></a>
+      <a href="databases/disease-ontology.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#22d3ee"></span>Disease Ontology</div></a>
+      <a href="databases/semantic-scholar.html" class="db-chip-link"><div class="db-chip"><span class="db-dot" style="background:#fbbf24"></span>Semantic Scholar</div></a>
       <div class="db-chip"><span class="db-dot" style="background:#fb7185"></span>g:Profiler</div>
       <div class="db-chip"><span class="db-dot" style="background:#f97316"></span>BioPython (local)</div>
     </div>
@@ -408,6 +457,7 @@
 
     <div class="tool-categories">
 
+      <a href="tools/ncbi-datasets.html" class="tool-card-link">
       <div class="tool-card">
         <h3><span class="icon" style="background:rgba(99,102,241,0.12);color:#818cf8">N</span> NCBI Datasets</h3>
         <p>Genome and gene summaries, downloads, and batch queries via the NCBI Datasets CLI.</p>
@@ -419,7 +469,9 @@
           <li><code>batch_gene_summary</code> Multi-gene queries</li>
         </ul>
       </div>
+      </a>
 
+      <a href="tools/biopython.html" class="tool-card-link">
       <div class="tool-card">
         <h3><span class="icon" style="background:rgba(52,211,153,0.12);color:#34d399">B</span> BioPython Analysis</h3>
         <p>Local sequence analysis — alignment, statistics, translation, primer design, and FASTA parsing.</p>
@@ -431,7 +483,9 @@
           <li><code>primer_design</code> PCR primer design</li>
         </ul>
       </div>
+      </a>
 
+      <a href="tools/ensembl.html" class="tool-card-link">
       <div class="tool-card">
         <h3><span class="icon" style="background:rgba(34,211,238,0.12);color:#22d3ee">E</span> Ensembl</h3>
         <p>Gene lookup, sequences, variants, homologs, regulatory features, and coordinate liftover.</p>
@@ -441,10 +495,12 @@
           <li><code>ensembl_get_variants</code> Regional variants</li>
           <li><code>ensembl_get_homologs</code> Orthologs/paralogs</li>
           <li><code>ensembl_get_regulation</code> Regulatory features</li>
-          <li><code>liftover_coordinates</code> hg19 &#8596; hg38</li>
+          <li><code>liftover_coordinates</code> hg19 ↔ hg38</li>
         </ul>
       </div>
+      </a>
 
+      <a href="tools/uniprot.html" class="tool-card-link">
       <div class="tool-card">
         <h3><span class="icon" style="background:rgba(251,191,36,0.12);color:#fbbf24">U</span> UniProt & Protein</h3>
         <p>Protein search, function, domains, features, interactions, and domain architecture.</p>
@@ -456,7 +512,9 @@
           <li><code>string_get_interactions</code> PPI networks</li>
         </ul>
       </div>
+      </a>
 
+      <a href="tools/clinical.html" class="tool-card-link">
       <div class="tool-card">
         <h3><span class="icon" style="background:rgba(251,113,133,0.12);color:#fb7185">C</span> Clinical & Variants</h3>
         <p>Clinical variant interpretation, population frequencies, phenotype associations, and disease mapping.</p>
@@ -469,7 +527,9 @@
           <li><code>disease_ontology_search</code> Disease terms</li>
         </ul>
       </div>
+      </a>
 
+      <a href="tools/structure.html" class="tool-card-link">
       <div class="tool-card">
         <h3><span class="icon" style="background:rgba(249,115,22,0.12);color:#f97316">S</span> Structure & Function</h3>
         <p>3D structures, predicted models, pathways, expression, and functional enrichment.</p>
@@ -482,7 +542,9 @@
           <li><code>gene_ontology_enrich</code> GO enrichment</li>
         </ul>
       </div>
+      </a>
 
+      <a href="tools/literature.html" class="tool-card-link">
       <div class="tool-card">
         <h3><span class="icon" style="background:rgba(163,130,246,0.12);color:#a78bfa">L</span> Literature & Papers</h3>
         <p>Search PubMed, fetch full-text papers, get citation data and impact metrics.</p>
@@ -492,7 +554,9 @@
           <li><code>semantic_scholar_search</code> Citations & impact</li>
         </ul>
       </div>
+      </a>
 
+      <a href="tools/genomics.html" class="tool-card-link">
       <div class="tool-card">
         <h3><span class="icon" style="background:rgba(52,211,153,0.12);color:#34d399">G</span> Genomics & Epigenomics</h3>
         <p>ENCODE experiments, expression atlas, gene links, and pharmacogenomics.</p>
@@ -504,21 +568,21 @@
           <li><code>blast_search</code> Sequence similarity</li>
         </ul>
       </div>
+      </a>
 
     </div>
   </div>
 </section>
 
-<!-- Skills & Agents -->
+<!-- Skills -->
 <section id="skills" style="background: var(--color-surface);">
   <div class="container">
-    <div class="section-label">Skills & Agents</div>
+    <div class="section-label">Skills</div>
     <div class="section-title">Pre-Built Research Workflows</div>
     <p class="section-desc">Slash commands that orchestrate multiple tools into comprehensive reports. Available in Claude Code.</p>
 
     <div class="skill-grid">
 
-      <!-- Skills -->
       <div class="skill-card">
         <div class="cmd skill-type">/gene-report</div>
         <div class="desc">Comprehensive gene report combining NCBI, Ensembl, UniProt, ClinVar, PDB, InterPro, STRING, and KEGG into a single structured document.</div>
@@ -561,7 +625,19 @@
         <span class="tag tag-skill">Skill</span>
       </div>
 
-      <!-- Agents -->
+    </div>
+  </div>
+</section>
+
+<!-- Agents -->
+<section id="agents">
+  <div class="container">
+    <div class="section-label">Agents</div>
+    <div class="section-title">Autonomous Research Agents</div>
+    <p class="section-desc">AI agents that autonomously iterate through multi-step research tasks, gathering data and synthesizing findings.</p>
+
+    <div class="skill-grid">
+
       <div class="skill-card">
         <div class="cmd agent-type">/literature-agent</div>
         <div class="desc">Autonomous PubMed literature search — gathers context, searches with refined queries, deduplicates, and produces a thematic synthesis with citations.</div>
@@ -669,48 +745,6 @@
 <span class="cmd-comment"># Windows (PowerShell)</span>
 <span class="cmd-prefix">&gt;</span> <span class="cmd-text">curl -o datasets.exe https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/v2/win64/datasets.exe</span></pre>
         <p style="margin-top: 12px;">See the <a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/command-line-tools/download-and-install/" style="color: var(--color-amber);">NCBI install guide</a> for ARM64, Linux 32-bit, and other platforms.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Use Cases -->
-<section style="background: var(--color-surface);">
-  <div class="container">
-    <div class="section-label">Use Cases</div>
-    <div class="section-title">What Can You Do?</div>
-    <p class="section-desc">Ask questions in natural language. The assistant picks the right tools automatically.</p>
-
-    <div class="tool-categories">
-      <div class="tool-card" style="border-left: 3px solid var(--color-accent-light);">
-        <h3>Gene Research</h3>
-        <p>"Tell me everything about TP53 — function, domains, structures, variants, interactions, and pathways."</p>
-        <p style="color: var(--color-accent-light); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/gene-report TP53</p>
-      </div>
-      <div class="tool-card" style="border-left: 3px solid var(--color-green);">
-        <h3>Variant Interpretation</h3>
-        <p>"What is the clinical significance of BRAF V600E? Show population frequencies, domain impact, and phenotype associations."</p>
-        <p style="color: var(--color-green); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/clinical-variant-agent BRAF V600E</p>
-      </div>
-      <div class="tool-card" style="border-left: 3px solid var(--color-amber);">
-        <h3>Drug Target Assessment</h3>
-        <p>"Is EGFR druggable? Show me ligand-bound structures, binding sites, COSMIC hotspots, and disease rationale."</p>
-        <p style="color: var(--color-amber); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/drug-target-report EGFR</p>
-      </div>
-      <div class="tool-card" style="border-left: 3px solid var(--color-cyan);">
-        <h3>Comparative Genomics</h3>
-        <p>"Compare BRCA1 across human, mouse, zebrafish, and chicken — show me conservation and divergent regions."</p>
-        <p style="color: var(--color-cyan); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/comparative-genomics-agent BRCA1 human mouse zebrafish chicken</p>
-      </div>
-      <div class="tool-card" style="border-left: 3px solid var(--color-rose);">
-        <h3>Gene List Analysis</h3>
-        <p>"What biological themes connect TP53, BRCA1, EGFR, PTEN, and RB1? Show shared pathways, interactions, and expression."</p>
-        <p style="color: var(--color-rose); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/gene-list-agent TP53,BRCA1,EGFR,PTEN,RB1</p>
-      </div>
-      <div class="tool-card" style="border-left: 3px solid #a78bfa;">
-        <h3>Paper Analysis</h3>
-        <p>"Analyze all statistical methods in PMID 33057194 — check assumptions, appropriateness, and interpretation."</p>
-        <p style="color: #a78bfa; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/statistical-methods-agent 33057194</p>
       </div>
     </div>
   </div>

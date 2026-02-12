@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PubMed Central — Full-text open access biomedical literature database.">
+  <title>PubMed Central – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.ncbi.nlm.nih.gov/pmc/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>PubMed Central</h1>
+        <p class="subtitle">Full-Text Open Access Biomedical Literature Database</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>PubMed Central</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          PubMed Central (PMC) is the free full-text archive of biomedical and life sciences journals at the U.S. National Institutes of Health's
+          National Library of Medicine. It provides open access to full-text articles from participating journals, author manuscripts, and free PMC articles,
+          enabling comprehensive text-mining and detailed research discovery beyond abstract-level searching available in PubMed.
+        </p>
+
+        <div class="info-box">
+          <strong>Open Science</strong> — With over 10 million full-text articles freely available, PMC enables in-depth literature analysis,
+          figure extraction, supplementary data access, and comprehensive text-mining for research synthesis.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Full-text article access and search</li>
+              <li>Structured XML/HTML formats</li>
+              <li>Supplementary materials and data</li>
+              <li>Figure and table extraction</li>
+              <li>Author manuscripts availability</li>
+              <li>Text-mining and analytics</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Extract gene/protein mentions from full text</li>
+              <li>Access supplementary data and methods</li>
+              <li>Analyze figures and tables in publications</li>
+              <li>Mine methods sections for reproducibility</li>
+              <li>Retrieve complete research datasets</li>
+              <li>Conduct comprehensive literature reviews</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Full-Text Articles</strong></td>
+              <td>Complete article text in XML, HTML, or PDF formats</td>
+              <td>PMC Search & Integration</td>
+            </tr>
+            <tr>
+              <td><strong>Structured Content</strong></td>
+              <td>Marked-up title, abstract, sections, references, figures</td>
+              <td>PMC Integration</td>
+            </tr>
+            <tr>
+              <td><strong>Supplementary Materials</strong></td>
+              <td>Supporting data, methods appendices, extra figures and tables</td>
+              <td>PMC Integration</td>
+            </tr>
+            <tr>
+              <td><strong>Figures and Tables</strong></td>
+              <td>Article figures, tables, and associated captions</td>
+              <td>PMC Integration</td>
+            </tr>
+            <tr>
+              <td><strong>Author Manuscripts</strong></td>
+              <td>Submitted versions from participating institutions</td>
+              <td>PMC Manuscript Archive</td>
+            </tr>
+            <tr>
+              <td><strong>Metadata</strong></td>
+              <td>PMCID, PMID, publication info, copyright, MeSH terms</td>
+              <td>PMC Integration</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Full-Text Literature Retrieval</h3>
+          </div>
+          <div class="card-body">
+            <p><strong>Full-Text Article Integration</strong></p>
+            <p class="text-muted">Access PubMed Central full-text articles, supplementary materials, and structured content.</p>
+            <p><strong>Capabilities:</strong> Retrieve article text by PMCID or PMID, extract sections (methods, results, discussion), access supplementary data, parse figures/tables</p>
+            <p><strong>Returns:</strong> Full article text, structured sections, figure/table URLs, supplementary material metadata, MeSH annotations</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Content Types Available:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><code>full-text</code> — Complete article text</li>
+                <li><code>abstract</code> — Structured abstract</li>
+                <li><code>methods</code> — Methods section extraction</li>
+                <li><code>results</code> — Results section extraction</li>
+                <li><code>figures</code> — Article figures and images</li>
+                <li><code>supplementary</code> — Supplementary materials</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Extract full-text information</h3>
+          <pre><code>"Retrieve the full text and methods section from the BRCA1 paper with PMCID 12345678."</code></pre>
+          <p class="text-muted">Tool: PubMed Central Integration with PMCID retrieval</p>
+        </div>
+
+        <div class="card">
+          <h3>Access supplementary data</h3>
+          <pre><code>"Get the supplementary materials and raw data from the TP53 cancer study."</code></pre>
+          <p class="text-muted">Tool: PMC supplementary material extraction</p>
+        </div>
+
+        <div class="card">
+          <h3>Extract figures and tables</h3>
+          <pre><code>"Find all figures and tables from papers about CRISPR gene therapy."</code></pre>
+          <p class="text-muted">Tool: PMC figure/table extraction with search</p>
+        </div>
+
+        <div class="card">
+          <h3>Mine methods for reproducibility</h3>
+          <pre><code>"Extract the methods section from papers about RNA-seq analysis to understand the protocols."</code></pre>
+          <p class="text-muted">Tool: PMC methods section extraction</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Search Strategies</h2>
+
+        <h3>Full-Text Mining</h3>
+        <p>
+          Search full-text articles instead of just abstracts to discover mentions of genes, proteins, and diseases throughout
+          the paper, increasing discovery sensitivity.
+        </p>
+
+        <h3>Supplementary Data Access</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li>Access raw data files and datasets</li>
+          <li>Retrieve extended methods and protocols</li>
+          <li>Get additional figures and analysis results</li>
+        </ul>
+
+        <h3>Structured Content Extraction</h3>
+        <p style="margin-top: 1rem;">
+          Use XML-structured formats to extract specific sections (methods, results, discussion) programmatically
+          for comprehensive literature synthesis.
+        </p>
+
+        <h3>Figure and Caption Analysis</h3>
+        <p style="margin-top: 1rem;">
+          Extract figures and captions for visual data analysis, chart digitization, and image-based discovery.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          PubMed Central enriches research workflows with full-text resources:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With PubMed:</strong> Discover papers in abstract search, then retrieve full text from PMC</li>
+          <li><strong>With NCBI Datasets:</strong> Find gene papers, access full-text validation studies</li>
+          <li><strong>With ClinVar:</strong> Retrieve supporting literature for variant interpretations</li>
+          <li><strong>With UniProt:</strong> Access protein studies with complete methodological details</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.ncbi.nlm.nih.gov/pmc/" target="_blank">PubMed Central Official Site</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/pmc/about/" target="_blank">PMC About and Help</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/pmc/tools/" target="_blank">PMC API and Tools</a></li>
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank">PubMed (Abstract Search)</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.ncbi.nlm.nih.gov/pmc/" target="_blank">PubMed Central</a>
+        <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">NCBI Home</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-pubmed.html">NCBI PubMed</a>
+        <a href="./semantic-scholar.html">Semantic Scholar</a>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

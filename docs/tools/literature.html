@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Literature & Papers Tools — AIBioSkills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --color-bg: #0b0f19; --color-surface: #131825; --color-surface-2: #1a2035; --color-border: #242d42; --color-text: #e2e8f0; --color-text-muted: #8892a8; --color-accent: #6366f1; --color-accent-light: #818cf8; --color-accent-glow: rgba(99, 102, 241, 0.15); --color-green: #34d399; --color-green-glow: rgba(52, 211, 153, 0.15); --color-amber: #fbbf24; --color-rose: #fb7185; --color-cyan: #22d3ee; --radius: 12px; --radius-sm: 8px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 60px 0; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--color-border); }
+    nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    nav .logo { font-weight: 700; font-size: 1.1rem; background: linear-gradient(135deg, var(--color-accent-light), var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    nav .nav-links { display: flex; gap: 28px; list-style: none; }
+    nav .nav-links a { color: var(--color-text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    nav .nav-links a:hover { color: var(--color-text); }
+    .breadcrumb { padding: 20px 0; color: var(--color-text-muted); font-size: 0.9rem; }
+    .breadcrumb a { color: var(--color-accent-light); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .section-label { text-transform: uppercase; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--color-accent-light); margin-bottom: 8px; }
+    .section-title { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 12px; }
+    .section-desc { color: var(--color-text-muted); font-size: 1.05rem; margin-bottom: 32px; }
+    .page-header { padding: 60px 0 40px; border-bottom: 1px solid var(--color-border); background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(163, 130, 246, 0.15), transparent); }
+    .page-header h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; }
+    .page-header .icon { width: 56px; height: 56px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; }
+    .page-header p { color: var(--color-text-muted); font-size: 1.15rem; max-width: 700px; line-height: 1.6; }
+    .section { padding: 48px 0; border-bottom: 1px solid var(--color-border); }
+    .section:last-child { border-bottom: none; }
+    .tool-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 28px; transition: border-color 0.2s, transform 0.2s; }
+    .tool-card:hover { border-color: var(--color-accent); transform: translateY(-2px); }
+    .tool-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: #a78bfa; }
+    .tool-card > p { color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+    .tool-card .params { background: var(--color-bg); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 20px; }
+    .tool-card .params h4 { font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .param-item { display: flex; gap: 12px; margin-bottom: 10px; font-size: 0.9rem; }
+    .param-item code { color: var(--color-accent-light); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: var(--color-accent-glow); padding: 2px 8px; border-radius: 4px; }
+    .param-item span { color: var(--color-text-muted); }
+    .example-box { background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 16px; }
+    .example-box:hover { border-color: var(--color-accent); }
+    .example-box h4 { font-size: 0.8rem; font-weight: 600; color: var(--color-amber); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .example-box .query { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--color-text); margin-bottom: 14px; line-height: 1.6; }
+    .example-box .query .label { color: var(--color-text-muted); }
+    .example-box pre { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 14px 18px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: var(--color-text-muted); max-height: 250px; }
+    .example-box pre .key { color: var(--color-accent-light); }
+    .example-box pre .string { color: var(--color-green); }
+    .example-box pre .number { color: var(--color-amber); }
+    .example-box pre .null { color: var(--color-rose); }
+    footer { border-top: 1px solid var(--color-border); padding: 40px 0; text-align: center; color: var(--color-text-muted); font-size: 0.85rem; }
+    footer a { color: var(--color-accent-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 640px) { .page-header h1 { font-size: 1.8rem; } .tool-card { padding: 20px; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="../" class="logo">AIBioSkills</a>
+    <ul class="nav-links">
+      <li><a href="../#tools">Tools</a></li>
+      <li><a href="../#skills">Skills</a></li>
+      <li><a href="../#agents">Agents</a></li>
+      <li><a href="../#install">Install</a></li>
+      <li><a href="https://github.com/syntheticgio/datasets-mcp">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="section-label">MCP Tools</div>
+    <h1><span class="icon" style="background:rgba(163,130,246,0.12);color:#a78bfa">L</span> Literature & Papers</h1>
+    <p>Search PubMed, fetch full-text papers, and get citation data from Semantic Scholar.</p>
+  </div>
+</div>
+
+<div class="container">
+  <section>
+    <div class="section-label">Tool Details</div>
+
+    <h2 class="section-title">pubmed_search</h2>
+    <div class="tool-card">
+      <h3>PubMed Search</h3>
+      <p>Search PubMed for biomedical literature. Returns article titles, authors, journals, dates, abstracts, DOIs, and PMIDs.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>query</code> <span>PubMed search query (e.g., 'BRCA1 AND PARP inhibitor')</span></div>
+        <div class="param-item"><code>limit</code> <span>Maximum results (default: 10)</span></div>
+        <div class="param-item"><code>sort</code> <span>'relevance', 'date', or 'author' (default: relevance)</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Search for BRCA1 papers</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find recent papers on BRCA1 and PARP inhibitors"</div>
+        <pre>{
+  <span class="key">"query"</span>: <span class="string">"BRCA1 AND PARP inhibitor"</span>,
+  <span class="key">"limit"</span>: <span class="number">10</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Recent TP53 research</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find recent TP53 cancer therapy papers"</div>
+        <pre>{
+  <span class="key">"query"</span>: <span class="string">"TP53 cancer therapy 2024"</span>,
+  <span class="key">"sort"</span>: <span class="string">"date"</span>,
+  <span class="key">"limit"</span>: <span class="number">10</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: CRISPR papers</h4>
+        <div class="query"><span class="label">Natural language:</span> "Search for CRISPR gene editing papers"</div>
+        <pre>{
+  <span class="key">"query"</span>: <span class="string">"CRISPR gene editing"</span>,
+  <span class="key">"limit"</span>: <span class="number">15</span>
+}</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">paper_fetch</h2>
+    <div class="tool-card">
+      <h3>Full-Text Paper Retrieval</h3>
+      <p>Retrieve a biomedical research paper's metadata and full text (when available via PubMed Central or Europe PMC).</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>identifier</code> <span>PMID, DOI, PMC ID, or article title</span></div>
+        <div class="param-item"><code>sections</code> <span>'methods', 'results', 'discussion', 'introduction', 'all' (default: methods, results)</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Fetch by PMID</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get the paper with PMID 33057194"</div>
+        <pre>{
+  <span class="key">"identifier"</span>: <span class="string">"33057194"</span>,
+  <span class="key">"sections"</span>: [<span class="string">"methods"</span>, <span class="string">"results"</span>]
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Fetch by DOI</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get the paper with DOI 10.1038/s41586-020-2649-2"</div>
+        <pre>{ <span class="key">"identifier"</span>: <span class="string">"10.1038/s41586-020-2649-2"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Get all sections</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get full text of a paper"</div>
+        <pre>{
+  <span class="key">"identifier"</span>: <span class="string">"PMC7505768"</span>,
+  <span class="key">"sections"</span>: [<span class="string">"all"</span>]
+}</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">semantic_scholar_search</h2>
+    <div class="tool-card">
+      <h3>Citations & Impact</h3>
+      <p>Search Semantic Scholar for paper metadata, citation counts, influential citations, TLDRs, and open-access PDF links.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>query</code> <span>Paper title, 'DOI:10.1038/...' for DOI, 'PMID:...' for PMID, or keyword search</span></div>
+        <div class="param-item"><code>limit</code> <span>Max results for keyword (default: 5)</span></div>
+        <div class="param-item"><code>fields_of_study</code> <span>Filter by field: 'Medicine', 'Biology', etc.</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Search by title</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find the paper 'Attention is All You Need'"</div>
+        <pre>{ <span class="key">"query"</span>: <span class="string">"Attention is All You Need"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Search by DOI</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get citation data for this DOI"</div>
+        <pre>{ <span class="key">"query"</span>: <span class="string">"DOI:10.1038/nature14539"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Biology papers</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find highly cited biology papers"</div>
+        <pre>{
+  <span class="key">"query"</span>: <span class="string">"CRISPR"</span>,
+  <span class="key">"fields_of_study"</span>: <span class="string">"Biology"</span>,
+  <span class="key">"limit"</span>: <span class="number">10</span>
+}</pre>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<footer>
+  <div class="container">
+    <p><strong>datasets-mcp-server</strong> — Open source bioinformatics MCP server</p>
+  </div>
+</footer>
+
+</body>
+</html>

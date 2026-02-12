@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniProt & Protein Tools — AIBioSkills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --color-bg: #0b0f19; --color-surface: #131825; --color-surface-2: #1a2035; --color-border: #242d42; --color-text: #e2e8f0; --color-text-muted: #8892a8; --color-accent: #6366f1; --color-accent-light: #818cf8; --color-accent-glow: rgba(99, 102, 241, 0.15); --color-green: #34d399; --color-green-glow: rgba(52, 211, 153, 0.15); --color-amber: #fbbf24; --color-rose: #fb7185; --color-cyan: #22d3ee; --radius: 12px; --radius-sm: 8px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 60px 0; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--color-border); }
+    nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    nav .logo { font-weight: 700; font-size: 1.1rem; background: linear-gradient(135deg, var(--color-accent-light), var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    nav .nav-links { display: flex; gap: 28px; list-style: none; }
+    nav .nav-links a { color: var(--color-text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    nav .nav-links a:hover { color: var(--color-text); }
+    .breadcrumb { padding: 20px 0; color: var(--color-text-muted); font-size: 0.9rem; }
+    .breadcrumb a { color: var(--color-accent-light); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .section-label { text-transform: uppercase; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--color-accent-light); margin-bottom: 8px; }
+    .section-title { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 12px; }
+    .section-desc { color: var(--color-text-muted); font-size: 1.05rem; margin-bottom: 32px; }
+    .page-header { padding: 60px 0 40px; border-bottom: 1px solid var(--color-border); background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(251, 191, 36, 0.15), transparent); }
+    .page-header h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; }
+    .page-header .icon { width: 56px; height: 56px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; }
+    .page-header p { color: var(--color-text-muted); font-size: 1.15rem; max-width: 700px; line-height: 1.6; }
+    .section { padding: 48px 0; border-bottom: 1px solid var(--color-border); }
+    .section:last-child { border-bottom: none; }
+    .tool-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 28px; transition: border-color 0.2s, transform 0.2s; }
+    .tool-card:hover { border-color: var(--color-accent); transform: translateY(-2px); }
+    .tool-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--color-amber); }
+    .tool-card > p { color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+    .tool-card .params { background: var(--color-bg); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 20px; }
+    .tool-card .params h4 { font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .param-item { display: flex; gap: 12px; margin-bottom: 10px; font-size: 0.9rem; }
+    .param-item code { color: var(--color-accent-light); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: var(--color-accent-glow); padding: 2px 8px; border-radius: 4px; }
+    .param-item span { color: var(--color-text-muted); }
+    .example-box { background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 16px; }
+    .example-box:hover { border-color: var(--color-accent); }
+    .example-box h4 { font-size: 0.8rem; font-weight: 600; color: var(--color-amber); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .example-box .query { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--color-text); margin-bottom: 14px; line-height: 1.6; }
+    .example-box .query .label { color: var(--color-text-muted); }
+    .example-box pre { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 14px 18px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: var(--color-text-muted); max-height: 250px; }
+    .example-box pre .key { color: var(--color-accent-light); }
+    .example-box pre .string { color: var(--color-green); }
+    .example-box pre .number { color: var(--color-amber); }
+    .example-box pre .null { color: var(--color-rose); }
+    footer { border-top: 1px solid var(--color-border); padding: 40px 0; text-align: center; color: var(--color-text-muted); font-size: 0.85rem; }
+    footer a { color: var(--color-accent-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 640px) { .page-header h1 { font-size: 1.8rem; } .tool-card { padding: 20px; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="../" class="logo">AIBioSkills</a>
+    <ul class="nav-links">
+      <li><a href="../#tools">Tools</a></li>
+      <li><a href="../#skills">Skills</a></li>
+      <li><a href="../#agents">Agents</a></li>
+      <li><a href="../#install">Install</a></li>
+      <li><a href="https://github.com/syntheticgio/datasets-mcp">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="section-label">MCP Tools</div>
+    <h1><span class="icon" style="background:rgba(251,191,36,0.12);color:#fbbf24">U</span> UniProt & Protein</h1>
+    <p>Protein search, function, domains, features, interactions, and domain architecture from UniProt, InterPro, and STRING.</p>
+  </div>
+</div>
+
+<div class="container">
+  <section>
+    <div class="section-label">Tool Details</div>
+
+    <h2 class="section-title">uniprot_search</h2>
+    <div class="tool-card">
+      <h3>Protein Search</h3>
+      <p>Search UniProt for proteins using Lucene query syntax. Supports filtering by organism, gene name, protein name, GO terms, and more.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>query</code> <span>UniProt search query in Lucene syntax</span></div>
+        <div class="param-item"><code>limit</code> <span>Maximum results (default: 10)</span></div>
+        <div class="param-item"><code>reviewed</code> <span>Only return Swiss-Prot (reviewed) entries</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Search for a protein</h4>
+        <div class="query"><span class="label">Natural language:</span> "Search for TP53 protein in human"</div>
+        <pre>{
+  <span class="key">"query"</span>: <span class="string">"TP53 AND organism_id:9606"</span>,
+  <span class="key">"limit"</span>: <span class="number">5</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Search kinase family</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find human protein kinases"</div>
+        <pre>{
+  <span class="key">"query"</span>: <span class="string">"kinase AND organism_id:9606 AND reviewed:true"</span>,
+  <span class="key">"limit"</span>: <span class="number">10</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Search by function</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find transcription factors in human"</div>
+        <pre>{
+  <span class="key">"query"</span>: <span class="string">"transcription factor AND organism_id:9606"</span>,
+  <span class="key">"limit"</span>: <span class="number">10</span>
+}</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">uniprot_get_protein</h2>
+    <div class="tool-card">
+      <h3>Protein Function</h3>
+      <p>Get detailed protein information from UniProt by accession. Returns function, subcellular location, GO terms, and key annotations.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>accession</code> <span>UniProt accession (e.g., 'P04637' for human TP53)</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Get TP53 protein info</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get detailed information for TP53 protein"</div>
+        <pre>{ <span class="key">"accession"</span>: <span class="string">"P04637"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Get BRCA1 details</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get protein function for BRCA1"</div>
+        <pre>{ <span class="key">"accession"</span>: <span class="string">"P38398"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Get kinase info</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get details for EGFR protein"</div>
+        <pre>{ <span class="key">"accession"</span>: <span class="string">"P00533"</span> }</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">uniprot_get_features</h2>
+    <div class="tool-card">
+      <h3>Protein Features</h3>
+      <p>Get protein sequence features (domains, active sites, modifications, variants) from UniProt by accession.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>accession</code> <span>UniProt accession</span></div>
+        <div class="param-item"><code>feature_types</code> <span>Filter by types: 'Domain', 'Active site', 'Modified residue', etc.</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Get all features</h4>
+        <div class="query"><span class="label">Natural language:</span> "Show all features for TP53"</div>
+        <pre>{ <span class="key">"accession"</span>: <span class="string">"P04637"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Get only domains</h4>
+        <div class="query"><span class="label">Natural language:</span> "What domains does BRCA1 have?"</div>
+        <pre>{
+  <span class="key">"accession"</span>: <span class="string">"P38398"</span>,
+  <span class="key">"feature_types"</span>: [<span class="string">"Domain"</span>]
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Get modified residues</h4>
+        <div class="query"><span class="label">Natural language:</span> "Show phosphorylation sites in EGFR"</div>
+        <pre>{
+  <span class="key">"accession"</span>: <span class="string">"P00533"</span>,
+  <span class="key">"feature_types"</span>: [<span class="string">"Modified residue"</span>]
+}</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">interpro_get_domains</h2>
+    <div class="tool-card">
+      <h3>Domain Architecture</h3>
+      <p>Get protein domain and family annotations from InterPro by UniProt accession. Returns domain architecture including Pfam, PROSITE, CDD, and other member database matches.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>accession</code> <span>UniProt accession</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Get domain architecture</h4>
+        <div class="query"><span class="label">Natural language:</span> "What domains does TP53 have?"</div>
+        <pre>{ <span class="key">"accession"</span>: <span class="string">"P04637"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Get BRCA1 domains</h4>
+        <div class="query"><span class="label">Natural language:</span> "Show domain structure of BRCA1"</div>
+        <pre>{ <span class="key">"accession"</span>: <span class="string">"P38398"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Kinase domains</h4>
+        <div class="query"><span class="label">Natural language:</span> "What are the kinase domains in EGFR?"</div>
+        <pre>{ <span class="key">"accession"</span>: <span class="string">"P00533"</span> }</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">string_get_interactions</h2>
+    <div class="tool-card">
+      <h3>Protein-Protein Interactions</h3>
+      <p>Get protein-protein interaction partners from STRING database. Returns interaction scores, evidence channels, and network neighbors.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>identifiers</code> <span>Protein name(s), separated by newline or comma</span></div>
+        <div class="param-item"><code>limit</code> <span>Max partners per protein (default: 10)</span></div>
+        <div class="param-item"><code>required_score</code> <span>Minimum combined score (0-1000, default: 400)</span></div>
+        <div class="param-item"><code>network_type</code> <span>'functional' or 'physical' (default: functional)</span></div>
+        <div class="param-item"><code>species</code> <span>NCBI taxonomy ID (default: 9606 for human)</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Find TP53 interactors</h4>
+        <div class="query"><span class="label">Natural language:</span> "What proteins interact with TP53?"</div>
+        <pre>{ <span class="key">"identifiers"</span>: <span class="string">"TP53"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Protein network</h4>
+        <div class="query"><span class="label">Natural language:</span> "Show interaction network for BRCA1, BRCA2, and PALB2"</div>
+        <pre>{
+  <span class="key">"identifiers"</span>: <span class="string">"BRCA1,BRCA2,PALB2"</span>,
+  <span class="key">"limit"</span>: <span class="number">15</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: High confidence interactions</h4>
+        <div class="query"><span class="label">Natural language:</span> "Show only high-confidence interactions with EGFR"</div>
+        <pre>{
+  <span class="key">"identifiers"</span>: <span class="string">"EGFR"</span>,
+  <span class="key">"required_score"</span>: <span class="number">700</span>,
+  <span class="key">"limit"</span>: <span class="number">20</span>
+}</pre>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<footer>
+  <div class="container">
+    <p><strong>datasets-mcp-server</strong> — Open source bioinformatics MCP server</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PharmGKB — Pharmacogenomics knowledge base with drug-gene-phenotype relationships and clinical guidelines.">
+  <title>PharmGKB – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.pharmgkb.org/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>PharmGKB</h1>
+        <p class="subtitle">Pharmacogenomics Knowledge Base with Drug-Gene-Phenotype Relationships</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>PharmGKB</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          PharmGKB (Pharmacogenomics Knowledge Base) is a comprehensive pharmacogenomics resource that catalogs
+          relationships between drugs, genes, and phenotypes. It provides evidence-based knowledge about how genetic
+          variation affects drug metabolism, efficacy, and adverse effects, supporting clinical decision-making
+          and precision medicine initiatives.
+        </p>
+
+        <div class="info-box">
+          <strong>Precision Pharmacotherapy</strong> — PharmGKB integrates drug-gene interactions with clinical guidelines,
+          enabling pharmacogenomic assessment to personalize drug selection and dosing.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Drug-gene interactions</li>
+              <li>Pharmacogenomic pathways</li>
+              <li>Clinical practice guidelines</li>
+              <li>Dosing recommendations</li>
+              <li>Adverse reaction data</li>
+              <li>Functional variant info</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Predict drug response</li>
+              <li>Assess medication risk</li>
+              <li>Optimize drug dosing</li>
+              <li>Select appropriate drugs</li>
+              <li>Study adverse reactions</li>
+              <li>Implement precision medicine</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Drug-Gene Interactions</strong></td>
+              <td>Curated relationships between drugs and genes affecting their activity</td>
+              <td><code>pharmgkb_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Genotype Phenotypes</strong></td>
+              <td>Drug response phenotypes associated with genetic variants</td>
+              <td><code>pharmgkb_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Clinical Guidelines</strong></td>
+              <td>Evidence-based prescribing guidelines based on pharmacogenomic data</td>
+              <td><code>pharmgkb_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Dosing Information</strong></td>
+              <td>Recommended dosing adjustments based on genotypes</td>
+              <td><code>pharmgkb_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Variant Effects</strong></td>
+              <td>Functional consequences of genetic variants in drug-metabolizing genes</td>
+              <td><code>pharmgkb_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Adverse Reactions</strong></td>
+              <td>Drug adverse reactions associated with genetic variation</td>
+              <td><code>pharmgkb_search</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Pharmacogenomic Search and Analysis</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>pharmgkb_search</code></strong></p>
+            <p class="text-muted">Search drug-gene interactions and pharmacogenomic relationships.</p>
+            <p><strong>Parameters:</strong> drug (string: drug name or identifier), gene (string, optional: gene symbol or Ensembl ID)</p>
+            <p><strong>Returns:</strong> Drug-gene interactions, phenotypes, clinical significance, dosing recommendations, variant effects, guidelines</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Major Drug-Metabolizing Gene Families:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><strong>Cytochrome P450 (CYP):</strong> CYP2D6, CYP2C19, CYP2C9, CYP3A4/5</li>
+                <li><strong>Phase II Enzymes:</strong> NAT2, TPMT, COMT, UGT1A1</li>
+                <li><strong>Transporters:</strong> MDR1/ABCB1, OATP1B1/1B3</li>
+                <li><strong>Drug Targets:</strong> VKORC1, F5, F2, ITPA</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Find drug response variants</h3>
+          <pre><code>"What genetic variants in CYP2D6 affect codeine metabolism and response?"</code></pre>
+          <p class="text-muted">Tool: <code>pharmgkb_search</code> with drug="codeine" and gene="CYP2D6"</p>
+        </div>
+
+        <div class="card">
+          <h3>Look up clinical guidelines</h3>
+          <pre><code>"What are the PharmGKB clinical guidelines for warfarin dosing based on genotype?"</code></pre>
+          <p class="text-muted">Tool: <code>pharmgkb_search</code> with drug="warfarin"</p>
+        </div>
+
+        <div class="card">
+          <h3>Assess drug response</h3>
+          <pre><code>"What is the relationship between TPMT variants and azathioprine response?"</code></pre>
+          <p class="text-muted">Tool: <code>pharmgkb_search</code> with drug="azathioprine" and gene="TPMT"</p>
+        </div>
+
+        <div class="card">
+          <h3>Find adverse reaction risks</h3>
+          <pre><code>"Which genetic variants increase the risk of adverse reactions to NSAIDs?"</code></pre>
+          <p class="text-muted">Tool: <code>pharmgkb_search</code> with drug="NSAID" or specific NSAID names</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Pharmacogenomic Pathways</h2>
+
+        <h3>Key Drug Metabolism Pathways</h3>
+        <p>
+          PharmGKB organizes information around major pharmacogenomic pathways relevant to clinical practice:
+        </p>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>Warfarin Metabolism:</strong> VKORC1 and CYP2C9 variants affecting anticoagulation</li>
+          <li><strong>Clopidogrel Activation:</strong> CYP2C19 variants affecting platelet inhibition</li>
+          <li><strong>Thiopurine Metabolism:</strong> TPMT variants affecting azathioprine and 6-MP toxicity</li>
+          <li><strong>HLA-B*5701:</strong> Abacavir hypersensitivity in HIV-positive individuals</li>
+          <li><strong>DPYD Deficiency:</strong> 5-Fluorouracil toxicity risk assessment</li>
+          <li><strong>Codeine Response:</strong> CYP2D6 variants affecting pain relief</li>
+        </ul>
+
+        <h3 class="mt-4">Evidence Levels</h3>
+        <p>
+          PharmGKB rates evidence supporting drug-gene relationships:
+        </p>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>1A:</strong> Clinical practice guidelines and FDA labeling</li>
+          <li><strong>1B:</strong> Important relationship supported by strong evidence</li>
+          <li><strong>2A:</strong> Moderate evidence, some clinical validation</li>
+          <li><strong>2B:</strong> Emerging evidence, research phase</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Clinical Implementation</h2>
+
+        <h3>Dosing Recommendations</h3>
+        <p>
+          PharmGKB provides evidence-based dosing adjustments based on individual pharmacogenotypes,
+          helping clinicians optimize therapy and minimize adverse effects. Recommendations are regularly
+          updated as new evidence emerges.
+        </p>
+
+        <h3 class="mt-4">FDA Pharmacogenomic Labeling</h3>
+        <p>
+          PharmGKB tracks FDA drug labels containing pharmacogenomic information, indicating FDA-recognized
+          relationships between genetic variation and drug response. This supports regulatory compliance
+          and informed prescribing decisions.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          PharmGKB data enhances clinical and research applications:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With Ensembl:</strong> Map genetic variants to drug-metabolizing genes</li>
+          <li><strong>With ClinVar:</strong> Assess clinical significance of variants in PharmGKB pathways</li>
+          <li><strong>With UniProt:</strong> Understand protein functional effects of variants</li>
+          <li><strong>With PubMed:</strong> Find supporting literature for pharmacogenomic associations</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.pharmgkb.org/" target="_blank">PharmGKB Official Site</a></li>
+          <li><a href="https://www.pharmgkb.org/page/clinicalGuidelines" target="_blank">PharmGKB Clinical Guidelines</a></li>
+          <li><a href="https://www.pharmgkb.org/pathway" target="_blank">PharmGKB Pathways</a></li>
+          <li><a href="https://www.pharmgkb.org/downloads" target="_blank">PharmGKB Data Downloads</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.pharmgkb.org/" target="_blank">PharmGKB</a>
+        <a href="https://www.stanford.edu/" target="_blank">Stanford University</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-clinvar.html">ClinVar</a>
+        <a href="./ensembl.html">Ensembl</a>
+        <a href="./uniprot.html">UniProt</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NCBI PubMed — Biomedical literature database with search, abstracts, and citation data.">
+  <title>NCBI PubMed – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>NCBI PubMed</h1>
+        <p class="subtitle">Biomedical Literature Database with Search, Abstracts, and Citation Data</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>NCBI PubMed</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          PubMed is a free search interface accessing the MEDLINE database of references on life sciences and biomedical information.
+          It comprises over 36 million citations from MEDLINE, life science journals, and online books, with abstracts and article metadata.
+          PubMed is the primary literature resource for bioinformatics research discovery and knowledge synthesis.
+        </p>
+
+        <div class="info-box">
+          <strong>Comprehensive Coverage</strong> — PubMed indexes journals from 1960s onward and includes full-text availability links,
+          MeSH annotations, and author/institution metadata for advanced research discovery.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Full-text literature search with Boolean operators</li>
+              <li>Abstract retrieval with metadata</li>
+              <li>Author and journal filtering</li>
+              <li>MeSH term indexing and annotation</li>
+              <li>Citation/reference tracking</li>
+              <li>Full-text article links</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Literature review on a gene or protein</li>
+              <li>Find papers about a disease association</li>
+              <li>Search for clinical trial results</li>
+              <li>Identify all papers by an author</li>
+              <li>Track citations for a topic</li>
+              <li>Discover recent methodological papers</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Article Metadata</strong></td>
+              <td>PMID, title, authors, journal, publication year, MeSH terms</td>
+              <td><code>pubmed_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Abstracts</strong></td>
+              <td>Full abstract text with structured sections</td>
+              <td><code>pubmed_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Citation Information</strong></td>
+              <td>Author affiliations, publication details, impact factor</td>
+              <td><code>pubmed_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Gene/Protein Mentions</strong></td>
+              <td>Automatically annotated gene and protein references</td>
+              <td><code>pubmed_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>MeSH Indexing</strong></td>
+              <td>Standardized Medical Subject Headings annotations</td>
+              <td><code>pubmed_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Full-Text Links</strong></td>
+              <td>Links to full articles on journal/PMC sites</td>
+              <td><code>pubmed_search</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Literature Search</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>pubmed_search</code></strong></p>
+            <p class="text-muted">Search PubMed literature by keyword, gene, or topic.</p>
+            <p><strong>Parameters:</strong> query (string: keywords, gene symbols, or Boolean operators), max_results (integer, optional: default 10)</p>
+            <p><strong>Returns:</strong> PMID, title, abstract, authors, journal, publication year, full-text links</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Query Syntax Examples:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><code>BRCA1 AND cancer</code> — Genes with AND/OR/NOT operators</li>
+                <li><code>"familial hypercholesterolemia" 2020:2024[pdat]</code> — Quoted phrases and date filtering</li>
+                <li><code>gene_symbol[GENE]</code> — Gene-specific search</li>
+                <li><code>meslek[MAJR]</code> — Major MeSH terms only</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Literature review on a gene</h3>
+          <pre><code>"Find recent papers about BRCA1 mutations and breast cancer risk."</code></pre>
+          <p class="text-muted">Tool: <code>pubmed_search</code> with query="BRCA1 AND breast cancer"</p>
+        </div>
+
+        <div class="card">
+          <h3>Find clinical trial results</h3>
+          <pre><code>"Search PubMed for clinical trials on CRISPR gene therapy published in the last 3 years."</code></pre>
+          <p class="text-muted">Tool: <code>pubmed_search</code> with query="CRISPR AND gene therapy AND clinical trial"</p>
+        </div>
+
+        <div class="card">
+          <h3>Author and methodology search</h3>
+          <pre><code>"Find papers by Jane Smith on machine learning in genomics."</code></pre>
+          <p class="text-muted">Tool: <code>pubmed_search</code> with query="Smith[au] AND machine learning AND genomics"</p>
+        </div>
+
+        <div class="card">
+          <h3>Disease-gene association discovery</h3>
+          <pre><code>"What papers discuss the TP53 gene and neuroblastoma?"</code></pre>
+          <p class="text-muted">Tool: <code>pubmed_search</code> with query="TP53[GENE] AND neuroblastoma"</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Search Strategies</h2>
+
+        <h3>Using MeSH Terms</h3>
+        <p>
+          PubMed uses Medical Subject Headings (MeSH) for standardized indexing. Search with <code>[MAJR]</code> for major topics
+          or <code>[MESH]</code> for all MeSH-indexed articles.
+        </p>
+
+        <h3>Field Tags</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><code>[TIAB]</code> — Title and abstract</li>
+          <li><code>[AU]</code> — Author name</li>
+          <li><code>[GENE]</code> — Gene symbol</li>
+          <li><code>[PDAT]</code> — Publication date</li>
+          <li><code>[PT]</code> — Publication type (e.g., Journal Article, Review)</li>
+          <li><code>[LA]</code> — Language</li>
+        </ul>
+
+        <h3>Date Ranges</h3>
+        <p style="margin-top: 1rem;">
+          Use format <code>YYYY:YYYY[PDAT]</code> to restrict results to a date range.
+          Example: <code>2020:2024[pdat]</code> for articles published 2020-2024.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          PubMed literature search integrates well with research workflows:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With NCBI Datasets:</strong> Find a gene, then search PubMed for relevant literature</li>
+          <li><strong>With ClinVar:</strong> Identify clinically significant variants, then find supporting literature</li>
+          <li><strong>With UniProt:</strong> Research a protein function, then discover related papers</li>
+          <li><strong>With Ensembl:</strong> Explore variants in a region, then find research context</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank">PubMed Official Site</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/books/NBK3827/" target="_blank">PubMed Search Guide</a></li>
+          <li><a href="https://www.nlm.nih.gov/mesh/" target="_blank">MeSH Browser</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/pmc/" target="_blank">PubMed Central (Full-text articles)</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank">PubMed</a>
+        <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">NCBI Home</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+        <a href="./ncbi-clinvar.html">NCBI ClinVar</a>
+        <a href="./uniprot.html">UniProt</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

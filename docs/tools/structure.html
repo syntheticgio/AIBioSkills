@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Structure & Function Tools — AIBioSkills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --color-bg: #0b0f19; --color-surface: #131825; --color-surface-2: #1a2035; --color-border: #242d42; --color-text: #e2e8f0; --color-text-muted: #8892a8; --color-accent: #6366f1; --color-accent-light: #818cf8; --color-accent-glow: rgba(99, 102, 241, 0.15); --color-green: #34d399; --color-green-glow: rgba(52, 211, 153, 0.15); --color-amber: #fbbf24; --color-rose: #fb7185; --color-cyan: #22d3ee; --radius: 12px; --radius-sm: 8px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--color-bg); color: var(--color-text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 60px 0; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--color-border); }
+    nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    nav .logo { font-weight: 700; font-size: 1.1rem; background: linear-gradient(135deg, var(--color-accent-light), var(--color-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    nav .nav-links { display: flex; gap: 28px; list-style: none; }
+    nav .nav-links a { color: var(--color-text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    nav .nav-links a:hover { color: var(--color-text); }
+    .breadcrumb { padding: 20px 0; color: var(--color-text-muted); font-size: 0.9rem; }
+    .breadcrumb a { color: var(--color-accent-light); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .section-label { text-transform: uppercase; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--color-accent-light); margin-bottom: 8px; }
+    .section-title { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 12px; }
+    .section-desc { color: var(--color-text-muted); font-size: 1.05rem; margin-bottom: 32px; }
+    .page-header { padding: 60px 0 40px; border-bottom: 1px solid var(--color-border); background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(249, 115, 22, 0.15), transparent); }
+    .page-header h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 16px; }
+    .page-header .icon { width: 56px; height: 56px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; }
+    .page-header p { color: var(--color-text-muted); font-size: 1.15rem; max-width: 700px; line-height: 1.6; }
+    .section { padding: 48px 0; border-bottom: 1px solid var(--color-border); }
+    .section:last-child { border-bottom: none; }
+    .tool-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); padding: 28px; transition: border-color 0.2s, transform 0.2s; }
+    .tool-card:hover { border-color: var(--color-accent); transform: translateY(-2px); }
+    .tool-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--color-amber); }
+    .tool-card > p { color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+    .tool-card .params { background: var(--color-bg); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 20px; }
+    .tool-card .params h4 { font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .param-item { display: flex; gap: 12px; margin-bottom: 10px; font-size: 0.9rem; }
+    .param-item code { color: var(--color-accent-light); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; background: var(--color-accent-glow); padding: 2px 8px; border-radius: 4px; }
+    .param-item span { color: var(--color-text-muted); }
+    .example-box { background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 16px; }
+    .example-box:hover { border-color: var(--color-accent); }
+    .example-box h4 { font-size: 0.8rem; font-weight: 600; color: var(--color-amber); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .example-box .query { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--color-text); margin-bottom: 14px; line-height: 1.6; }
+    .example-box .query .label { color: var(--color-text-muted); }
+    .example-box pre { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 14px 18px; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: var(--color-text-muted); max-height: 250px; }
+    .example-box pre .key { color: var(--color-accent-light); }
+    .example-box pre .string { color: var(--color-green); }
+    .example-box pre .number { color: var(--color-amber); }
+    .example-box pre .null { color: var(--color-rose); }
+    footer { border-top: 1px solid var(--color-border); padding: 40px 0; text-align: center; color: var(--color-text-muted); font-size: 0.85rem; }
+    footer a { color: var(--color-accent-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    @media (max-width: 640px) { .page-header h1 { font-size: 1.8rem; } .tool-card { padding: 20px; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="../" class="logo">AIBioSkills</a>
+    <ul class="nav-links">
+      <li><a href="../#tools">Tools</a></li>
+      <li><a href="../#skills">Skills</a></li>
+      <li><a href="../#agents">Agents</a></li>
+      <li><a href="../#install">Install</a></li>
+      <li><a href="https://github.com/syntheticgio/datasets-mcp">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="section-label">MCP Tools</div>
+    <h1><span class="icon" style="background:rgba(249,115,22,0.12);color:#f97316">S</span> Structure & Function</h1>
+    <p>3D structures, predicted models, pathways, expression, and functional enrichment from PDB, AlphaFold, KEGG, Reactome, GTEx, and g:Profiler.</p>
+  </div>
+</div>
+
+<div class="container">
+  <section>
+    <div class="section-label">Tool Details</div>
+
+    <h2 class="section-title">pdb_search & pdb_get_structure</h2>
+    <div class="tool-card">
+      <h3>Protein Data Bank</h3>
+      <p>Search RCSB PDB for 3D structures by free-text query, or get detailed metadata for a specific PDB ID.</p>
+      <div class="params">
+        <h4>Parameters (pdb_search)</h4>
+        <div class="param-item"><code>query</code> <span>Search text (e.g., 'TP53', 'insulin receptor')</span></div>
+        <div class="param-item"><code>limit</code> <span>Maximum results (default: 10)</span></div>
+      </div>
+      <div class="params">
+        <h4>Parameters (pdb_get_structure)</h4>
+        <div class="param-item"><code>pdb_id</code> <span>4-character PDB ID (e.g., '1TUP', '4HHB')</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Search for TP53 structures</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find all TP53 structures in PDB"</div>
+        <pre>{
+  <span class="key">"query"</span>: <span class="string">"TP53"</span>,
+  <span class="key">"limit"</span>: <span class="number">10</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Get structure details</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get details for PDB 1TUP"</div>
+        <pre>{ <span class="key">"pdb_id"</span>: <span class="string">"1TUP"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Search kinase structures</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find kinase structures"</div>
+        <pre>{
+  <span class="key">"query"</span>: <span class="string">"kinase"</span>,
+  <span class="key">"limit"</span>: <span class="number">15</span>
+}</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">alphafold_get_prediction</h2>
+    <div class="tool-card">
+      <h3>AlphaFold Predictions</h3>
+      <p>Get AlphaFold predicted 3D structure information for a protein by UniProt accession.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>accession</code> <span>UniProt accession (e.g., 'P04637' for TP53)</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Get TP53 AlphaFold</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get AlphaFold prediction for TP53"</div>
+        <pre>{ <span class="key">"accession"</span>: <span class="string">"P04637"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Get BRCA1 prediction</h4>
+        <div class="query"><span class="label">Natural language:</span> "What is the AlphaFold structure for BRCA1?"</div>
+        <pre>{ <span class="key">"accession"</span>: <span class="string">"P38398"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Get kinase structure</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get AlphaFold model for EGFR"</div>
+        <pre>{ <span class="key">"accession"</span>: <span class="string">"P00533"</span> }</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">kegg_get_pathway</h2>
+    <div class="tool-card">
+      <h3>KEGG Pathways</h3>
+      <p>Search and retrieve KEGG pathway information. Returns pathway names, descriptions, genes, and linked entries.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>query</code> <span>Keyword search or KEGG pathway ID (e.g., 'hsa04210')</span></div>
+        <div class="param-item"><code>organism</code> <span>KEGG organism code (e.g., 'hsa' for human)</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Search for apoptosis pathway</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find apoptosis pathway in KEGG"</div>
+        <pre>{ <span class="key">"query"</span>: <span class="string">"apoptosis"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Get specific pathway</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get the p53 signaling pathway"</div>
+        <pre>{ <span class="key">"query"</span>: <span class="string">"hsa04215"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Cell cycle pathway</h4>
+        <div class="query"><span class="label">Natural language:</span> "Show the cell cycle pathway"</div>
+        <pre>{
+  <span class="key">"query"</span>: <span class="string">"cell cycle"</span>,
+  <span class="key">"organism"</span>: <span class="string">"hsa"</span>
+}</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">reactome_get_pathway</h2>
+    <div class="tool-card">
+      <h3>Reactome Pathways</h3>
+      <p>Get detailed pathway information from Reactome — the curated knowledgebase of biological pathways.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>pathway_id</code> <span>Reactome stable ID (e.g., 'R-HSA-1640170')</span></div>
+        <div class="param-item"><code>query</code> <span>Keyword search for pathways</span></div>
+        <div class="param-item"><code>include_participants</code> <span>Include participating molecules (default: false)</span></div>
+        <div class="param-item"><code>limit</code> <span>Maximum search results (default: 10)</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Search pathways</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find p53 pathway in Reactome"</div>
+        <pre>{
+  <span class="key">"query"</span>: <span class="string">"p53"</span>,
+  <span class="key">"limit"</span>: <span class="number">5</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Get pathway with genes</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get apoptosis pathway with all genes"</div>
+        <pre>{
+  <span class="key">"pathway_id"</span>: <span class="string">"R-HSA-109581"</span>,
+  <span class="key">"include_participants"</span>: <span class="null">true</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: DNA repair pathway</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find DNA repair pathways"</div>
+        <pre>{
+  <span class="key">"query"</span>: <span class="string">"DNA repair"</span>,
+  <span class="key">"limit"</span>: <span class="number">10</span>
+}</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">gtex_get_expression</h2>
+    <div class="tool-card">
+      <h3>GTEx Expression</h3>
+      <p>Get tissue-specific gene expression data from GTEx. Returns median TPM expression values across ~54 human tissues.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>gene</code> <span>Gene symbol (e.g., 'TP53') or Ensembl gene ID</span></div>
+        <div class="param-item"><code>dataset</code> <span>'gtex_v8' or 'gtex_v10' (default: gtex_v8)</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: TP53 expression</h4>
+        <div class="query"><span class="label">Natural language:</span> "What is TP53 expression across tissues?"</div>
+        <pre>{ <span class="key">"gene"</span>: <span class="string">"TP53"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Expression by Ensembl ID</h4>
+        <div class="query"><span class="label">Natural language:</span> "Get expression for ENSG00000141510"</div>
+        <pre>{ <span class="key">"gene"</span>: <span class="string">"ENSG00000141510"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Tissue-specific expression</h4>
+        <div class="query"><span class="label">Natural language:</span> "Show BRCA1 expression in different tissues"</div>
+        <pre>{ <span class="key">"gene"</span>: <span class="string">"BRCA1"</span> }</pre>
+      </div>
+    </div>
+
+    <h2 class="section-title">gene_ontology_enrich</h2>
+    <div class="tool-card">
+      <h3>GO Enrichment Analysis</h3>
+      <p>Perform Gene Ontology (GO) enrichment analysis on a gene list using g:Profiler.</p>
+      <div class="params">
+        <h4>Parameters</h4>
+        <div class="param-item"><code>genes</code> <span>Comma-separated gene symbols</span></div>
+        <div class="param-item"><code>organism</code> <span>g:Profiler organism (default: 'hsapiens')</span></div>
+        <div class="param-item"><code>sources</code> <span>Data sources (default: 'GO:BP,GO:MF,GO:CC')</span></div>
+        <div class="param-item"><code>threshold</code> <span>Significance threshold (default: 0.05)</span></div>
+        <div class="param-item"><code>limit</code> <span>Maximum terms (default: 25)</span></div>
+      </div>
+      <div class="example-box">
+        <h4>Example 1: Basic enrichment</h4>
+        <div class="query"><span class="label">Natural language:</span> "What pathways are enriched in TP53, BRCA1, EGFR?"</div>
+        <pre>{ <span class="key">"genes"</span>: <span class="string">"TP53,BRCA1,EGFR"</span> }</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 2: Include KEGG pathways</h4>
+        <div class="query"><span class="label">Natural language:</span> "Find GO and KEGG enrichment for these genes"</div>
+        <pre>{
+  <span class="key">"genes"</span>: <span class="string">"TP53,KRAS,MYC,BRCA1"</span>,
+  <span class="key">"sources"</span>: <span class="string">"GO:BP,GO:MF,GO:CC,KEGG"</span>
+}</pre>
+      </div>
+      <div class="example-box">
+        <h4>Example 3: Mouse gene list</h4>
+        <div class="query"><span class="label">Natural language:</span> "Enrichment analysis for mouse genes"</div>
+        <pre>{
+  <span class="key">"genes"</span>: <span class="string">"Trp53,Brca1,Egfr,Kras"</span>,
+  <span class="key">"organism"</span>: <span class="string">"mmusculus"</span>,
+  <span class="key">"limit"</span>: <span class="number">20</span>
+}</pre>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<footer>
+  <div class="container">
+    <p><strong>datasets-mcp-server</strong> — Open source bioinformatics MCP server</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="STRING — Protein-protein interactions, functional enrichment, and interaction networks.">
+  <title>STRING – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://string-db.org/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>STRING</h1>
+        <p class="subtitle">Protein-Protein Interactions, Functional Enrichment, and Interaction Networks</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>STRING</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          STRING is a database of known and predicted protein-protein interactions (PPIs) for over 19,000 organisms.
+          It integrates experimental data, computational predictions, and orthologous information to provide a comprehensive
+          view of protein interaction networks with confidence scores for each interaction.
+        </p>
+
+        <div class="info-box">
+          <strong>High-Quality Interaction Data</strong> — STRING combines experimental biochemical evidence with
+          computational predictions, providing confidence scores ranging from 0.15 (low) to 1.0 (highest confidence).
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Protein-protein interactions</li>
+              <li>Confidence scores for interactions</li>
+              <li>Evidence sources (experimental, database, text-mining)</li>
+              <li>Functional enrichment analysis</li>
+              <li>Network visualization</li>
+              <li>Multi-organism coverage</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Find interaction partners for a protein</li>
+              <li>Build protein interaction networks</li>
+              <li>Identify functional modules</li>
+              <li>Infer protein function</li>
+              <li>Analyze disease-related networks</li>
+              <li>Predict novel drug targets</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Direct Interactions</strong></td>
+              <td>Known physical protein-protein interactions with evidence</td>
+              <td><code>string_get_interactions</code></td>
+            </tr>
+            <tr>
+              <td><strong>Functional Associations</strong></td>
+              <td>Proteins with related function (indirect associations)</td>
+              <td><code>string_get_interactions</code></td>
+            </tr>
+            <tr>
+              <td><strong>Evidence Sources</strong></td>
+              <td>Experimental, database, text-mining, co-expression, homology</td>
+              <td><code>string_get_interactions</code></td>
+            </tr>
+            <tr>
+              <td><strong>Confidence Scores</strong></td>
+              <td>Combined score for interaction strength (0.15-1.0)</td>
+              <td><code>string_get_interactions</code></td>
+            </tr>
+            <tr>
+              <td><strong>Enrichment Analysis</strong></td>
+              <td>GO terms, KEGG pathways, InterPro domains</td>
+              <td><code>string_get_interactions</code></td>
+            </tr>
+            <tr>
+              <td><strong>Network Modules</strong></td>
+              <td>Clusters of densely connected proteins</td>
+              <td><code>string_get_interactions</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Interaction Search</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>string_get_interactions</code></strong></p>
+            <p class="text-muted">Retrieve protein interaction partners and network data.</p>
+            <p><strong>Parameters:</strong> protein (string: gene symbol or protein name), organism (string, optional: e.g., "Homo sapiens" or NCBI taxon ID)</p>
+            <p><strong>Returns:</strong> Interaction partners, interaction scores, evidence types, enriched pathways, functional annotations</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Evidence Types:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><code>experimental</code> — Physical interaction data from biochemical assays</li>
+                <li><code>database</code> — Interactions from curated interaction databases</li>
+                <li><code>textmining</code> — Co-occurrence in scientific literature</li>
+                <li><code>coexpression</code> — Gene expression correlation</li>
+                <li><code>homology</code> — Conserved interactions from orthologs</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Find interaction partners</h3>
+          <pre><code>"What proteins interact with the human TP53 protein?"</code></pre>
+          <p class="text-muted">Tool: <code>string_get_interactions</code> with protein="TP53" and organism="Homo sapiens"</p>
+        </div>
+
+        <div class="card">
+          <h3>Build a functional network</h3>
+          <pre><code>"Show the interaction network for BRCA1 and its direct partners."</code></pre>
+          <p class="text-muted">Tool: <code>string_get_interactions</code> with protein="BRCA1"</p>
+        </div>
+
+        <div class="card">
+          <h3>Find pathway associations</h3>
+          <pre><code>"What KEGG pathways are enriched in the interactome of EGFR?"</code></pre>
+          <p class="text-muted">Tool: <code>string_get_interactions</code> with protein="EGFR" to get enrichment data</p>
+        </div>
+
+        <div class="card">
+          <h3>Analyze interaction evidence</h3>
+          <pre><code>"Which interactions of TP53 are supported by experimental evidence?"</code></pre>
+          <p class="text-muted">Tool: <code>string_get_interactions</code> with protein="TP53" filtered by evidence type</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Confidence Scores Explained</h2>
+
+        <h3>Combined Score Interpretation</h3>
+        <p>
+          STRING provides a combined confidence score for each interaction, integrating multiple evidence sources:
+        </p>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>0.90-1.00:</strong> Highest confidence interactions (multiple evidence types)</li>
+          <li><strong>0.70-0.89:</strong> High confidence (strong experimental or computational support)</li>
+          <li><strong>0.40-0.69:</strong> Medium confidence (some evidence support)</li>
+          <li><strong>0.15-0.39:</strong> Low confidence (weak or single evidence type)</li>
+        </ul>
+
+        <h3 class="mt-4">Evidence Weighting</h3>
+        <p>
+          Different evidence types have different weights:
+        </p>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>Experimental:</strong> Direct biochemical evidence (highest weight)</li>
+          <li><strong>Database:</strong> Manually curated interactions</li>
+          <li><strong>Co-expression:</strong> Gene expression correlation</li>
+          <li><strong>Text-mining:</strong> Literature co-occurrence</li>
+          <li><strong>Homology:</strong> Orthologous interactions</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Organisms Covered</h2>
+        <p>
+          STRING covers protein interactions for 19,000+ organisms including:
+        </p>
+        <ul style="columns: 2; margin-left: 1.5rem;">
+          <li>Human (<em>Homo sapiens</em>)</li>
+          <li>Mouse (<em>Mus musculus</em>)</li>
+          <li>Rat (<em>Rattus norvegicus</em>)</li>
+          <li>Fruit fly (<em>Drosophila melanogaster</em>)</li>
+          <li>Yeast (<em>Saccharomyces cerevisiae</em>)</li>
+          <li>Nematode (<em>Caenorhabditis elegans</em>)</li>
+          <li>Zebrafish (<em>Danio rerio</em>)</li>
+          <li>Arabidopsis and other organisms</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          STRING networks complement functional genomics analysis:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With NCBI Datasets:</strong> Identify genes, then explore their protein interactions</li>
+          <li><strong>With UniProt:</strong> Get protein function, then find interaction partners</li>
+          <li><strong>With KEGG:</strong> Understand pathway context of protein interactions</li>
+          <li><strong>With ClinVar:</strong> Map disease-associated genes to interaction networks</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://string-db.org/" target="_blank">STRING Official Site</a></li>
+          <li><a href="https://string-db.org/cgi/info" target="_blank">STRING Documentation</a></li>
+          <li><a href="https://string-db.org/api/" target="_blank">STRING REST API</a></li>
+          <li><a href="https://string-db.org/help/" target="_blank">Help & Tutorials</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://string-db.org/" target="_blank">STRING</a>
+        <a href="https://www.embl.org/" target="_blank">EMBL</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./uniprot.html">UniProt</a>
+        <a href="./kegg.html">KEGG</a>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

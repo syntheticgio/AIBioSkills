@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Reactome — Curated biological pathway database with reaction-centric data model.">
+  <title>Reactome – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://reactome.org/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>Reactome</h1>
+        <p class="subtitle">Curated Biological Pathway Database with Reaction-Centric Data Model</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>Reactome</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          Reactome is a free, open-source curated database of biological pathways and reactions in humans,
+          with support for model organisms through ortholog inference. It provides detailed mechanisms of
+          human biological processes including signal transduction, gene expression, apoptosis, and metabolism.
+          The reaction-centric data model captures molecular details and enables computational analysis.
+        </p>
+
+        <div class="info-box">
+          <strong>Reaction-Level Curation</strong> — Reactome captures detailed reaction mechanisms with
+          specific substrates, products, catalysts, and regulatory information, enabling mechanistic understanding
+          of biological pathways.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Curated reaction mechanisms</li>
+              <li>Pathway hierarchy and organization</li>
+              <li>Protein complex composition</li>
+              <li>Multi-organism support</li>
+              <li>Disease associations</li>
+              <li>Literature references</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Understand biochemical pathways</li>
+              <li>Map genes to biological processes</li>
+              <li>Find disease-associated pathways</li>
+              <li>Study signal transduction</li>
+              <li>Analyze metabolic networks</li>
+              <li>Perform pathway enrichment</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Pathways</strong></td>
+              <td>Hierarchical pathway definitions with member reactions and proteins</td>
+              <td><code>reactome_get_pathway</code></td>
+            </tr>
+            <tr>
+              <td><strong>Reactions</strong></td>
+              <td>Reaction mechanisms with substrates, products, catalysts, and conditions</td>
+              <td><code>reactome_get_pathway</code></td>
+            </tr>
+            <tr>
+              <td><strong>Protein Complexes</strong></td>
+              <td>Stoichiometry and composition of functional protein assemblies</td>
+              <td><code>reactome_get_pathway</code></td>
+            </tr>
+            <tr>
+              <td><strong>Regulation Information</strong></td>
+              <td>Activation and inhibition of reactions and pathways</td>
+              <td><code>reactome_get_pathway</code></td>
+            </tr>
+            <tr>
+              <td><strong>Cross-references</strong></td>
+              <td>Links to NCBI Gene, UniProt, PubMed, and other resources</td>
+              <td><code>reactome_get_pathway</code></td>
+            </tr>
+            <tr>
+              <td><strong>Disease & Drug Data</strong></td>
+              <td>Disease associations and potential drug targets in pathways</td>
+              <td><code>reactome_get_pathway</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Pathway Query and Analysis</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>reactome_get_pathway</code></strong></p>
+            <p class="text-muted">Retrieve pathway information, member reactions, and associated proteins.</p>
+            <p><strong>Parameters:</strong> pathway_id (string: Reactome stable ID), species (string, optional: "Homo sapiens", "Mus musculus", etc.)</p>
+            <p><strong>Returns:</strong> Pathway name, reactions, member proteins, complexes, regulation, disease associations, literature references</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Supported Organisms:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Homo sapiens (Human)</li>
+                <li>Mus musculus (Mouse)</li>
+                <li>Rattus norvegicus (Rat)</li>
+                <li>Gallus gallus (Chicken)</li>
+                <li>Danio rerio (Zebrafish)</li>
+                <li>Caenorhabditis elegans (Worm)</li>
+                <li>Drosophila melanogaster (Fruit fly)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Explore a signaling pathway</h3>
+          <pre><code>"What are the reactions and proteins in the Wnt signaling pathway according to Reactome?"</code></pre>
+          <p class="text-muted">Tool: <code>reactome_get_pathway</code> with pathway_id for Wnt pathway in Homo sapiens</p>
+        </div>
+
+        <div class="card">
+          <h3>Find disease-associated pathways</h3>
+          <pre><code>"Which pathways in Reactome are associated with cancer and cell division?"</code></pre>
+          <p class="text-muted">Tool: <code>reactome_get_pathway</code> to search for disease-linked pathways</p>
+        </div>
+
+        <div class="card">
+          <h3>Study protein complexes</h3>
+          <pre><code>"Show the composition and reactions involving the proteasome complex in Reactome."</code></pre>
+          <p class="text-muted">Tool: <code>reactome_get_pathway</code> with pathway_id for protein degradation pathway</p>
+        </div>
+
+        <div class="card">
+          <h3>Compare pathways across species</h3>
+          <pre><code>"Compare the insulin signaling pathway between human and mouse in Reactome."</code></pre>
+          <p class="text-muted">Tool: <code>reactome_get_pathway</code> with species parameter for different organisms</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Pathway Organization & Structure</h2>
+
+        <h3>Hierarchical Organization</h3>
+        <p>
+          Pathways are organized hierarchically from broad categories (e.g., "Signal Transduction")
+          to specific mechanisms. This allows both high-level overview and detailed mechanistic analysis.
+        </p>
+
+        <h3 class="mt-4">Key Pathway Categories</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>Signal Transduction:</strong> Growth factors, G-protein signaling, protein kinases</li>
+          <li><strong>Gene Expression:</strong> Transcription, translation, RNA processing</li>
+          <li><strong>Metabolism:</strong> Carbohydrate, lipid, amino acid, and nucleotide metabolism</li>
+          <li><strong>Immunity:</strong> Innate and adaptive immune responses</li>
+          <li><strong>Apoptosis:</strong> Programmed cell death mechanisms</li>
+          <li><strong>Cell Cycle:</strong> Checkpoint control and division regulation</li>
+          <li><strong>Transport:</strong> Protein trafficking and cellular transport</li>
+        </ul>
+
+        <h3 class="mt-4">Reaction Level Detail</h3>
+        <p>
+          Each reaction includes detailed information about inputs, outputs, catalysts, and regulatory factors,
+          enabling computational modeling of pathway behavior and prediction of pathway consequences
+          when proteins or genes are perturbed.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          Reactome pathways integrate with other bioinformatics data:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With Ensembl:</strong> Map genomic variants to pathway genes and assess functional impact</li>
+          <li><strong>With UniProt:</strong> Find protein interactions and modifications in pathway context</li>
+          <li><strong>With ClinVar:</strong> Identify disease variants in pathway-critical proteins</li>
+          <li><strong>With KEGG:</strong> Cross-validate pathway information and fill annotation gaps</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://reactome.org/" target="_blank">Reactome Official Site</a></li>
+          <li><a href="https://reactome.org/userguide" target="_blank">Reactome User Guide</a></li>
+          <li><a href="https://reactome.org/content/detail/R-HSA-162582" target="_blank">Signal Transduction Pathway</a></li>
+          <li><a href="https://reactome.org/ReactomeRESTfulAPI" target="_blank">Reactome REST API</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://reactome.org/" target="_blank">Reactome</a>
+        <a href="https://www.oicr.on.ca/" target="_blank">OICR</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./kegg.html">KEGG</a>
+        <a href="./string.html">STRING</a>
+        <a href="./ensembl.html">Ensembl</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

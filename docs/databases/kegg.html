@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KEGG — Metabolic pathways, signaling cascades, disease associations, and pathway analysis.">
+  <title>KEGG – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.kegg.jp/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>KEGG</h1>
+        <p class="subtitle">Metabolic Pathways, Signaling Cascades, Disease Associations, and Pathway Analysis</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>KEGG</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          KEGG (Kyoto Encyclopedia of Genes and Genomes) is an integrated database resource for systems biology
+          and functional genomics. It provides manually curated pathway maps for metabolic processes, signaling cascades,
+          disease mechanisms, and drug targets across organisms. KEGG integrates genomic, chemical, and systems biology data.
+        </p>
+
+        <div class="info-box">
+          <strong>Curated Pathway Data</strong> — KEGG maintains expert-curated pathway maps showing molecular interactions
+          and reactions with links to genes, proteins, compounds, and diseases.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Metabolic pathway maps</li>
+              <li>Signaling cascade diagrams</li>
+              <li>Gene to pathway mapping</li>
+              <li>Disease-pathway associations</li>
+              <li>Drug-target information</li>
+              <li>Organism-specific pathways</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Find pathways involving a gene</li>
+              <li>Explore metabolic routes</li>
+              <li>Identify disease mechanisms</li>
+              <li>Discover drug targets</li>
+              <li>Analyze pathway perturbations</li>
+              <li>Study multi-gene interactions</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Pathway Maps</strong></td>
+              <td>Curated diagrams of metabolic and signaling pathways</td>
+              <td><code>kegg_get_pathway</code></td>
+            </tr>
+            <tr>
+              <td><strong>Pathway Components</strong></td>
+              <td>Genes, proteins, compounds, and enzymes in pathways</td>
+              <td><code>kegg_get_pathway</code></td>
+            </tr>
+            <tr>
+              <td><strong>Gene-Pathway Links</strong></td>
+              <td>Which pathways a gene or protein participates in</td>
+              <td><code>kegg_get_pathway</code></td>
+            </tr>
+            <tr>
+              <td><strong>Disease Pathways</strong></td>
+              <td>Pathway maps for genetic and acquired diseases</td>
+              <td><code>kegg_get_pathway</code></td>
+            </tr>
+            <tr>
+              <td><strong>Enzyme Information</strong></td>
+              <td>EC numbers, enzyme cofactors, reaction substrates</td>
+              <td><code>kegg_get_pathway</code></td>
+            </tr>
+            <tr>
+              <td><strong>Drug Information</strong></td>
+              <td>Drug-target interactions and mechanisms</td>
+              <td><code>kegg_get_pathway</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Pathway Retrieval</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>kegg_get_pathway</code></strong></p>
+            <p class="text-muted">Retrieve pathway information, genes, and metabolic details.</p>
+            <p><strong>Parameters:</strong> pathway_id (string: KEGG pathway ID, e.g., hsa00010)</p>
+            <p><strong>Returns:</strong> Pathway name, description, genes, enzymes, compounds, reactions, disease associations</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Pathway ID Format:</strong> Three-letter organism code + 5-digit pathway number</p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><code>hsa00010</code> — Glycolysis/Gluconeogenesis (Homo sapiens)</li>
+                <li><code>hsa05200</code> — Pathways in cancer (disease)</li>
+                <li><code>hsa01100</code> — Metabolic pathways (overview)</li>
+                <li><code>mmu00010</code> — Glycolysis (Mus musculus)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Explore a metabolic pathway</h3>
+          <pre><code>"Show me the glycolysis pathway in humans. What genes and enzymes are involved?"</code></pre>
+          <p class="text-muted">Tool: <code>kegg_get_pathway</code> with pathway_id="hsa00010"</p>
+        </div>
+
+        <div class="card">
+          <h3>Find disease-associated pathways</h3>
+          <pre><code>"What pathways are disrupted in colorectal cancer according to KEGG?"</code></pre>
+          <p class="text-muted">Tool: <code>kegg_get_pathway</code> with pathway_id="hsa05210" (colorectal cancer)</p>
+        </div>
+
+        <div class="card">
+          <h3>Identify pathway genes</h3>
+          <pre><code>"Which human genes participate in the MAPK signaling pathway?"</code></pre>
+          <p class="text-muted">Tool: <code>kegg_get_pathway</code> with pathway_id="hsa04010"</p>
+        </div>
+
+        <div class="card">
+          <h3>Drug target analysis</h3>
+          <pre><code>"What pathway targets are available for diabetes treatment in KEGG?"</code></pre>
+          <p class="text-muted">Tool: <code>kegg_get_pathway</code> with pathway_id="hsa04910" (insulin signaling)</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Pathway Categories</h2>
+
+        <h3>Metabolism (00000-01999)</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li>Carbohydrate, lipid, amino acid, and nucleotide metabolism</li>
+          <li>Energy metabolism (glycolysis, TCA cycle, oxidative phosphorylation)</li>
+          <li>Secondary metabolism and cofactor biosynthesis</li>
+        </ul>
+
+        <h3 class="mt-4">Genetic Information Processing (02000-02299)</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li>Transcription, translation, replication</li>
+          <li>RNA processing and protein folding</li>
+        </ul>
+
+        <h3 class="mt-4">Signaling & Cell Communication (04000-04999)</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li>MAPK, Wnt, Notch, TGF-beta signaling</li>
+          <li>Cell cycle, apoptosis, immune response</li>
+          <li>Growth factor and hormone signaling</li>
+        </ul>
+
+        <h3 class="mt-4">Human Diseases (05000-05999)</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li>Cancer pathways and mechanisms</li>
+          <li>Infectious disease pathways</li>
+          <li>Immune and metabolic disease pathways</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Enzyme & Reaction Information</h2>
+
+        <h3>EC Numbers</h3>
+        <p>
+          KEGG uses Enzyme Commission (EC) numbering to classify enzymatic reactions:
+        </p>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>EC 1:</strong> Oxidoreductases (oxidation-reduction reactions)</li>
+          <li><strong>EC 2:</strong> Transferases (group transfer reactions)</li>
+          <li><strong>EC 3:</strong> Hydrolases (hydrolysis reactions)</li>
+          <li><strong>EC 4:</strong> Lyases (non-hydrolytic bond breakage)</li>
+          <li><strong>EC 5:</strong> Isomerases (rearrangement reactions)</li>
+          <li><strong>EC 6:</strong> Ligases (bond formation)</li>
+        </ul>
+
+        <h3 class="mt-4">Reaction Details</h3>
+        <p>
+          Each pathway reaction includes substrates, products, enzymes, and cofactors,
+          allowing detailed analysis of metabolic transformations.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          KEGG pathways integrate with systems biology and functional genomics analysis:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With NCBI Datasets:</strong> Get gene info, then explore KEGG pathways</li>
+          <li><strong>With STRING:</strong> Combine protein interaction networks with pathway context</li>
+          <li><strong>With UniProt:</strong> Link protein functions to metabolic pathways</li>
+          <li><strong>With ClinVar:</strong> Map disease variants to disrupted pathways</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.kegg.jp/" target="_blank">KEGG Official Site</a></li>
+          <li><a href="https://www.kegg.jp/kegg/document/" target="_blank">KEGG Documentation</a></li>
+          <li><a href="https://www.kegg.jp/kegg/pathway.html" target="_blank">Pathway Database</a></li>
+          <li><a href="https://www.kegg.jp/kegg-bin/show_organism?menu_type=organism" target="_blank">Supported Organisms</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.kegg.jp/" target="_blank">KEGG</a>
+        <a href="https://www.kaist.ac.kr/en/" target="_blank">KAIST</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./string.html">STRING</a>
+        <a href="./uniprot.html">UniProt</a>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

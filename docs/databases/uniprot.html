@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="UniProt — Protein function, sequences, domains, modifications, and disease annotations.">
+  <title>UniProt – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.uniprot.org/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>UniProt</h1>
+        <p class="subtitle">Protein Function, Sequences, Domains, Modifications, and Disease Annotations</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>UniProt</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          UniProt is the universal protein knowledge base providing comprehensive, high-quality protein sequences, functions,
+          and disease annotations for all known proteins across all organisms. It combines reviewed (Swiss-Prot) and unreviewed (TrEMBL)
+          entries with powerful search and analysis tools.
+        </p>
+
+        <div class="info-box">
+          <strong>Reviewed & Unreviewed Data</strong> — Swiss-Prot entries are manually curated and reviewed; TrEMBL entries are automatically
+          annotated. Both are accessible through a unified search interface.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Complete protein sequences</li>
+              <li>Functional annotations and GO terms</li>
+              <li>Domain and motif information</li>
+              <li>Post-translational modifications</li>
+              <li>Disease and variant associations</li>
+              <li>Protein interactions</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Look up protein function and properties</li>
+              <li>Find protein domains and motifs</li>
+              <li>Identify post-translational modifications</li>
+              <li>Link variants to protein features</li>
+              <li>Discover disease-related proteins</li>
+              <li>Get subcellular localization</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Protein Sequences</strong></td>
+              <td>Full amino acid sequences with length and molecular weight</td>
+              <td><code>uniprot_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Function & Keywords</strong></td>
+              <td>Protein function, biological role, and associated keywords</td>
+              <td><code>uniprot_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Domains & Features</strong></td>
+              <td>Pfam/InterPro domains, motifs, active sites, binding regions</td>
+              <td><code>uniprot_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Post-translational Modifications</strong></td>
+              <td>Phosphorylation, ubiquitination, glycosylation, sumoylation</td>
+              <td><code>uniprot_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Disease & Variants</strong></td>
+              <td>Disease associations, natural variants, and sequence variations</td>
+              <td><code>uniprot_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Subcellular Location</strong></td>
+              <td>Protein localization, signal peptides, transmembrane regions</td>
+              <td><code>uniprot_search</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Protein Search & Annotation</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>uniprot_search</code></strong></p>
+            <p class="text-muted">Search for proteins by name, gene symbol, or UniProt ID.</p>
+            <p><strong>Parameters:</strong> query (string: protein name, gene symbol, or UniProt ID), organism (string, optional, e.g., "Homo sapiens")</p>
+            <p><strong>Returns:</strong> Protein name, function, domains, expression levels, disease associations, subcellular location</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Query Types:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><code>P12345</code> — UniProt Accession Number</li>
+                <li><code>BRCA1_HUMAN</code> — Gene symbol and organism</li>
+                <li><code>breast cancer type 1</code> — Protein description</li>
+                <li><code>TP53</code> — Gene symbol (organism inferred)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Look up a protein and its domains</h3>
+          <pre><code>"What are the domains and functional regions of the human BRCA1 protein?"</code></pre>
+          <p class="text-muted">Tool: <code>uniprot_search</code> with query="BRCA1" and organism="Homo sapiens"</p>
+        </div>
+
+        <div class="card">
+          <h3>Find disease-associated proteins</h3>
+          <pre><code>"Which proteins are associated with cystic fibrosis?"</code></pre>
+          <p class="text-muted">Tool: <code>uniprot_search</code> with query="cystic fibrosis" and organism="Homo sapiens"</p>
+        </div>
+
+        <div class="card">
+          <h3>Identify protein-coding variants</h3>
+          <pre><code>"What are the known variants of the TP53 protein in UniProt?"</code></pre>
+          <p class="text-muted">Tool: <code>uniprot_search</code> with query="TP53" to get variants and sequence positions</p>
+        </div>
+
+        <div class="card">
+          <h3>Check subcellular location</h3>
+          <pre><code>"Where in the cell is the EGFR protein localized?"</code></pre>
+          <p class="text-muted">Tool: <code>uniprot_search</code> with query="EGFR" to retrieve location and transmembrane features</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Protein Annotation Details</h2>
+
+        <h3>Domains and Motifs</h3>
+        <p>
+          UniProt annotates protein domains using InterPro, Pfam, SMART, and other databases.
+          Each domain is mapped to amino acid positions and functional significance.
+        </p>
+
+        <h3>Post-Translational Modifications (PTMs)</h3>
+        <p style="margin-top: 1rem;">
+          Key PTM types include:
+        </p>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>Phosphorylation:</strong> Serine, threonine, tyrosine residues</li>
+          <li><strong>Ubiquitination:</strong> Lysine residues (protein degradation)</li>
+          <li><strong>Glycosylation:</strong> Asparagine (N-linked) or serine/threonine (O-linked)</li>
+          <li><strong>Sumoylation:</strong> Lysine residues (regulatory)</li>
+          <li><strong>Acetylation:</strong> Lysine residues (gene regulation)</li>
+        </ul>
+
+        <h3 class="mt-4">Expression Information</h3>
+        <p>
+          UniProt includes tissue and condition-specific expression data for many proteins,
+          integrated from RNA-seq and microarray studies.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          UniProt works seamlessly with other bioinformatics tools:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With NCBI Datasets:</strong> Get gene info, then fetch protein details from UniProt</li>
+          <li><strong>With Ensembl:</strong> Find gene variants, then map them to protein domains using UniProt</li>
+          <li><strong>With PDB:</strong> Get protein sequence from UniProt, then find 3D structures</li>
+          <li><strong>With ClinVar:</strong> Link clinical variants to protein regions and domains</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.uniprot.org/" target="_blank">UniProt Official Site</a></li>
+          <li><a href="https://www.uniprot.org/help" target="_blank">UniProt Help & Documentation</a></li>
+          <li><a href="https://rest.uniprot.org/" target="_blank">UniProt REST API</a></li>
+          <li><a href="https://www.uniprot.org/uniprotkb" target="_blank">UniProtKB Browser</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.uniprot.org/" target="_blank">UniProt</a>
+        <a href="https://www.ebi.ac.uk/" target="_blank">EBI Home</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+        <a href="./ensembl.html">Ensembl</a>
+        <a href="./rcsb-pdb.html">RCSB PDB</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NCBI BLAST — Sequence similarity search across nucleotide and protein databases.">
+  <title>NCBI BLAST – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://blast.ncbi.nlm.nih.gov/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>NCBI BLAST</h1>
+        <p class="subtitle">Sequence Similarity Search Against NCBI Nucleotide and Protein Databases</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>NCBI BLAST</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          NCBI BLAST (Basic Local Alignment Search Tool) is the gold standard for sequence similarity searching.
+          It compares a DNA, RNA, or protein sequence against vast databases to find similar sequences,
+          identifying homologs, orthologs, and potential off-target matches.
+        </p>
+
+        <div class="info-box">
+          <strong>Multiple BLAST Variants Available:</strong> blastn (nucleotide-nucleotide), blastp (protein-protein),
+          blastx (translated DNA search), tblastn (protein against translated DNA), and more.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Nucleotide (blastn) searches</li>
+              <li>Protein (blastp) searches</li>
+              <li>Translated searches (blastx, tblastn)</li>
+              <li>Optimized scoring matrices (BLOSUM, PAM)</li>
+              <li>E-value statistics</li>
+              <li>Multi-hit alignment reporting</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Find homologous sequences</li>
+              <li>Identify gene origin/organism</li>
+              <li>Detect potential splice variants</li>
+              <li>Screen for off-target amplification</li>
+              <li>Validate sequence assemblies</li>
+              <li>Discover evolutionary relationships</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Search Targets Available</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Database</th>
+              <th>Description</th>
+              <th>Program</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Nucleotide (nr)</strong></td>
+              <td>All non-redundant nucleotide sequences</td>
+              <td>blastn, tblastn</td>
+            </tr>
+            <tr>
+              <td><strong>Protein (nr)</strong></td>
+              <td>All non-redundant protein sequences</td>
+              <td>blastp, tblastn</td>
+            </tr>
+            <tr>
+              <td><strong>RefSeq</strong></td>
+              <td>NCBI curated reference sequences</td>
+              <td>blastn, blastp</td>
+            </tr>
+            <tr>
+              <td><strong>UniProt</strong></td>
+              <td>Universal Protein Resource sequences</td>
+              <td>blastp</td>
+            </tr>
+            <tr>
+              <td><strong>Genome Assemblies</strong></td>
+              <td>Specific organism genome databases</td>
+              <td>blastn, blastx</td>
+            </tr>
+            <tr>
+              <td><strong>EST (GSS)</strong></td>
+              <td>Expressed sequence tags and genome survey sequences</td>
+              <td>blastn</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+        <div class="card">
+          <div class="card-header">
+            <h3>BLAST Search Operations</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>blast_search</code></strong></p>
+            <p class="text-muted">Perform a BLAST search against NCBI databases.</p>
+            <p><strong>Parameters:</strong></p>
+            <ul style="margin-left: 1.5rem;">
+              <li><code>sequence</code> (string) - DNA, RNA, or protein sequence</li>
+              <li><code>program</code> (string) - blastn, blastp, blastx, tblastn, tblastx</li>
+              <li><code>database</code> (string, optional) - nr, refseq, or genome-specific</li>
+              <li><code>max_hits</code> (integer, optional) - limit results (default: 100)</li>
+              <li><code>evalue_threshold</code> (float, optional) - E-value cutoff (default: 1e-5)</li>
+            </ul>
+            <p><strong>Returns:</strong> Ranked hits with scores, E-values, alignments, and metadata</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+        
+        <div class="card">
+          <h3>Find homologous genes</h3>
+          <pre><code>"Search for sequences similar to the human EGFR gene. Show the top 10 matches."</code></pre>
+          <p class="text-muted">Tool: <code>blast_search</code> with program="blastn", max_hits=10</p>
+        </div>
+
+        <div class="card">
+          <h3>Verify PCR primer specificity</h3>
+          <pre><code>"BLAST this PCR primer sequence against the human genome to check for off-target binding: CGGTGCTGGTCTGGGTCTG"</code></pre>
+          <p class="text-muted">Tool: <code>blast_search</code> with program="blastn"</p>
+        </div>
+
+        <div class="card">
+          <h3>Protein-protein homology</h3>
+          <pre><code>"Find protein homologs to the TP53 protein sequence in the nr database."</code></pre>
+          <p class="text-muted">Tool: <code>blast_search</code> with program="blastp"</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Scoring & Statistics</h2>
+        <p>
+          BLAST results are ranked by statistical significance using E-values (expected values).
+          A lower E-value indicates greater statistical significance of the match.
+        </p>
+        <div class="info-box">
+          <strong>E-value Interpretation:</strong>
+          <ul style="margin-top: 1rem; margin-left: 1.5rem;">
+            <li>E &lt; 1e-10: Extremely significant (near-certain match)</li>
+            <li>E &lt; 1e-5: Highly significant (very likely homolog)</li>
+            <li>E &lt; 0.01: Significant (probable homolog)</li>
+            <li>E &gt; 0.01: Marginal (weak similarity)</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://blast.ncbi.nlm.nih.gov/" target="_blank">NCBI BLAST Online Tool</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/books/NBK279690/" target="_blank">BLAST Command Line Help</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/blast/why.shtml" target="_blank">About BLAST</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3658484/" target="_blank">BLAST+ Paper (Camacho et al.)</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://blast.ncbi.nlm.nih.gov/" target="_blank">NCBI BLAST</a>
+        <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">NCBI Home</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+        <a href="./ensembl.html">Ensembl</a>
+        <a href="./uniprot.html">UniProt</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

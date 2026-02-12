@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Semantic Scholar — AI-powered academic metadata, citation networks, and impact metrics.">
+  <title>Semantic Scholar – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.semanticscholar.org/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>Semantic Scholar</h1>
+        <p class="subtitle">AI-Powered Academic Metadata, Citation Networks, and Impact Metrics</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>Semantic Scholar</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          Semantic Scholar is an AI-powered academic search engine that automatically extracts information from research papers
+          across all scientific disciplines. It provides intelligent metadata extraction, citation networks, influence metrics,
+          and paper recommendations powered by machine learning. The platform indexes over 200 million research papers from diverse sources
+          including PubMed, arXiv, and open access repositories.
+        </p>
+
+        <div class="info-box">
+          <strong>Intelligent Discovery</strong> — Semantic Scholar uses AI to extract key entities (genes, proteins, methods) from paper text,
+          build citation networks, and identify influential papers based on semantic similarity and citation impact.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>AI-powered entity extraction from papers</li>
+              <li>Citation relationship mapping</li>
+              <li>Influence and impact metrics</li>
+              <li>Semantic paper similarity</li>
+              <li>Author profile and impact tracking</li>
+              <li>Institution and research collaboration analysis</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Find influential papers in a research area</li>
+              <li>Discover citation networks and research lineages</li>
+              <li>Search for specific methods or techniques</li>
+              <li>Track author impact and collaboration</li>
+              <li>Identify trending research topics</li>
+              <li>Find similar papers and research directions</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Paper Metadata</strong></td>
+              <td>Title, abstract, authors, publication venue, year</td>
+              <td><code>semantic_scholar_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Citation Information</strong></td>
+              <td>In-citations, out-citations, citation contexts</td>
+              <td><code>semantic_scholar_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Entity Extraction</strong></td>
+              <td>Automatically extracted genes, proteins, methods, concepts</td>
+              <td><code>semantic_scholar_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Impact Metrics</strong></td>
+              <td>Influence score, citation velocity, h-index for authors</td>
+              <td><code>semantic_scholar_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Semantic Relationships</strong></td>
+              <td>Similar papers, related topics, research trends</td>
+              <td><code>semantic_scholar_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Author Information</strong></td>
+              <td>Author profiles, institution affiliations, publication history</td>
+              <td><code>semantic_scholar_search</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>AI-Powered Paper Search and Analysis</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>semantic_scholar_search</code></strong></p>
+            <p class="text-muted">Search Semantic Scholar for papers with AI-powered analysis and citation metrics.</p>
+            <p><strong>Parameters:</strong> query (string: keywords, topics, or natural language), author (string, optional: author name), year (integer, optional: publication year or range)</p>
+            <p><strong>Returns:</strong> Paper metadata, citation counts, influence score, extracted entities, similar papers, author information, open access links</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Search Modifiers:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><code>query="BRCA1 AND mutations"</code> — Boolean operators for precision</li>
+                <li><code>author="Smith, Jane"</code> — Find papers by specific author</li>
+                <li><code>year=2023</code> — Filter by publication year</li>
+                <li><code>query="CRISPR gene therapy" author="Zhang"</code> — Combined search</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Find influential papers on a topic</h3>
+          <pre><code>"Show me the most influential papers on CRISPR gene therapy from the last 5 years."</code></pre>
+          <p class="text-muted">Tool: <code>semantic_scholar_search</code> with query="CRISPR gene therapy", year=2019-2024</p>
+        </div>
+
+        <div class="card">
+          <h3>Discover papers by an author</h3>
+          <pre><code>"Find all papers by Jennifer Doudna related to CRISPR biology."</code></pre>
+          <p class="text-muted">Tool: <code>semantic_scholar_search</code> with query="CRISPR", author="Doudna, Jennifer"</p>
+        </div>
+
+        <div class="card">
+          <h3>Explore citation networks</h3>
+          <pre><code>"What papers cite the seminal BRCA1 discovery paper, and what research directions have they explored?"</code></pre>
+          <p class="text-muted">Tool: <code>semantic_scholar_search</code> with query="BRCA1" to identify foundational work and citations</p>
+        </div>
+
+        <div class="card">
+          <h3>Track research trends</h3>
+          <pre><code>"What are the trending topics in single-cell genomics, and who are the leading researchers?"</code></pre>
+          <p class="text-muted">Tool: <code>semantic_scholar_search</code> with query="single-cell genomics" filtered by recent years</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Search Strategies</h2>
+
+        <h3>Semantic Search</h3>
+        <p>
+          Semantic Scholar understands natural language queries, allowing searches like "DNA repair mechanisms"
+          to find papers about various repair pathways without explicit keyword matching.
+        </p>
+
+        <h3>Citation Network Analysis</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li>Identify landmark papers and citations</li>
+          <li>Trace research lineages and methodological development</li>
+          <li>Discover research communities and collaborations</li>
+        </ul>
+
+        <h3>Entity-Based Discovery</h3>
+        <p style="margin-top: 1rem;">
+          Search for papers discussing specific genes, proteins, diseases, or methods thanks to AI entity extraction.
+          Find papers that mention your genes of interest even if they aren't in the abstract.
+        </p>
+
+        <h3>Author and Impact Tracking</h3>
+        <p style="margin-top: 1rem;">
+          Monitor authors, research groups, and institutions for publication activity and influence metrics.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          Semantic Scholar enhances literature discovery workflows:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With PubMed:</strong> Combine abstract search with semantic paper recommendations</li>
+          <li><strong>With PMC:</strong> Find influential papers, then access full text</li>
+          <li><strong>With Gene Databases:</strong> Discover papers about specific genes ranked by influence</li>
+          <li><strong>With UniProt:</strong> Find protein-centric research and citation contexts</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.semanticscholar.org/" target="_blank">Semantic Scholar Official Site</a></li>
+          <li><a href="https://www.semanticscholar.org/about" target="_blank">Semantic Scholar About</a></li>
+          <li><a href="https://api.semanticscholar.org/" target="_blank">Semantic Scholar API Documentation</a></li>
+          <li><a href="https://www.semanticscholar.org/research" target="_blank">Research Papers about Semantic Scholar</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.semanticscholar.org/" target="_blank">Semantic Scholar</a>
+        <a href="https://allenai.org/" target="_blank">Allen Institute for AI</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-pubmed.html">NCBI PubMed</a>
+        <a href="./pmc.html">PubMed Central</a>
+        <a href="./ncbi-datasets.html">NCBI Datasets</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

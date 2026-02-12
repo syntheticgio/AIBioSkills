@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GTEx — Tissue-specific gene expression and eQTL data from 53 tissues.">
+  <title>GTEx – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://gtexportal.org/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>GTEx</h1>
+        <p class="subtitle">Tissue-Specific Gene Expression and eQTL Data from 53 Human Tissues</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>GTEx</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          The Genotype-Tissue Expression (GTEx) project provides a comprehensive resource of
+          tissue-specific gene expression and expression quantitative trait loci (eQTLs) across 53 human tissues.
+          Based on RNA-seq data from nearly 1,000 individuals, GTEx enables understanding of how genetic variants
+          affect gene expression in different tissues and tissues-specific regulatory mechanisms.
+        </p>
+
+        <div class="info-box">
+          <strong>Multi-tissue RNA-seq</strong> — GTEx generates transcriptomic data from diverse human tissues,
+          revealing tissue-specific gene regulation and the effects of genetic variation on expression.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>53 tissue types surveyed</li>
+              <li>TPM expression values</li>
+              <li>eQTL associations</li>
+              <li>1000+ individual donors</li>
+              <li>Tissue-specific regulation</li>
+              <li>Allele-specific expression</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Find tissue-specific expression</li>
+              <li>Study eQTL associations</li>
+              <li>Understand variant effects</li>
+              <li>Identify disease-relevant tissues</li>
+              <li>Validate expression predictions</li>
+              <li>Prioritize disease genes</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Gene Expression</strong></td>
+              <td>TPM (transcripts per million) values across tissues</td>
+              <td><code>gtex_get_expression</code></td>
+            </tr>
+            <tr>
+              <td><strong>Tissue Specificity</strong></td>
+              <td>Tissue specificity scores and expression patterns</td>
+              <td><code>gtex_get_expression</code></td>
+            </tr>
+            <tr>
+              <td><strong>eQTLs</strong></td>
+              <td>Expression quantitative trait loci—genetic variants affecting expression</td>
+              <td><code>gtex_get_expression</code></td>
+            </tr>
+            <tr>
+              <td><strong>eQTL Effects</strong></td>
+              <td>Effect size, p-value, and allele frequency for eQTL associations</td>
+              <td><code>gtex_get_expression</code></td>
+            </tr>
+            <tr>
+              <td><strong>Tissue Grouping</strong></td>
+              <td>Similar tissues grouped by cell type and function</td>
+              <td><code>gtex_get_expression</code></td>
+            </tr>
+            <tr>
+              <td><strong>Quality Metrics</strong></td>
+              <td>Sample quality scores and sequencing depth per tissue</td>
+              <td><code>gtex_get_expression</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Gene Expression & eQTL Queries</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>gtex_get_expression</code></strong></p>
+            <p class="text-muted">Retrieve tissue-specific expression and eQTL associations for genes.</p>
+            <p><strong>Parameters:</strong> gene (string: gene name or Ensembl ID), tissue (string, optional: specific tissue or "all")</p>
+            <p><strong>Returns:</strong> TPM expression values by tissue, tissue-specific eQTLs, effect sizes, allele frequencies, significance scores</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Tissue Categories:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><strong>Brain:</strong> Frontal cortex, anterior cingulate cortex, hippocampus, etc.</li>
+                <li><strong>Heart:</strong> Left ventricle, atrial appendage</li>
+                <li><strong>GI Tract:</strong> Esophagus, stomach, small intestine, colon</li>
+                <li><strong>Immune:</strong> Blood, thymus, spleen</li>
+                <li><strong>Endocrine:</strong> Pancreas, thyroid, adrenal gland, pituitary</li>
+                <li><strong>Other:</strong> Liver, kidney, lung, muscle, skin, adipose</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Get tissue-specific expression</h3>
+          <pre><code>"What is the expression level of BRCA1 in brain versus breast tissue according to GTEx?"</code></pre>
+          <p class="text-muted">Tool: <code>gtex_get_expression</code> with gene="BRCA1" and tissue parameter</p>
+        </div>
+
+        <div class="card">
+          <h3>Find eQTLs for a gene</h3>
+          <pre><code>"What variants (eQTLs) affect the expression of TP53 in different tissues?"</code></pre>
+          <p class="text-muted">Tool: <code>gtex_get_expression</code> with gene="TP53"</p>
+        </div>
+
+        <div class="card">
+          <h3>Identify tissue-specific genes</h3>
+          <pre><code>"Which genes are specifically expressed in liver tissue?"</code></pre>
+          <p class="text-muted">Tool: <code>gtex_get_expression</code> with tissue="Liver"</p>
+        </div>
+
+        <div class="card">
+          <h3>Study tissue-specific regulation</h3>
+          <pre><code>"Show all tissues and eQTL associations for the EGFR gene."</code></pre>
+          <p class="text-muted">Tool: <code>gtex_get_expression</code> with gene="EGFR" and tissue="all"</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Understanding GTEx Data</h2>
+
+        <h3>Gene Expression Units (TPM)</h3>
+        <p>
+          GTEx reports expression in Transcripts Per Million (TPM), a normalized measure enabling
+          comparison across genes and samples. TPM values are normalized by gene length and total
+          sequencing depth in each sample.
+        </p>
+
+        <h3 class="mt-4">Expression Quantitative Trait Loci (eQTLs)</h3>
+        <p>
+          eQTLs are genetic variants that significantly affect gene expression. GTEx provides:
+        </p>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>Cis-eQTLs:</strong> Variants near the gene (&lt; 1 Mb) affecting local expression</li>
+          <li><strong>Trans-eQTLs:</strong> Distant variants affecting expression (detected in GTEx)</li>
+          <li><strong>Effect Sizes:</strong> Slope and confidence intervals for allele effects</li>
+          <li><strong>Tissue-specificity:</strong> Which tissues show eQTL associations</li>
+        </ul>
+
+        <h3 class="mt-4">Tissue Specificity</h3>
+        <p>
+          GTEx identifies tissue-specific expression patterns, revealing which tissues have high or low
+          expression for each gene. This helps prioritize tissues for disease studies and drug development.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          GTEx data enhances functional analysis across the datasets ecosystem:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With Ensembl:</strong> Link genetic variants to tissue-specific expression changes</li>
+          <li><strong>With ClinVar:</strong> Assess how disease variants affect tissue expression</li>
+          <li><strong>With GWAS:</strong> Identify disease variants through eQTL associations</li>
+          <li><strong>With UniProt:</strong> Correlate protein expression with tissue-specific transcription</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://gtexportal.org/" target="_blank">GTEx Portal</a></li>
+          <li><a href="https://gtexportal.org/home/staticPage/apiDocs" target="_blank">GTEx API Documentation</a></li>
+          <li><a href="https://www.gtexportal.org/home/tissue" target="_blank">Tissue Search and Browse</a></li>
+          <li><a href="https://www.nature.com/articles/nature24676" target="_blank">GTEx Consortium Paper</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://gtexportal.org/" target="_blank">GTEx Portal</a>
+        <a href="https://www.genome.gov/" target="_blank">NHGRI</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ensembl.html">Ensembl</a>
+        <a href="./ncbi-pubmed.html">PubMed</a>
+        <a href="./gnomad.html">gnomAD</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

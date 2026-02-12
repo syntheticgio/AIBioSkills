@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Expression Atlas — Gene expression experiments, baseline expression, and differential expression in diseases.">
+  <title>Expression Atlas – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.ebi.ac.uk/gxa/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>Expression Atlas</h1>
+        <p class="subtitle">Gene Expression Experiments, Baseline Expression, and Disease Differential Expression</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>Expression Atlas</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          Expression Atlas is a resource for gene expression data across multiple organisms and experimental conditions. It provides access to
+          baseline expression patterns across tissues and cell types, and differential expression analysis in disease states, developmental stages,
+          and experimental treatments. Data comes from RNA-seq and microarray experiments submitted to ArrayExpress and the ENA.
+        </p>
+
+        <div class="info-box">
+          <strong>Expression Insights</strong> — Expression Atlas integrates thousands of curated experiments to provide tissue-specific expression profiles,
+          developmental expression patterns, and disease-associated expression changes.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Baseline gene expression across tissues</li>
+              <li>Tissue-specific expression patterns</li>
+              <li>Differential expression in diseases</li>
+              <li>Developmental expression timelines</li>
+              <li>Experimental condition comparisons</li>
+              <li>Multi-organism expression data</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Find which tissues express a gene</li>
+              <li>Identify disease-related expression changes</li>
+              <li>Compare expression across conditions</li>
+              <li>Discover tissue-specific splice variants</li>
+              <li>Analyze developmental expression patterns</li>
+              <li>Investigate treatment responses</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Baseline Expression</strong></td>
+              <td>Gene expression levels across tissues and cell types</td>
+              <td><code>expression_atlas_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Differential Expression</strong></td>
+              <td>Expression changes between disease and normal states</td>
+              <td><code>expression_atlas_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Experimental Metadata</strong></td>
+              <td>Study design, sample information, and protocol details</td>
+              <td><code>expression_atlas_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Expression Values</strong></td>
+              <td>Normalized counts, FPKM, TPM, or z-scores</td>
+              <td><code>expression_atlas_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Statistical Significance</strong></td>
+              <td>P-values, fold-changes, and confidence intervals</td>
+              <td><code>expression_atlas_search</code></td>
+            </tr>
+            <tr>
+              <td><strong>Cell Type Markers</strong></td>
+              <td>Genes with cell/tissue-specific expression patterns</td>
+              <td><code>expression_atlas_search</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Gene Expression Search and Analysis</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>expression_atlas_search</code></strong></p>
+            <p class="text-muted">Query gene expression data across tissues, conditions, and disease states.</p>
+            <p><strong>Parameters:</strong> gene (string: gene symbol or Ensembl ID), organism (string, optional: species name), experiment (string, optional: experiment type or condition)</p>
+            <p><strong>Returns:</strong> Expression values, tissue specificity, fold-changes, p-values, experiment metadata, expression plots</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Experiment Types:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li><code>baseline</code> — Normal tissue expression across cell types</li>
+                <li><code>differential</code> — Disease vs. normal comparison</li>
+                <li><code>developmental</code> — Expression during development</li>
+                <li><code>treatment</code> — Drug or stimulus response</li>
+                <li><code>single-cell</code> — Single-cell RNA-seq data</li>
+                <li><code>spatial</code> — Spatial transcriptomics data</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Find tissue-specific expression</h3>
+          <pre><code>"Which tissues express the BRCA1 gene at high levels?"</code></pre>
+          <p class="text-muted">Tool: <code>expression_atlas_search</code> with gene="BRCA1"</p>
+        </div>
+
+        <div class="card">
+          <h3>Identify disease-related expression changes</h3>
+          <pre><code>"How is TP53 expression altered in cancer samples compared to normal tissue?"</code></pre>
+          <p class="text-muted">Tool: <code>expression_atlas_search</code> with gene="TP53", experiment="differential"</p>
+        </div>
+
+        <div class="card">
+          <h3>Analyze developmental expression</h3>
+          <pre><code>"What is the expression pattern of SOX2 during human neural development?"</code></pre>
+          <p class="text-muted">Tool: <code>expression_atlas_search</code> with gene="SOX2", experiment="developmental"</p>
+        </div>
+
+        <div class="card">
+          <h3>Compare expression across conditions</h3>
+          <pre><code>"How does CFTR expression change in response to hypoxia treatment?"</code></pre>
+          <p class="text-muted">Tool: <code>expression_atlas_search</code> with gene="CFTR", experiment="treatment"</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Search Strategies</h2>
+
+        <h3>Baseline Expression Analysis</h3>
+        <p>
+          Retrieve normal expression levels across 60+ tissues and cell types to understand which tissues express your gene of interest
+          and identify tissue-specific expression patterns.
+        </p>
+
+        <h3>Disease Expression Profiling</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li>Compare expression in disease samples vs. healthy controls</li>
+          <li>Identify significantly dysregulated genes</li>
+          <li>Find disease biomarkers and prognostic markers</li>
+        </ul>
+
+        <h3>Single-Cell Resolution</h3>
+        <p style="margin-top: 1rem;">
+          Access single-cell RNA-seq experiments to determine expression at cell-type and developmental stage-specific resolution.
+        </p>
+
+        <h3>Multi-Organism Comparative Analysis</h3>
+        <p style="margin-top: 1rem;">
+          Compare expression patterns between human, mouse, zebrafish, and other organisms to understand evolutionary conservation
+          of tissue-specific expression.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          Expression Atlas enhances functional genomics research:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With Ensembl:</strong> Map genes to genomic coordinates and retrieve transcript-specific expression</li>
+          <li><strong>With GTEx:</strong> Compare tissue expression across databases</li>
+          <li><strong>With UniProt:</strong> Link expression patterns to protein localization and function</li>
+          <li><strong>With Reactome:</strong> Analyze genes in disease-specific pathways</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.ebi.ac.uk/gxa/" target="_blank">Expression Atlas Official Site</a></li>
+          <li><a href="https://www.ebi.ac.uk/gxa/help/index.html" target="_blank">Expression Atlas Help Guide</a></li>
+          <li><a href="https://www.ebi.ac.uk/arrayexpress/" target="_blank">ArrayExpress (Raw Expression Data)</a></li>
+          <li><a href="https://gtexportal.org/" target="_blank">GTEx Portal (Tissue Expression)</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.ebi.ac.uk/gxa/" target="_blank">Expression Atlas</a>
+        <a href="https://www.ebi.ac.uk/" target="_blank">EMBL-EBI</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./gtex.html">GTEx</a>
+        <a href="./ensembl.html">Ensembl</a>
+        <a href="./reactome.html">Reactome</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

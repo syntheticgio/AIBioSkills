@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NCBI Datasets — Reference genome summaries, gene information, and programmatic downloads.">
+  <title>NCBI Datasets – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://www.ncbi.nlm.nih.gov/datasets/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>NCBI Datasets</h1>
+        <p class="subtitle">Programmatic Access to NCBI Reference Genomes, Gene Information, and Sequence Data</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Overview -->
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases">Databases</a>
+          <span>›</span>
+          <span>NCBI Datasets</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          NCBI Datasets is the National Center for Biotechnology Information's programmatic interface for accessing genomic data.
+          It provides rapid summaries of reference genomes, gene information, protein sequences, and assembly annotations.
+          The server integrates with the NCBI Datasets command-line tool for efficient data retrieval and batch processing.
+        </p>
+
+        <div class="info-box">
+          <strong>No API Keys Required</strong> — All NCBI Datasets tools are freely accessible. The MCP server uses the NCBI Datasets CLI
+          (which can be installed optionally) or REST endpoints for data retrieval.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>Reference genome assembly information</li>
+              <li>Gene summaries and annotations</li>
+              <li>Batch gene queries</li>
+              <li>Sequence downloads in FASTA format</li>
+              <li>Taxon-based genome searches</li>
+              <li>GFF/GCF file information</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Look up genome assembly versions</li>
+              <li>Fetch gene information across organisms</li>
+              <li>Batch retrieve sequences for multiple genes</li>
+              <li>Identify organisms by taxonomy</li>
+              <li>Download complete genome data</li>
+              <li>Access gene annotations and exon structures</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data Types -->
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Genome Summaries</strong></td>
+              <td>Assembly statistics, version information, organism details</td>
+              <td><code>datasets_summary_genome</code></td>
+            </tr>
+            <tr>
+              <td><strong>Gene Summaries</strong></td>
+              <td>Gene names, symbols, descriptions, locations, protein information</td>
+              <td><code>datasets_summary_gene</code></td>
+            </tr>
+            <tr>
+              <td><strong>Gene Downloads</strong></td>
+              <td>Full gene data packages with sequences and annotations</td>
+              <td><code>datasets_download_gene</code></td>
+            </tr>
+            <tr>
+              <td><strong>Genome Downloads</strong></td>
+              <td>Complete assembly sequences and annotation files</td>
+              <td><code>datasets_download_genome</code></td>
+            </tr>
+            <tr>
+              <td><strong>Batch Gene Queries</strong></td>
+              <td>Process multiple gene IDs/symbols in a single query</td>
+              <td><code>batch_gene_summary</code></td>
+            </tr>
+            <tr>
+              <td><strong>Protein Information</strong></td>
+              <td>Associated protein sequences and product information</td>
+              <td>Gene summaries include protein details</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- MCP Tools -->
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+        <div class="card">
+          <div class="card-header">
+            <h3>Genome Operations</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>datasets_summary_genome</code></strong></p>
+            <p class="text-muted">Fetch assembly summaries for an organism or tax ID.</p>
+            <p><strong>Parameters:</strong> organism (string), tax_id (integer)</p>
+            <p><strong>Returns:</strong> Assembly name, version, organism info, contig/scaffold counts</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong><code>datasets_download_genome</code></strong></p>
+              <p class="text-muted">Download sequence data for a genome assembly.</p>
+              <p><strong>Parameters:</strong> accession (string), format (optional: fasta, gff3)</p>
+              <p><strong>Returns:</strong> Download URL, file information, data summary</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Gene Operations</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>datasets_summary_gene</code></strong></p>
+            <p class="text-muted">Retrieve gene information by symbol, ID, or genomic location.</p>
+            <p><strong>Parameters:</strong> gene (string, ID or symbol), organism (optional), tax_id (optional)</p>
+            <p><strong>Returns:</strong> Gene name, description, chromosomal location, exon structure, protein accession</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong><code>datasets_download_gene</code></strong></p>
+              <p class="text-muted">Download complete gene data packages.</p>
+              <p><strong>Parameters:</strong> gene (string), organism (optional), include_protein (boolean)</p>
+              <p><strong>Returns:</strong> Package location, contents summary, sequence information</p>
+
+              <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                <p><strong><code>batch_gene_summary</code></strong></p>
+                <p class="text-muted">Process multiple genes in a single query with automatic deduplication.</p>
+                <p><strong>Parameters:</strong> genes (comma-separated list or array), organism (optional)</p>
+                <p><strong>Returns:</strong> Gene summaries for all queried genes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Example Queries -->
+      <section class="section">
+        <h2>Example Queries</h2>
+        
+        <div class="card">
+          <h3>Get the latest human genome assembly</h3>
+          <pre><code>"What is the current human genome reference assembly version (GRCh38/hg38)?"</code></pre>
+          <p class="text-muted">Tool: <code>datasets_summary_genome</code> with organism="Homo sapiens"</p>
+        </div>
+
+        <div class="card">
+          <h3>Look up a specific gene</h3>
+          <pre><code>"Give me the genomic location and exon structure of the human BRCA1 gene."</code></pre>
+          <p class="text-muted">Tool: <code>datasets_summary_gene</code> with gene="BRCA1"</p>
+        </div>
+
+        <div class="card">
+          <h3>Batch query multiple genes</h3>
+          <pre><code>"Summarize TP53, EGFR, BRCA1, and PTEN for me — include chromosomal locations and protein sizes."</code></pre>
+          <p class="text-muted">Tool: <code>batch_gene_summary</code> with genes=["TP53", "EGFR", "BRCA1", "PTEN"]</p>
+        </div>
+
+        <div class="card">
+          <h3>Find genes in a region</h3>
+          <pre><code>"What genes are located on chromosome 17 between positions 41000000 and 42000000?"</code></pre>
+          <p class="text-muted">Tool: <code>datasets_summary_gene</code> with taxon-based search</p>
+        </div>
+      </section>
+
+      <!-- Integration -->
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          NCBI Datasets tools work seamlessly with other tools in the MCP server:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With Ensembl:</strong> Retrieve gene summary from NCBI, then get detailed variant information from Ensembl</li>
+          <li><strong>With UniProt:</strong> Get NCBI gene info, then fetch protein domain details from UniProt using the protein accession</li>
+          <li><strong>With ClinVar:</strong> Identify genes from NCBI, then search for clinical variants in those genes</li>
+          <li><strong>With PDB:</strong> Get protein info from NCBI gene data, then find 3D structures in PDB</li>
+        </ul>
+      </section>
+
+      <!-- Technical Details -->
+      <section class="section">
+        <h2>Technical Details</h2>
+        <div class="two-column">
+          <div>
+            <h3>Data Source</h3>
+            <ul class="features-list">
+              <li>NCBI Reference Sequences (RefSeq)</li>
+              <li>GenBank assemblies</li>
+              <li>Official genome builds</li>
+              <li>Curated gene annotations</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Implementation</h3>
+            <ul class="features-list">
+              <li>Uses NCBI Datasets CLI (optional)</li>
+              <li>Fallback to REST API</li>
+              <li>Caching for frequent queries</li>
+              <li>Error handling for invalid inputs</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="mt-4">Requirements</h3>
+        <div class="info-box">
+          <p><strong>NCBI Datasets CLI (Optional)</strong> — Install for full functionality:</p>
+          <pre><code>conda install -c conda-forge ncbi-datasets-cli
+# or download from: https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/</code></pre>
+          <p style="margin-top: 1rem;">REST-only fallback available if CLI not installed.</p>
+        </div>
+      </section>
+
+      <!-- References -->
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://www.ncbi.nlm.nih.gov/datasets/" target="_blank">NCBI Datasets Official Site</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/" target="_blank">NCBI Datasets Documentation</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/command-line-tools/" target="_blank">Command-line Tools Guide</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/grc/" target="_blank">Genome Reference Consortium</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://www.ncbi.nlm.nih.gov/datasets/" target="_blank">NCBI Datasets</a>
+        <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">NCBI Home</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./ncbi-blast.html">NCBI BLAST</a>
+        <a href="./ncbi-clinvar.html">NCBI ClinVar</a>
+        <a href="./ncbi-pubmed.html">NCBI PubMed</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>

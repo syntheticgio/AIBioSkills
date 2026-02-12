@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AlphaFold — AI-predicted 3D protein structures with confidence scores and predicted aligned error.">
+  <title>AlphaFold – Database Reference</title>
+  <link rel="stylesheet" href="../css/dark-theme.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="../" class="logo">AIBioSkills</a>
+        <nav class="nav">
+          <a href="../#databases">All Databases</a>
+          <a href="https://alphafold.ebi.ac.uk/" target="_blank">Official Site</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="container">
+        <h1>AlphaFold</h1>
+        <p class="subtitle">AI-Predicted 3D Protein Structures with Confidence Scores</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <section class="section">
+        <div class="breadcrumb">
+          <a href="../">Home</a>
+          <span>›</span>
+          <a href="../#databases</a>
+          <span>›</span>
+          <span>AlphaFold</span>
+        </div>
+
+        <h2>Overview</h2>
+        <p>
+          AlphaFold is a deep learning system developed by DeepMind for structure prediction of proteins.
+          The AlphaFold Server provides structure predictions for nearly all known proteins in model organisms,
+          generated using advanced machine learning models trained on diverse protein structures.
+          Predictions include pLDDT confidence scores and predicted aligned error (PAE) for quality assessment.
+        </p>
+
+        <div class="info-box">
+          <strong>AI-Powered Predictions</strong> — AlphaFold uses deep neural networks to predict protein
+          3D structures from amino acid sequences, providing rapid structure availability for millions of proteins.
+        </div>
+
+        <div class="two-column mt-4">
+          <div>
+            <h3>Key Features</h3>
+            <ul class="features-list">
+              <li>AI-predicted 3D structures</li>
+              <li>pLDDT confidence scores</li>
+              <li>Predicted aligned error (PAE)</li>
+              <li>Genome-scale coverage</li>
+              <li>Multiple organism support</li>
+              <li>Accessible predictions</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Use Cases</h3>
+            <ul class="features-list">
+              <li>Rapidly obtain protein structures</li>
+              <li>Assess prediction confidence</li>
+              <li>Study multi-chain interactions</li>
+              <li>Design protein variants</li>
+              <li>Map variants to structure</li>
+              <li>Model protein dynamics</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Available Data Types</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Data Type</th>
+              <th>Description</th>
+              <th>Accessible Via</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>3D Structures</strong></td>
+              <td>Predicted atomic coordinates in PDB/mmCIF format</td>
+              <td><code>alphafold_get_prediction</code></td>
+            </tr>
+            <tr>
+              <td><strong>pLDDT Scores</strong></td>
+              <td>Per-residue confidence scores (0-100) indicating local structure accuracy</td>
+              <td><code>alphafold_get_prediction</code></td>
+            </tr>
+            <tr>
+              <td><strong>PAE Matrices</strong></td>
+              <td>Predicted aligned error showing inter-residue distance uncertainty</td>
+              <td><code>alphafold_get_prediction</code></td>
+            </tr>
+            <tr>
+              <td><strong>Model Information</strong></td>
+              <td>Prediction version, method, and accuracy metrics</td>
+              <td><code>alphafold_get_prediction</code></td>
+            </tr>
+            <tr>
+              <td><strong>Download Links</strong></td>
+              <td>Direct access to structure files and visualizations</td>
+              <td><code>alphafold_get_prediction</code></td>
+            </tr>
+            <tr>
+              <td><strong>Multi-domain Predictions</strong></td>
+              <td>Predictions for protein complexes and multi-chain assemblies</td>
+              <td><code>alphafold_get_prediction</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>MCP Tools in Datasets MCP Server</h2>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Structure Prediction Retrieval</h3>
+          </div>
+          <div class="card-body">
+            <p><strong><code>alphafold_get_prediction</code></strong></p>
+            <p class="text-muted">Retrieve AI-predicted protein structure from AlphaFold database.</p>
+            <p><strong>Parameters:</strong> uniprot_id (string: UniProt accession), organism (string, optional: "Homo sapiens", "Mus musculus", etc.)</p>
+            <p><strong>Returns:</strong> PDB structure file, pLDDT confidence scores per residue, PAE matrix, download URLs, model version</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+              <p><strong>Input Options:</strong></p>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>UniProt accession (e.g., P04637 for TP53_HUMAN)</li>
+                <li>Gene symbol with organism specification</li>
+                <li>UniProt entry name</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Example Queries</h2>
+
+        <div class="card">
+          <h3>Get AlphaFold prediction for a protein</h3>
+          <pre><code>"What is the AlphaFold-predicted structure for human TP53?"</code></pre>
+          <p class="text-muted">Tool: <code>alphafold_get_prediction</code> with uniprot_id="P04637"</p>
+        </div>
+
+        <div class="card">
+          <h3>Assess prediction confidence</h3>
+          <pre><code>"Show the pLDDT confidence scores for the predicted EGFR structure."</code></pre>
+          <p class="text-muted">Tool: <code>alphafold_get_prediction</code> with uniprot_id for EGFR</p>
+        </div>
+
+        <div class="card">
+          <h3>Compare organisms</h3>
+          <pre><code>"Compare AlphaFold predictions for TP53 across human and mouse."</code></pre>
+          <p class="text-muted">Tool: <code>alphafold_get_prediction</code> with organism parameter for different species</p>
+        </div>
+
+        <div class="card">
+          <h3>Download structure file</h3>
+          <pre><code>"Get the PDB format file for the AlphaFold-predicted BRCA1 structure."</code></pre>
+          <p class="text-muted">Tool: <code>alphafold_get_prediction</code> to retrieve download links</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Confidence Scores & Quality Assessment</h2>
+
+        <h3>pLDDT (per-residue confidence)</h3>
+        <p>
+          pLDDT scores range from 0 to 100 and indicate the predicted local distance difference test score,
+          representing confidence in local structure prediction:
+        </p>
+        <ul style="margin-left: 1.5rem;">
+          <li><strong>90-100:</strong> Very high confidence — structure likely correct</li>
+          <li><strong>70-90:</strong> High confidence — backbone well predicted</li>
+          <li><strong>50-70:</strong> Medium confidence — general fold correct but details uncertain</li>
+          <li><strong>&lt; 50:</strong> Low confidence — use with caution, likely disordered region</li>
+        </ul>
+
+        <h3 class="mt-4">PAE (Predicted Aligned Error)</h3>
+        <p>
+          PAE provides confidence in relative position and orientation of different protein regions.
+          Low PAE between regions indicates reliable inter-domain distances and orientations.
+          Useful for assessing multi-chain and multi-domain predictions.
+        </p>
+
+        <h3 class="mt-4">Multi-Chain Predictions</h3>
+        <p>
+          AlphaFold can predict protein complexes and multi-chain assemblies, important for
+          understanding protein-protein interactions and functional assemblies.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Comparison with Experimental Structures</h2>
+
+        <h3>When to Use AlphaFold</h3>
+        <ul style="margin-left: 1.5rem;">
+          <li>No experimental structure available (PDB)</li>
+          <li>Quick structure assessment needed</li>
+          <li>Genome-wide structural analysis</li>
+          <li>Protein engineering and design</li>
+          <li>Variant impact assessment</li>
+        </ul>
+
+        <h3 class="mt-4">Complementarity with PDB</h3>
+        <p>
+          AlphaFold predictions complement experimental structures from PDB. For well-studied proteins
+          with high-resolution experimental structures, PDB remains the gold standard. AlphaFold
+          extends coverage to proteins without experimental structures.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Integration with Datasets MCP</h2>
+        <p>
+          AlphaFold predictions enhance structural analysis across datasets:
+        </p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1rem;">
+          <li><strong>With UniProt:</strong> Map protein features to AlphaFold-predicted structure</li>
+          <li><strong>With PDB:</strong> Compare experimental vs. predicted structures</li>
+          <li><strong>With InterPro:</strong> Validate domain predictions in structural context</li>
+          <li><strong>With Ensembl:</strong> Assess impact of variants on predicted structure</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Learn More</h2>
+        <ul class="features-list">
+          <li><a href="https://alphafold.ebi.ac.uk/" target="_blank">AlphaFold Server</a></li>
+          <li><a href="https://www.deepmind.com/research/publications/highly-accurate-protein-structure-prediction-with-alphafold" target="_blank">AlphaFold2 Paper</a></li>
+          <li><a href="https://alphafoldserver.com/" target="_blank">AlphaFold Server Documentation</a></li>
+          <li><a href="https://github.com/deepmind/alphafold" target="_blank">AlphaFold GitHub Repository</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Database</h4>
+        <a href="https://alphafold.ebi.ac.uk/" target="_blank">AlphaFold Server</a>
+        <a href="https://www.deepmind.com/" target="_blank">DeepMind</a>
+      </div>
+      <div class="footer-section">
+        <h4>MCP Server</h4>
+        <a href="https://github.com/anomalyco/datasets-mcp" target="_blank">GitHub Repository</a>
+        <a href="https://modelcontextprotocol.io" target="_blank">MCP Documentation</a>
+      </div>
+      <div class="footer-section">
+        <h4>Related Databases</h4>
+        <a href="./rcsb-pdb.html">RCSB PDB</a>
+        <a href="./uniprot.html">UniProt</a>
+        <a href="./interpro.html">InterPro</a>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>&copy; 2024 Datasets MCP. Licensed under MIT.</p>
+    </div>
+  </footer>
+</body>
+</html>
