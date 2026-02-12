@@ -1,0 +1,18 @@
+[project]
+name = "datasets-mcp-server"
+version = "0.1.0"
+description = "MCP server for NCBI datasets CLI tool"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=0.9.0",
+    "biopython>=1.80",
+    "httpx>=0.27.0",
+]
+
+[project.scripts]
+datasets-mcp-server = "datasets_mcp.server:run_main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
