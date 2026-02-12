@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "datasets": {
+      "command": "datasets-mcp-server"
+    }
+  }
+}
