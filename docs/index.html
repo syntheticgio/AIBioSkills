@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datasets MCP Server — Bioinformatics for AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #0b0f19;
+      --color-surface: #131825;
+      --color-surface-2: #1a2035;
+      --color-border: #242d42;
+      --color-text: #e2e8f0;
+      --color-text-muted: #8892a8;
+      --color-accent: #6366f1;
+      --color-accent-light: #818cf8;
+      --color-accent-glow: rgba(99, 102, 241, 0.15);
+      --color-green: #34d399;
+      --color-green-glow: rgba(52, 211, 153, 0.15);
+      --color-amber: #fbbf24;
+      --color-rose: #fb7185;
+      --color-cyan: #22d3ee;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--color-border);
+    }
+    nav .container {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    nav .logo {
+      font-weight: 700; font-size: 1.1rem;
+      background: linear-gradient(135deg, var(--color-accent-light), var(--color-cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    nav .nav-links { display: flex; gap: 28px; list-style: none; }
+    nav .nav-links a {
+      color: var(--color-text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav .nav-links a:hover { color: var(--color-text); }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 120px 0 80px;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, var(--color-accent-glow), transparent);
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, var(--color-accent-light), var(--color-cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.15rem; color: var(--color-text-muted);
+      max-width: 640px; margin: 0 auto 36px;
+    }
+    .hero-badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 0.8rem; font-weight: 600;
+      background: var(--color-surface-2); border: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+    }
+    .badge .num { color: var(--color-accent-light); }
+    .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 600; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--color-accent); color: #fff;
+      box-shadow: 0 0 24px var(--color-accent-glow);
+    }
+    .btn-primary:hover { background: var(--color-accent-light); transform: translateY(-1px); }
+    .btn-secondary {
+      background: var(--color-surface-2); color: var(--color-text);
+      border: 1px solid var(--color-border);
+    }
+    .btn-secondary:hover { border-color: var(--color-accent); }
+
+    /* ── Section headings ── */
+    .section-label {
+      text-transform: uppercase; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.1em; color: var(--color-accent-light); margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700;
+      letter-spacing: -0.01em; margin-bottom: 12px;
+    }
+    .section-desc {
+      color: var(--color-text-muted); font-size: 1.05rem;
+      max-width: 600px; margin-bottom: 48px;
+    }
+
+    /* ── Stats row ── */
+    .stats {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px; padding: 60px 0 0;
+    }
+    .stat-card {
+      text-align: center; padding: 32px 20px;
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+    }
+    .stat-card .num {
+      font-size: 2.4rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--color-accent-light), var(--color-green));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-card .label { color: var(--color-text-muted); font-size: 0.9rem; margin-top: 4px; }
+
+    /* ── Database grid ── */
+    .db-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 12px;
+    }
+    .db-chip {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 16px; border-radius: var(--radius-sm);
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      font-size: 0.85rem; font-weight: 500;
+      transition: border-color 0.2s;
+    }
+    .db-chip:hover { border-color: var(--color-accent); }
+    .db-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    /* ── Tool category cards ── */
+    .tool-categories {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+    .tool-card {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius); padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .tool-card:hover { border-color: var(--color-accent); transform: translateY(-2px); }
+    .tool-card h3 {
+      font-size: 1.05rem; font-weight: 700; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .tool-card .icon {
+      width: 32px; height: 32px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .tool-card p { color: var(--color-text-muted); font-size: 0.88rem; margin-bottom: 14px; }
+    .tool-list { list-style: none; }
+    .tool-list li {
+      padding: 4px 0; font-size: 0.82rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--color-text-muted);
+    }
+    .tool-list li code {
+      color: var(--color-green); background: var(--color-green-glow);
+      padding: 1px 6px; border-radius: 4px; font-size: 0.8rem;
+    }
+
+    /* ── Skills & Agents ── */
+    .skill-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+    .skill-card {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius); padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--color-accent); transform: translateY(-2px); }
+    .skill-card .cmd {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.95rem;
+      font-weight: 600; margin-bottom: 8px;
+    }
+    .skill-card .cmd.skill-type { color: var(--color-accent-light); }
+    .skill-card .cmd.agent-type { color: var(--color-amber); }
+    .skill-card .desc { color: var(--color-text-muted); font-size: 0.88rem; margin-bottom: 12px; }
+    .skill-card .tag {
+      display: inline-block; padding: 3px 10px; border-radius: 12px;
+      font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .tag-skill { background: var(--color-accent-glow); color: var(--color-accent-light); }
+    .tag-agent { background: rgba(251, 191, 36, 0.12); color: var(--color-amber); }
+
+    /* ── Install section ── */
+    .install-steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .install-step {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius); padding: 28px;
+    }
+    .install-step .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--color-accent-glow); color: var(--color-accent-light);
+      font-size: 0.8rem; font-weight: 700; margin-bottom: 12px;
+    }
+    .install-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .install-step p { color: var(--color-text-muted); font-size: 0.88rem; margin-bottom: 14px; }
+    pre {
+      background: var(--color-bg); border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm); padding: 14px 18px;
+      overflow-x: auto; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem; line-height: 1.7; color: var(--color-text-muted);
+    }
+    pre .cmd-prefix { color: var(--color-accent-light); }
+    pre .cmd-text { color: var(--color-text); }
+    pre .cmd-comment { color: #4a5568; }
+
+    /* ── Architecture ── */
+    .arch-diagram {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: var(--radius); padding: 40px;
+      text-align: center; margin-bottom: 32px;
+    }
+    .arch-row {
+      display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .arch-box {
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      font-size: 0.82rem; font-weight: 600;
+      border: 1px solid var(--color-border);
+    }
+    .arch-arrow {
+      color: var(--color-text-muted); font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+    .arch-client { background: rgba(99, 102, 241, 0.12); color: var(--color-accent-light); border-color: rgba(99, 102, 241, 0.3); }
+    .arch-server { background: rgba(52, 211, 153, 0.12); color: var(--color-green); border-color: rgba(52, 211, 153, 0.3); }
+    .arch-api { background: rgba(251, 191, 36, 0.12); color: var(--color-amber); border-color: rgba(251, 191, 36, 0.3); }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--color-border);
+      padding: 40px 0; text-align: center;
+      color: var(--color-text-muted); font-size: 0.85rem;
+    }
+    footer a { color: var(--color-accent-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      section { padding: 48px 0; }
+      .hero { padding: 80px 0 48px; }
+      nav .nav-links { gap: 16px; }
+      .tool-categories, .skill-grid, .install-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="container">
+    <div class="logo">datasets-mcp-server</div>
+    <ul class="nav-links">
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#skills">Skills & Agents</a></li>
+      <li><a href="#install">Install</a></li>
+      <li><a href="https://github.com/syntheticgio/datasets-mcp">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <h1>Bioinformatics for AI,<br><span class="gradient">via one MCP server</span></h1>
+    <p>50+ tools connecting Claude to NCBI, Ensembl, UniProt, PDB, ClinVar, gnomAD, KEGG, and more. Ask questions in plain English — the right database is queried automatically.</p>
+    <div class="hero-badges">
+      <span class="badge"><span class="num">50+</span> Tools</span>
+      <span class="badge"><span class="num">20+</span> Databases</span>
+      <span class="badge"><span class="num">6</span> Skills</span>
+      <span class="badge"><span class="num">6</span> Agents</span>
+    </div>
+    <div class="btn-group">
+      <a href="#install" class="btn btn-primary">Get Started</a>
+      <a href="https://github.com/syntheticgio/datasets-mcp" class="btn btn-secondary">View on GitHub</a>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="num">50+</div>
+        <div class="label">MCP Tools</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">20+</div>
+        <div class="label">Databases & APIs</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">12</div>
+        <div class="label">Skills & Agents</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">0</div>
+        <div class="label">API Keys Required</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Architecture -->
+<section id="architecture">
+  <div class="container">
+    <div class="section-label">Architecture</div>
+    <div class="section-title">How It Works</div>
+    <p class="section-desc">A single MCP server sits between your AI assistant and 20+ bioinformatics APIs. No API keys, no configuration — just ask.</p>
+    <div class="arch-diagram">
+      <div class="arch-row">
+        <div class="arch-box arch-client">Claude Desktop</div>
+        <div class="arch-box arch-client">Claude Code</div>
+        <div class="arch-box arch-client">Any MCP Client</div>
+      </div>
+      <div class="arch-arrow">&#8595;</div>
+      <div class="arch-row">
+        <div class="arch-box arch-server">datasets-mcp-server</div>
+      </div>
+      <div class="arch-arrow">&#8595;</div>
+      <div class="arch-row">
+        <div class="arch-box arch-api">NCBI</div>
+        <div class="arch-box arch-api">Ensembl</div>
+        <div class="arch-box arch-api">UniProt</div>
+        <div class="arch-box arch-api">PDB</div>
+        <div class="arch-box arch-api">ClinVar</div>
+        <div class="arch-box arch-api">gnomAD</div>
+        <div class="arch-box arch-api">KEGG</div>
+        <div class="arch-box arch-api">STRING</div>
+        <div class="arch-box arch-api">+ more</div>
+      </div>
+    </div>
+
+    <div class="section-label">Connected Databases</div>
+    <div class="db-grid">
+      <div class="db-chip"><span class="db-dot" style="background:#6366f1"></span>NCBI Datasets</div>
+      <div class="db-chip"><span class="db-dot" style="background:#818cf8"></span>NCBI BLAST</div>
+      <div class="db-chip"><span class="db-dot" style="background:#a78bfa"></span>PubMed</div>
+      <div class="db-chip"><span class="db-dot" style="background:#34d399"></span>Ensembl</div>
+      <div class="db-chip"><span class="db-dot" style="background:#22d3ee"></span>UniProt</div>
+      <div class="db-chip"><span class="db-dot" style="background:#fbbf24"></span>ClinVar</div>
+      <div class="db-chip"><span class="db-dot" style="background:#fb7185"></span>gnomAD</div>
+      <div class="db-chip"><span class="db-dot" style="background:#f97316"></span>PDB / RCSB</div>
+      <div class="db-chip"><span class="db-dot" style="background:#34d399"></span>AlphaFold</div>
+      <div class="db-chip"><span class="db-dot" style="background:#6366f1"></span>InterPro</div>
+      <div class="db-chip"><span class="db-dot" style="background:#818cf8"></span>STRING</div>
+      <div class="db-chip"><span class="db-dot" style="background:#a78bfa"></span>KEGG</div>
+      <div class="db-chip"><span class="db-dot" style="background:#22d3ee"></span>Reactome</div>
+      <div class="db-chip"><span class="db-dot" style="background:#fbbf24"></span>GTEx</div>
+      <div class="db-chip"><span class="db-dot" style="background:#fb7185"></span>HPO</div>
+      <div class="db-chip"><span class="db-dot" style="background:#f97316"></span>COSMIC</div>
+      <div class="db-chip"><span class="db-dot" style="background:#34d399"></span>OMIM</div>
+      <div class="db-chip"><span class="db-dot" style="background:#6366f1"></span>ENCODE</div>
+      <div class="db-chip"><span class="db-dot" style="background:#818cf8"></span>Expression Atlas</div>
+      <div class="db-chip"><span class="db-dot" style="background:#a78bfa"></span>PharmGKB</div>
+      <div class="db-chip"><span class="db-dot" style="background:#22d3ee"></span>Disease Ontology</div>
+      <div class="db-chip"><span class="db-dot" style="background:#fbbf24"></span>Semantic Scholar</div>
+      <div class="db-chip"><span class="db-dot" style="background:#fb7185"></span>g:Profiler</div>
+      <div class="db-chip"><span class="db-dot" style="background:#f97316"></span>BioPython (local)</div>
+    </div>
+  </div>
+</section>
+
+<!-- Tools -->
+<section id="tools">
+  <div class="container">
+    <div class="section-label">MCP Tools</div>
+    <div class="section-title">50+ Tools Across Every Major Database</div>
+    <p class="section-desc">Each tool is callable by any MCP-compatible AI assistant. Just describe what you need.</p>
+
+    <div class="tool-categories">
+
+      <div class="tool-card">
+        <h3><span class="icon" style="background:rgba(99,102,241,0.12);color:#818cf8">N</span> NCBI Datasets</h3>
+        <p>Genome and gene summaries, downloads, and batch queries via the NCBI Datasets CLI.</p>
+        <ul class="tool-list">
+          <li><code>datasets_summary_genome</code> Assembly summaries</li>
+          <li><code>datasets_summary_gene</code> Gene summaries</li>
+          <li><code>datasets_download_genome</code> Download assemblies</li>
+          <li><code>datasets_download_gene</code> Download gene data</li>
+          <li><code>batch_gene_summary</code> Multi-gene queries</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <h3><span class="icon" style="background:rgba(52,211,153,0.12);color:#34d399">B</span> BioPython Analysis</h3>
+        <p>Local sequence analysis — alignment, statistics, translation, primer design, and FASTA parsing.</p>
+        <ul class="tool-list">
+          <li><code>sequence_align</code> Pairwise alignment</li>
+          <li><code>sequence_stats</code> GC%, MW, composition</li>
+          <li><code>sequence_translate</code> 6-frame translation</li>
+          <li><code>parse_fasta</code> FASTA parsing & filtering</li>
+          <li><code>primer_design</code> PCR primer design</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <h3><span class="icon" style="background:rgba(34,211,238,0.12);color:#22d3ee">E</span> Ensembl</h3>
+        <p>Gene lookup, sequences, variants, homologs, regulatory features, and coordinate liftover.</p>
+        <ul class="tool-list">
+          <li><code>ensembl_lookup_gene</code> Gene lookup by ID/symbol</li>
+          <li><code>ensembl_get_sequence</code> Retrieve sequences</li>
+          <li><code>ensembl_get_variants</code> Regional variants</li>
+          <li><code>ensembl_get_homologs</code> Orthologs/paralogs</li>
+          <li><code>ensembl_get_regulation</code> Regulatory features</li>
+          <li><code>liftover_coordinates</code> hg19 &#8596; hg38</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <h3><span class="icon" style="background:rgba(251,191,36,0.12);color:#fbbf24">U</span> UniProt & Protein</h3>
+        <p>Protein search, function, domains, features, interactions, and domain architecture.</p>
+        <ul class="tool-list">
+          <li><code>uniprot_search</code> Protein search</li>
+          <li><code>uniprot_get_protein</code> Function & GO terms</li>
+          <li><code>uniprot_get_features</code> Domains & PTMs</li>
+          <li><code>interpro_get_domains</code> Domain architecture</li>
+          <li><code>string_get_interactions</code> PPI networks</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <h3><span class="icon" style="background:rgba(251,113,133,0.12);color:#fb7185">C</span> Clinical & Variants</h3>
+        <p>Clinical variant interpretation, population frequencies, phenotype associations, and disease mapping.</p>
+        <ul class="tool-list">
+          <li><code>clinvar_search</code> Clinical significance</li>
+          <li><code>gnomad_get_variant</code> Population frequencies</li>
+          <li><code>hpo_search</code> Phenotype ontology</li>
+          <li><code>omim_search</code> Mendelian disease</li>
+          <li><code>cosmic_search</code> Somatic mutations</li>
+          <li><code>disease_ontology_search</code> Disease terms</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <h3><span class="icon" style="background:rgba(249,115,22,0.12);color:#f97316">S</span> Structure & Function</h3>
+        <p>3D structures, predicted models, pathways, expression, and functional enrichment.</p>
+        <ul class="tool-list">
+          <li><code>pdb_get_structure</code> / <code>pdb_search</code> PDB</li>
+          <li><code>alphafold_get_prediction</code> AlphaFold</li>
+          <li><code>kegg_get_pathway</code> KEGG pathways</li>
+          <li><code>reactome_get_pathway</code> Reactome</li>
+          <li><code>gtex_get_expression</code> Tissue expression</li>
+          <li><code>gene_ontology_enrich</code> GO enrichment</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <h3><span class="icon" style="background:rgba(163,130,246,0.12);color:#a78bfa">L</span> Literature & Papers</h3>
+        <p>Search PubMed, fetch full-text papers, get citation data and impact metrics.</p>
+        <ul class="tool-list">
+          <li><code>pubmed_search</code> PubMed search</li>
+          <li><code>paper_fetch</code> Full-text retrieval</li>
+          <li><code>semantic_scholar_search</code> Citations & impact</li>
+        </ul>
+      </div>
+
+      <div class="tool-card">
+        <h3><span class="icon" style="background:rgba(52,211,153,0.12);color:#34d399">G</span> Genomics & Epigenomics</h3>
+        <p>ENCODE experiments, expression atlas, gene links, and pharmacogenomics.</p>
+        <ul class="tool-list">
+          <li><code>encode_get_experiments</code> ENCODE data</li>
+          <li><code>expression_atlas_search</code> Expression Atlas</li>
+          <li><code>ncbi_gene_links</code> Gene relationships</li>
+          <li><code>pharmgkb_search</code> Pharmacogenomics</li>
+          <li><code>blast_search</code> Sequence similarity</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Skills & Agents -->
+<section id="skills" style="background: var(--color-surface);">
+  <div class="container">
+    <div class="section-label">Skills & Agents</div>
+    <div class="section-title">Pre-Built Research Workflows</div>
+    <p class="section-desc">Slash commands that orchestrate multiple tools into comprehensive reports. Available in Claude Code.</p>
+
+    <div class="skill-grid">
+
+      <!-- Skills -->
+      <div class="skill-card">
+        <div class="cmd skill-type">/gene-report</div>
+        <div class="desc">Comprehensive gene report combining NCBI, Ensembl, UniProt, ClinVar, PDB, InterPro, STRING, and KEGG into a single structured document.</div>
+        <span class="tag tag-skill">Skill</span>
+      </div>
+
+      <div class="skill-card">
+        <div class="cmd skill-type">/variant-report</div>
+        <div class="desc">Variant annotation report — Ensembl variant landscape, ClinVar clinical significance, and UniProt protein domain context.</div>
+        <span class="tag tag-skill">Skill</span>
+      </div>
+
+      <div class="skill-card">
+        <div class="cmd skill-type">/protein-report</div>
+        <div class="desc">Protein-centric deep dive — function, domains, PTMs, AlphaFold structure, PDB entries, interactions, expression, and clinical variants.</div>
+        <span class="tag tag-skill">Skill</span>
+      </div>
+
+      <div class="skill-card">
+        <div class="cmd skill-type">/pathway-report</div>
+        <div class="desc">Pathway analysis — Reactome data, member gene summaries, protein interactions, ClinVar variants in pathway members, and literature.</div>
+        <span class="tag tag-skill">Skill</span>
+      </div>
+
+      <div class="skill-card">
+        <div class="cmd skill-type">/drug-target-report</div>
+        <div class="desc">Druggability assessment — target class, ligand-bound structures, binding sites, disease rationale, COSMIC hotspots, and drug development literature.</div>
+        <span class="tag tag-skill">Skill</span>
+      </div>
+
+      <div class="skill-card">
+        <div class="cmd skill-type">/project-summary</div>
+        <div class="desc">Overview of all available MCP tools, capabilities, and usage examples for this project.</div>
+        <span class="tag tag-skill">Skill</span>
+      </div>
+
+      <div class="skill-card">
+        <div class="cmd skill-type">/lab-notebook</div>
+        <div class="desc">Research session lab notebook — passively records tool calls via a hook, then synthesizes a structured narrative report with timeline, abandoned branches, and key findings.</div>
+        <span class="tag tag-skill">Skill</span>
+      </div>
+
+      <!-- Agents -->
+      <div class="skill-card">
+        <div class="cmd agent-type">/literature-agent</div>
+        <div class="desc">Autonomous PubMed literature search — gathers context, searches with refined queries, deduplicates, and produces a thematic synthesis with citations.</div>
+        <span class="tag tag-agent">Agent</span>
+      </div>
+
+      <div class="skill-card">
+        <div class="cmd agent-type">/comparative-genomics-agent</div>
+        <div class="desc">Cross-species gene comparison — finds orthologs via Ensembl, retrieves protein sequences, computes pairwise alignments, and analyzes conservation.</div>
+        <span class="tag tag-agent">Agent</span>
+      </div>
+
+      <div class="skill-card">
+        <div class="cmd agent-type">/clinical-variant-agent</div>
+        <div class="desc">Full clinical variant workup — gnomAD frequencies, ClinVar significance, domain impact, AlphaFold structure, HPO phenotypes, and ACMG considerations.</div>
+        <span class="tag tag-agent">Agent</span>
+      </div>
+
+      <div class="skill-card">
+        <div class="cmd agent-type">/gene-list-agent</div>
+        <div class="desc">Gene list functional analysis — batch summaries, shared pathways, STRING interactions, tissue expression, GO themes, and phenotype associations.</div>
+        <span class="tag tag-agent">Agent</span>
+      </div>
+
+      <div class="skill-card">
+        <div class="cmd agent-type">/structure-agent</div>
+        <div class="desc">Structural biology deep dive — all PDB structures, AlphaFold prediction, variant mapping, domain architecture, interaction interfaces, and druggability.</div>
+        <span class="tag tag-agent">Agent</span>
+      </div>
+
+      <div class="skill-card">
+        <div class="cmd agent-type">/statistical-methods-agent</div>
+        <div class="desc">Paper statistical analysis — fetches full text, inventories every statistical method, evaluates assumptions and appropriateness, produces structured critique.</div>
+        <span class="tag tag-agent">Agent</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Install -->
+<section id="install">
+  <div class="container">
+    <div class="section-label">Getting Started</div>
+    <div class="section-title">Install in Minutes</div>
+    <p class="section-desc">No API keys required. Most tools work without any external CLI dependencies.</p>
+
+    <div class="install-steps">
+
+      <div class="install-step">
+        <div class="step-num">1</div>
+        <h3>Install the MCP Server</h3>
+        <p>Install from GitHub (PyPI coming soon):</p>
+        <pre><span class="cmd-prefix">$</span> <span class="cmd-text">pip install git+https://github.com/syntheticgio/datasets-mcp.git</span>
+
+<span class="cmd-comment"># or for development:</span>
+<span class="cmd-prefix">$</span> <span class="cmd-text">git clone https://github.com/syntheticgio/datasets-mcp.git</span>
+<span class="cmd-prefix">$</span> <span class="cmd-text">cd datasets-mcp && pip install -e .</span></pre>
+      </div>
+
+      <div class="install-step">
+        <div class="step-num">2</div>
+        <h3>Configure Your Client</h3>
+        <p>Add to your Claude Code or Claude Desktop config:</p>
+        <pre>{
+  "mcpServers": {
+    "datasets": {
+      "command": "datasets-mcp-server"
+    }
+  }
+}</pre>
+      </div>
+
+      <div class="install-step">
+        <div class="step-num">3</div>
+        <h3>Install Skills (Optional)</h3>
+        <p>For Claude Code slash commands — copy or symlink:</p>
+        <pre><span class="cmd-prefix">$</span> <span class="cmd-text">mkdir -p ~/.claude/commands</span>
+<span class="cmd-prefix">$</span> <span class="cmd-text">cp .claude/commands/*.md ~/.claude/commands/</span>
+
+<span class="cmd-comment"># or symlink to stay up-to-date:</span>
+<span class="cmd-prefix">$</span> <span class="cmd-text">for f in .claude/commands/*.md; do</span>
+    <span class="cmd-text">ln -sf "$(pwd)/$f" ~/.claude/commands/</span>
+  <span class="cmd-text">done</span></pre>
+      </div>
+
+    </div>
+
+    <!-- Optional NCBI CLI -->
+    <div style="margin-top: 32px;">
+      <div class="install-step" style="border-left: 3px solid var(--color-amber);">
+        <h3 style="color: var(--color-amber);">Optional: NCBI Datasets CLI</h3>
+        <p>Only needed for <code>datasets_*</code> and <code>batch_gene_summary</code> tools. All other tools (Ensembl, UniProt, BioPython, etc.) work without it.</p>
+        <pre><span class="cmd-comment"># Conda (recommended)</span>
+<span class="cmd-prefix">$</span> <span class="cmd-text">conda install -c conda-forge ncbi-datasets-cli</span>
+
+<span class="cmd-comment"># Direct download — Linux (amd64)</span>
+<span class="cmd-prefix">$</span> <span class="cmd-text">curl -o datasets 'https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/v2/linux-amd64/datasets'</span>
+<span class="cmd-prefix">$</span> <span class="cmd-text">chmod +x datasets && sudo mv datasets /usr/local/bin/</span>
+
+<span class="cmd-comment"># Direct download — macOS</span>
+<span class="cmd-prefix">$</span> <span class="cmd-text">curl -o datasets 'https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/v2/mac/datasets'</span>
+<span class="cmd-prefix">$</span> <span class="cmd-text">chmod +x datasets && sudo mv datasets /usr/local/bin/</span>
+
+<span class="cmd-comment"># Windows (PowerShell)</span>
+<span class="cmd-prefix">&gt;</span> <span class="cmd-text">curl -o datasets.exe https://ftp.ncbi.nlm.nih.gov/pub/datasets/command-line/v2/win64/datasets.exe</span></pre>
+        <p style="margin-top: 12px;">See the <a href="https://www.ncbi.nlm.nih.gov/datasets/docs/v2/command-line-tools/download-and-install/" style="color: var(--color-amber);">NCBI install guide</a> for ARM64, Linux 32-bit, and other platforms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Use Cases -->
+<section style="background: var(--color-surface);">
+  <div class="container">
+    <div class="section-label">Use Cases</div>
+    <div class="section-title">What Can You Do?</div>
+    <p class="section-desc">Ask questions in natural language. The assistant picks the right tools automatically.</p>
+
+    <div class="tool-categories">
+      <div class="tool-card" style="border-left: 3px solid var(--color-accent-light);">
+        <h3>Gene Research</h3>
+        <p>"Tell me everything about TP53 — function, domains, structures, variants, interactions, and pathways."</p>
+        <p style="color: var(--color-accent-light); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/gene-report TP53</p>
+      </div>
+      <div class="tool-card" style="border-left: 3px solid var(--color-green);">
+        <h3>Variant Interpretation</h3>
+        <p>"What is the clinical significance of BRAF V600E? Show population frequencies, domain impact, and phenotype associations."</p>
+        <p style="color: var(--color-green); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/clinical-variant-agent BRAF V600E</p>
+      </div>
+      <div class="tool-card" style="border-left: 3px solid var(--color-amber);">
+        <h3>Drug Target Assessment</h3>
+        <p>"Is EGFR druggable? Show me ligand-bound structures, binding sites, COSMIC hotspots, and disease rationale."</p>
+        <p style="color: var(--color-amber); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/drug-target-report EGFR</p>
+      </div>
+      <div class="tool-card" style="border-left: 3px solid var(--color-cyan);">
+        <h3>Comparative Genomics</h3>
+        <p>"Compare BRCA1 across human, mouse, zebrafish, and chicken — show me conservation and divergent regions."</p>
+        <p style="color: var(--color-cyan); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/comparative-genomics-agent BRCA1 human mouse zebrafish chicken</p>
+      </div>
+      <div class="tool-card" style="border-left: 3px solid var(--color-rose);">
+        <h3>Gene List Analysis</h3>
+        <p>"What biological themes connect TP53, BRCA1, EGFR, PTEN, and RB1? Show shared pathways, interactions, and expression."</p>
+        <p style="color: var(--color-rose); font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/gene-list-agent TP53,BRCA1,EGFR,PTEN,RB1</p>
+      </div>
+      <div class="tool-card" style="border-left: 3px solid #a78bfa;">
+        <h3>Paper Analysis</h3>
+        <p>"Analyze all statistical methods in PMID 33057194 — check assumptions, appropriateness, and interpretation."</p>
+        <p style="color: #a78bfa; font-size: 0.8rem; font-family: 'JetBrains Mono', monospace;">/statistical-methods-agent 33057194</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>
+      <strong>datasets-mcp-server</strong> &mdash; Open source bioinformatics MCP server<br>
+      <a href="https://github.com/syntheticgio/datasets-mcp">GitHub</a> &middot;
+      <a href="https://github.com/syntheticgio/datasets-mcp/blob/main/ROADMAP.md">Roadmap</a> &middot;
+      <a href="https://github.com/syntheticgio/datasets-mcp/blob/main/PROJECT_INVENTORY.md">Full Inventory</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
