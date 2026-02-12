@@ -34,6 +34,8 @@ ENV/
 # Downloaded datasets
 *.zip
 ncbi_dataset/
+bos_taurus_h4/
+pea_h4/
 
 # Lab notebook session logs
 .lab-notebook/
