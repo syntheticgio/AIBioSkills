@@ -8,6 +8,7 @@ dependencies = [
     "mcp>=0.9.0",
     "biopython>=1.80",
     "httpx>=0.27.0",
+    "primer3-py>=2.0.0",
 ]
 
 [project.scripts]

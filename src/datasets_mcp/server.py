@@ -29,9 +29,6 @@ from Bio.Data.CodonTable import standard_dna_table
 from mcp.server import Server
 from mcp.types import Tool, TextContent, ImageContent, EmbeddedResource
 
-# Initialize MCP server
-app = Server("datasets-mcp-server")
-
 # REST API constants
 ENSEMBL_BASE_URL = "https://rest.ensembl.org"
 UNIPROT_BASE_URL = "https://rest.uniprot.org"
@@ -45,32 +42,40 @@ BLAST_BASE_URL = "https://blast.ncbi.nlm.nih.gov/Blast.cgi"
 ALPHAFOLD_BASE_URL = "https://alphafold.ebi.ac.uk/api"
 GNOMAD_API_URL = "https://gnomad.broadinstitute.org/api"
 GTEX_BASE_URL = "https://gtexportal.org/api/v2"
-HPO_BASE_URL = "https://hpo.jax.org/api/hpo"
+HPO_BASE_URL = "https://ontology.jax.org/api/hp"
+HPO_NETWORK_BASE_URL = "https://ontology.jax.org/api/network"
 REACTOME_BASE_URL = "https://reactome.org/ContentService"
 GPROFILER_BASE_URL = "https://biit.cs.ut.ee/gprofiler/api"
 COSMIC_API_URL = "https://clinicaltables.nlm.nih.gov/api/cosmic/v3/search"
 EXPRESSION_ATLAS_URL = "https://www.ebi.ac.uk/gxa/json/experiments"
 ENCODE_BASE_URL = "https://www.encodeproject.org"
-PHARMGKB_BASE_URL = "https://api.pharmgkb.org/v1"
+# PharmGKB migrated to ClinPGx
+PHARMGKB_BASE_URL = "https://api.clinpgx.org/v1"
 DISEASE_ONTOLOGY_BASE_URL = "https://api.disease-ontology.org/v1"
 SEMANTIC_SCHOLAR_BASE_URL = "https://api.semanticscholar.org/graph/v1"
 EUROPE_PMC_BASE_URL = "https://www.ebi.ac.uk/europepmc/webservices/rest"
 UNPAYWALL_BASE_URL = "https://api.unpaywall.org/v2"
 
-# Simple in-memory cache: {url: (timestamp, data)}
+# Simple in-memory cache: {cache_key: (timestamp, data)}
 _rest_cache: dict[str, tuple[float, Any]] = {}
 _REST_CACHE_TTL = 300  # 5 minutes
 
 
-async def _rest_get(
+async def _rest_request(
+    method: str,
     url: str,
     params: dict[str, Any] | None = None,
+    json_body: dict[str, Any] | None = None,
     headers: dict[str, str] | None = None,
     timeout: float = 30,
     use_cache: bool = True,
 ) -> dict[str, Any]:
-    """Perform an HTTP GET with caching, rate-limit handling, and error wrapping."""
-    cache_key = url + (json.dumps(params, sort_keys=True) if params else "")
+    """Perform an HTTP request with caching, rate-limit handling, and error wrapping."""
+    cache_key = (
+        f"{method}:{url}"
+        + (json.dumps(params, sort_keys=True) if params else "")
+        + (json.dumps(json_body, sort_keys=True) if json_body else "")
+    )
 
     if use_cache and cache_key in _rest_cache:
         ts, cached_data = _rest_cache[cache_key]
@@ -83,13 +88,17 @@ async def _rest_get(
         default_headers.update(headers)
 
     try:
-        async with httpx.AsyncClient(timeout=timeout) as client:
-            resp = await client.get(url, params=params, headers=default_headers)
+        async with httpx.AsyncClient(timeout=timeout, follow_redirects=True) as client:
+            resp = await client.request(
+                method, url, params=params, json=json_body, headers=default_headers
+            )
 
             if resp.status_code == 429:
                 retry_after = float(resp.headers.get("Retry-After", "2"))
                 await asyncio.sleep(retry_after)
-                resp = await client.get(url, params=params, headers=default_headers)
+                resp = await client.request(
+                    method, url, params=params, json=json_body, headers=default_headers
+                )
 
             if resp.status_code >= 400:
                 return {
@@ -107,6 +116,39 @@ async def _rest_get(
         return {"success": False, "data": None, "error": "Request timed out"}
     except Exception as e:
         return {"success": False, "data": None, "error": str(e)}
+
+
+async def _rest_get(
+    url: str,
+    params: dict[str, Any] | None = None,
+    headers: dict[str, str] | None = None,
+    timeout: float = 30,
+    use_cache: bool = True,
+) -> dict[str, Any]:
+    """Perform an HTTP GET with caching, rate-limit handling, and error wrapping."""
+    return await _rest_request(
+        "GET", url, params=params, headers=headers, timeout=timeout, use_cache=use_cache
+    )
+
+
+async def _rest_post(
+    url: str,
+    json_body: dict[str, Any] | None = None,
+    params: dict[str, Any] | None = None,
+    headers: dict[str, str] | None = None,
+    timeout: float = 30,
+    use_cache: bool = True,
+) -> dict[str, Any]:
+    """Perform an HTTP POST with caching, rate-limit handling, and error wrapping."""
+    return await _rest_request(
+        "POST",
+        url,
+        params=params,
+        json_body=json_body,
+        headers=headers,
+        timeout=timeout,
+        use_cache=use_cache,
+    )
 
 
 def check_datasets_installed() -> bool:
@@ -155,7 +197,24 @@ async def run_datasets_command(args: list[str]) -> dict[str, Any]:
         }
 
 
-@app.list_tools()
+def _parse_ncbi_gene_id(raw_id: Any) -> int | str | None:
+    """Parse an HPO network gene ID like 'NCBIGene:672' into an int when numeric."""
+    if raw_id is None:
+        return None
+    s = str(raw_id)
+    if ":" in s:
+        s = s.split(":", 1)[1]
+    return int(s) if s.isdigit() else raw_id
+
+
+def _normalize_do_synonyms(raw_synonyms: Any) -> list[str]:
+    """Normalize Disease Ontology synonym entries (dict with 'val' or plain string)."""
+    return [
+        s.get("val", "") if isinstance(s, dict) else str(s)
+        for s in (raw_synonyms or [])
+    ]
+
+
 async def list_tools() -> list[Tool]:
     """List available tools."""
     return [
@@ -1480,7 +1539,6 @@ REST_API_TOOLS = {
 NON_CLI_TOOLS = BIOPYTHON_TOOLS | REST_API_TOOLS
 
 
-@app.call_tool()
 async def call_tool(name: str, arguments: Any) -> list[TextContent]:
     """Handle tool calls."""
 
@@ -3100,39 +3158,45 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
             limit = arguments.get("limit", 20)
 
             if category == "search":
-                # General search for terms, genes, diseases
-                url = f"{HPO_BASE_URL}/search"
-                result = await _rest_get(url, params={"q": query, "max": limit})
-                if not result["success"]:
-                    return [TextContent(type="text", text=f"Error searching HPO: {result['error']}")]
+                # General search across terms, genes, and diseases (JAX Ontology API)
+                terms_res, genes_res, diseases_res = await asyncio.gather(
+                    _rest_get(f"{HPO_BASE_URL}/search", params={"q": query, "limit": limit}),
+                    _rest_get(f"{HPO_NETWORK_BASE_URL}/search/gene", params={"q": query, "limit": limit}),
+                    _rest_get(f"{HPO_NETWORK_BASE_URL}/search/disease", params={"q": query, "limit": limit}),
+                )
+                if not terms_res["success"] and not genes_res["success"] and not diseases_res["success"]:
+                    return [TextContent(type="text", text=f"Error searching HPO: {terms_res['error']}")]
 
-                data = result["data"]
+                terms_data = (terms_res["data"] or {}) if terms_res["success"] else {}
+                genes_data = (genes_res["data"] or {}) if genes_res["success"] else {}
+                diseases_data = (diseases_res["data"] or {}) if diseases_res["success"] else {}
+
                 curated = {
                     "query": query,
-                    "terms": [],
-                    "genes": [],
-                    "diseases": [],
+                    "terms": [
+                        {
+                            "id": t.get("id", ""),
+                            "name": t.get("name", ""),
+                            "definition": t.get("definition", ""),
+                        }
+                        for t in (terms_data.get("terms") or [])[:limit]
+                    ],
+                    "genes": [
+                        {
+                            "gene_symbol": g.get("name", ""),
+                            "gene_id": _parse_ncbi_gene_id(g.get("id")),
+                        }
+                        for g in (genes_data.get("results") or [])[:limit]
+                    ],
+                    "diseases": [
+                        {
+                            "disease_id": d.get("id", ""),
+                            "disease_name": d.get("name", ""),
+                            "database": d.get("id", "").split(":", 1)[0] if ":" in d.get("id", "") else "",
+                        }
+                        for d in (diseases_data.get("results") or [])[:limit]
+                    ],
                 }
-                # Extract terms
-                for t in (data.get("terms", []) or [])[:limit]:
-                    curated["terms"].append({
-                        "id": t.get("ontologyId", ""),
-                        "name": t.get("name", ""),
-                        "definition": t.get("definition", ""),
-                    })
-                # Extract genes
-                for g in (data.get("genes", []) or [])[:limit]:
-                    curated["genes"].append({
-                        "gene_symbol": g.get("entrezGeneSymbol", ""),
-                        "gene_id": g.get("entrezGeneId"),
-                    })
-                # Extract diseases
-                for d in (data.get("diseases", []) or [])[:limit]:
-                    curated["diseases"].append({
-                        "disease_id": d.get("diseaseId", ""),
-                        "disease_name": d.get("diseaseName", d.get("dbName", "")),
-                        "database": d.get("db", ""),
-                    })
                 curated["total_terms"] = len(curated["terms"])
                 curated["total_genes"] = len(curated["genes"])
                 curated["total_diseases"] = len(curated["diseases"])
@@ -3140,71 +3204,77 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
 
             elif category == "term":
                 # Get details for a specific HPO term
-                hpo_id = query if query.startswith("HP:") else query
-                url = f"{HPO_BASE_URL}/term/{hpo_id}"
-                result = await _rest_get(url)
-                if not result["success"]:
-                    return [TextContent(type="text", text=f"Error fetching HPO term: {result['error']}")]
-                data = result["data"]
-                details = data.get("details", data)
-                relations = data.get("relations", {})
+                hpo_id = query.upper() if query.upper().startswith("HP:") else query
+                term_res, parents_res, children_res = await asyncio.gather(
+                    _rest_get(f"{HPO_BASE_URL}/terms/{hpo_id}"),
+                    _rest_get(f"{HPO_BASE_URL}/terms/{hpo_id}/parents"),
+                    _rest_get(f"{HPO_BASE_URL}/terms/{hpo_id}/children"),
+                )
+                if not term_res["success"]:
+                    return [TextContent(type="text", text=f"Error fetching HPO term: {term_res['error']}")]
+                data = term_res["data"] or {}
+                parents_raw = (parents_res["data"] or []) if parents_res["success"] else []
+                children_raw = (children_res["data"] or []) if children_res["success"] else []
                 curated = {
-                    "id": details.get("ontologyId", details.get("id", hpo_id)),
-                    "name": details.get("name", ""),
-                    "definition": details.get("definition", ""),
-                    "synonyms": details.get("synonyms", []),
-                    "parents": [{"id": p.get("ontologyId", ""), "name": p.get("name", "")}
-                                for p in relations.get("parents", [])],
-                    "children_count": len(relations.get("children", [])),
+                    "id": data.get("id", hpo_id),
+                    "name": data.get("name", ""),
+                    "definition": data.get("definition", ""),
+                    "synonyms": data.get("synonyms", []),
+                    "parents": [
+                        {"id": p.get("id", ""), "name": p.get("name", "")}
+                        for p in parents_raw
+                        if isinstance(p, dict)
+                    ],
+                    "children_count": len(children_raw) if isinstance(children_raw, list) else 0,
                 }
                 return [TextContent(type="text", text=json.dumps(curated, indent=2))]
 
             elif category == "genes":
                 # Get genes associated with an HPO term
-                hpo_id = query if query.startswith("HP:") else query
-                url = f"{HPO_BASE_URL}/term/{hpo_id}/genes"
-                result = await _rest_get(url, params={"offset": 0, "max": limit})
+                hpo_id = query.upper() if query.upper().startswith("HP:") else query
+                url = f"{HPO_NETWORK_BASE_URL}/annotation/{hpo_id}"
+                result = await _rest_get(url)
                 if not result["success"]:
                     return [TextContent(type="text", text=f"Error fetching genes for HPO term: {result['error']}")]
-                data = result["data"]
-                genes_raw = data.get("genes", data) if isinstance(data, dict) else data
-                if isinstance(genes_raw, dict):
-                    genes_raw = genes_raw.get("genes", [])
-                genes = []
-                for g in (genes_raw or [])[:limit]:
-                    genes.append({
-                        "gene_symbol": g.get("entrezGeneSymbol", ""),
-                        "gene_id": g.get("entrezGeneId"),
-                        "disease_count": len(g.get("dbDiseases", [])),
-                    })
+                data = result["data"] or {}
+                genes_raw = data.get("genes", []) or []
+                genes = [
+                    {
+                        "gene_symbol": g.get("name", ""),
+                        "gene_id": _parse_ncbi_gene_id(g.get("id")),
+                    }
+                    for g in genes_raw[:limit]
+                ]
                 curated = {
                     "hpo_term": hpo_id,
-                    "total_genes": len(genes),
+                    "total_genes": len(genes_raw),
+                    "returned": len(genes),
                     "genes": genes,
                 }
                 return [TextContent(type="text", text=json.dumps(curated, indent=2))]
 
             elif category == "diseases":
                 # Get diseases associated with an HPO term
-                hpo_id = query if query.startswith("HP:") else query
-                url = f"{HPO_BASE_URL}/term/{hpo_id}/diseases"
-                result = await _rest_get(url, params={"offset": 0, "max": limit})
+                hpo_id = query.upper() if query.upper().startswith("HP:") else query
+                url = f"{HPO_NETWORK_BASE_URL}/annotation/{hpo_id}"
+                result = await _rest_get(url)
                 if not result["success"]:
                     return [TextContent(type="text", text=f"Error fetching diseases for HPO term: {result['error']}")]
-                data = result["data"]
-                diseases_raw = data.get("diseases", data) if isinstance(data, dict) else data
-                if isinstance(diseases_raw, dict):
-                    diseases_raw = diseases_raw.get("diseases", [])
+                data = result["data"] or {}
+                diseases_raw = data.get("diseases", []) or []
                 diseases = []
-                for d in (diseases_raw or [])[:limit]:
+                for d in diseases_raw[:limit]:
+                    did = d.get("id", "")
                     diseases.append({
-                        "disease_id": d.get("diseaseId", d.get("dbId", "")),
-                        "disease_name": d.get("diseaseName", d.get("dbName", "")),
-                        "database": d.get("db", ""),
+                        "disease_id": did,
+                        "disease_name": d.get("name", ""),
+                        "database": did.split(":", 1)[0] if ":" in did else "",
+                        "mondo_id": d.get("mondoId", ""),
                     })
                 curated = {
                     "hpo_term": hpo_id,
-                    "total_diseases": len(diseases),
+                    "total_diseases": len(diseases_raw),
+                    "returned": len(diseases),
                     "diseases": diseases,
                 }
                 return [TextContent(type="text", text=json.dumps(curated, indent=2))]
@@ -3908,43 +3978,49 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
             if not gene and not drug and not variant:
                 return [TextContent(type="text", text="Error: provide at least one of 'gene', 'drug', or 'variant'")]
 
-            # Build query for clinical annotations endpoint
+            # Build query for ClinPGx (PharmGKB) clinical annotations endpoint
             params_dict: dict[str, str] = {"view": "min"}
             if gene:
                 params_dict["location.genes.symbol"] = gene
             if variant:
                 params_dict["location.variant.name"] = variant
+            if drug and not gene and not variant:
+                # ClinPGx requires lowercase chemical names for relatedChemicals.name
+                params_dict["relatedChemicals.name"] = drug.lower()
 
             url = f"{PHARMGKB_BASE_URL}/data/clinicalAnnotation"
             result = await _rest_get(url, params=params_dict, headers={"Accept": "application/json"})
 
             if not result["success"]:
-                return [TextContent(type="text", text=f"Error: {result['error']}")]
+                if "HTTP 404" in result["error"] and "No results matching criteria" in result["error"]:
+                    all_annotations = []
+                else:
+                    return [TextContent(type="text", text=f"Error: {result['error']}")]
+            else:
+                all_annotations = (result["data"] or {}).get("data", [])
 
-            all_annotations = result["data"].get("data", [])
-
-            # Client-side drug filter (API doesn't support direct drug name filter well)
+            # Client-side drug filter (handles gene+drug / variant+drug combinations case-insensitively)
             if drug:
                 drug_lower = drug.lower()
                 all_annotations = [a for a in all_annotations if any(
-                    drug_lower in c.get("name", "").lower() for c in a.get("relatedChemicals", [])
+                    drug_lower in c.get("name", "").lower() for c in (a.get("relatedChemicals") or [])
                 )]
 
             annotations = all_annotations[:limit]
 
             curated_annotations = []
             for ann in annotations:
-                location = ann.get("location", {})
-                genes_list = [g.get("symbol", "") for g in location.get("genes", [])]
-                variant_obj = location.get("variant", {})
-                chemicals = [c.get("name", "") for c in ann.get("relatedChemicals", [])]
-                evidence = ann.get("levelOfEvidence", {})
+                location = ann.get("location") or {}
+                genes_list = [g.get("symbol", "") for g in (location.get("genes") or [])]
+                variant_obj = location.get("variant") or {}
+                chemicals = [c.get("name", "") for c in (ann.get("relatedChemicals") or [])]
+                evidence = ann.get("levelOfEvidence") or {}
 
                 curated_annotations.append({
                     "id": ann.get("accessionId", ""),
                     "name": ann.get("name", ""),
                     "genes": genes_list,
-                    "variant": variant_obj.get("name", ""),
+                    "variant": variant_obj.get("name") or location.get("displayName", ""),
                     "chemicals": chemicals,
                     "types": ann.get("types", []),
                     "level_of_evidence": evidence.get("term", "") if isinstance(evidence, dict) else "",
@@ -3971,37 +4047,52 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
 
             # Check if query is a DOID — direct lookup
             if query.upper().startswith("DOID:"):
-                url = f"{DISEASE_ONTOLOGY_BASE_URL}/term/{query}"
+                doid = query.upper()
+                url = f"{DISEASE_ONTOLOGY_BASE_URL}/terms/{doid}"
                 result = await _rest_get(url, headers={"Accept": "application/json"})
                 if not result["success"]:
                     return [TextContent(type="text", text=f"Error: {result['error']}")]
-                term = result["data"]
+                term = result["data"] or {}
+                parents = [
+                    {"id": p.get("id", ""), "name": p.get("name", "")}
+                    if isinstance(p, dict)
+                    else {"id": str(p)}
+                    for p in (term.get("parents") or [])
+                ]
                 curated = {
                     "query": query,
                     "total_results": 1,
                     "results": [{
-                        "doid": term.get("id", query),
+                        "doid": term.get("id", doid),
                         "name": term.get("name", ""),
                         "definition": term.get("definition", ""),
-                        "synonyms": term.get("synonyms", []),
+                        "synonyms": _normalize_do_synonyms(term.get("synonyms")),
                         "xrefs": term.get("xrefs", []),
-                        "parents": [{"id": p.get("id", ""), "name": p.get("name", "")} for p in term.get("parents", [])] if term.get("parents") else [],
+                        "parents": parents,
                     }],
                 }
                 return [TextContent(type="text", text=json.dumps(curated, indent=2))]
 
-            # Text search
-            url = f"{DISEASE_ONTOLOGY_BASE_URL}/search"
-            params_dict2: dict[str, str] = {"query": query}
-            result = await _rest_get(url, params=params_dict2, headers={"Accept": "application/json"})
+            # Text search via DO-KB POST /v1/terms/search (names first, then synonyms fallback)
+            url = f"{DISEASE_ONTOLOGY_BASE_URL}/terms/search"
+            params_dict2: dict[str, Any] = {"page": 1, "page_size": limit}
+            result = await _rest_post(
+                url, params=params_dict2, json_body={"data": {"names": [query]}}
+            )
             if not result["success"]:
                 return [TextContent(type="text", text=f"Error: {result['error']}")]
 
-            data = result["data"]
-            # Response may be a list or an object with results
-            results_list = data if isinstance(data, list) else data.get("results", data.get("terms", []))
+            data = result["data"] or {}
+            results_list = data.get("results") or []
+            if not results_list:
+                syn_result = await _rest_post(
+                    url, params=params_dict2, json_body={"data": {"synonyms": [query]}}
+                )
+                if syn_result["success"]:
+                    results_list = (syn_result["data"] or {}).get("results") or []
+
             if not isinstance(results_list, list):
-                results_list = [data] if data else []
+                results_list = [results_list] if results_list else []
 
             results_list = results_list[:limit]
 
@@ -4011,7 +4102,7 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
                     "doid": t.get("id", t.get("doid", "")),
                     "name": t.get("name", ""),
                     "definition": t.get("definition", ""),
-                    "synonyms": t.get("synonyms", []),
+                    "synonyms": _normalize_do_synonyms(t.get("synonyms")),
                     "xrefs": t.get("xrefs", []),
                 })
 
@@ -4237,6 +4328,14 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
                 return [TextContent(type="text", text="Error: 'query' is required")]
 
             s2_fields = "paperId,title,abstract,year,authors,venue,publicationDate,citationCount,influentialCitationCount,tldr,openAccessPdf,fieldsOfStudy,externalIds"
+            api_key = os.environ.get("SEMANTIC_SCHOLAR_API_KEY")
+            s2_headers = {"x-api-key": api_key} if api_key else None
+
+            def _s2_error(prefix: str, err: str) -> str:
+                msg = f"{prefix}: {err}"
+                if "HTTP 429" in err:
+                    msg += " (Set SEMANTIC_SCHOLAR_API_KEY env var for higher rate limits.)"
+                return msg
 
             # Detect query type
             is_doi = query.upper().startswith("DOI:") or (query.startswith("10.") and "/" in query)
@@ -4245,16 +4344,16 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
             if is_doi:
                 doi_val = query[4:] if query.upper().startswith("DOI:") else query
                 url = f"{SEMANTIC_SCHOLAR_BASE_URL}/paper/DOI:{doi_val}"
-                result = await _rest_get(url, params={"fields": s2_fields})
+                result = await _rest_get(url, params={"fields": s2_fields}, headers=s2_headers)
                 if not result["success"]:
-                    return [TextContent(type="text", text=f"Error looking up DOI: {result['error']}")]
+                    return [TextContent(type="text", text=_s2_error("Error looking up DOI", result["error"]))]
                 papers = [result["data"]]
             elif is_pmid:
                 pmid_val = query[5:] if query.upper().startswith("PMID:") else query
                 url = f"{SEMANTIC_SCHOLAR_BASE_URL}/paper/PMID:{pmid_val}"
-                result = await _rest_get(url, params={"fields": s2_fields})
+                result = await _rest_get(url, params={"fields": s2_fields}, headers=s2_headers)
                 if not result["success"]:
-                    return [TextContent(type="text", text=f"Error looking up PMID: {result['error']}")]
+                    return [TextContent(type="text", text=_s2_error("Error looking up PMID", result["error"]))]
                 papers = [result["data"]]
             else:
                 # Keyword search
@@ -4266,9 +4365,9 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
                 }
                 if fields_of_study:
                     params_s2["fieldsOfStudy"] = fields_of_study
-                result = await _rest_get(url, params=params_s2)
+                result = await _rest_get(url, params=params_s2, headers=s2_headers)
                 if not result["success"]:
-                    return [TextContent(type="text", text=f"Error: {result['error']}")]
+                    return [TextContent(type="text", text=_s2_error("Error", result["error"]))]
                 papers = result["data"].get("data", [])
                 if not papers:
                     return [TextContent(type="text", text=json.dumps({
@@ -4359,6 +4458,29 @@ async def call_tool(name: str, arguments: Any) -> list[TextContent]:
 
     except Exception as e:
         return [TextContent(type="text", text=f"Error executing tool: {str(e)}")]
+
+
+if hasattr(Server, "list_tools"):
+    # mcp 1.x API
+    app = Server("datasets-mcp-server")
+    app.list_tools()(list_tools)
+    app.call_tool()(call_tool)
+else:
+    # mcp 2.x API
+    from mcp.types import CallToolResult, ListToolsResult
+
+    async def _on_list_tools(_ctx: Any, _params: Any) -> ListToolsResult:
+        return ListToolsResult(tools=await list_tools())
+
+    async def _on_call_tool(_ctx: Any, params: Any) -> CallToolResult:
+        content = await call_tool(params.name, params.arguments or {})
+        return CallToolResult(content=content)
+
+    app = Server(
+        "datasets-mcp-server",
+        on_list_tools=_on_list_tools,
+        on_call_tool=_on_call_tool,
+    )
 
 
 async def main():

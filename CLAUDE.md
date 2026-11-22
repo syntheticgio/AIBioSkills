@@ -2,7 +2,7 @@
 
 ## What This Project Is
 
-An MCP server for bioinformatics (`datasets-mcp-server`) exposing tools backed by NCBI Datasets CLI, BioPython, Ensembl REST API, and UniProt REST API.
+An MCP server for bioinformatics (`datasets-mcp-server`) exposing 45 tools across NCBI Datasets, BioPython/Primer3, and 20+ bioinformatics APIs.
 
 ## Build & Test
 
@@ -24,6 +24,7 @@ npx @modelcontextprotocol/inspector datasets-mcp-server   # interactive test
 | `.claude/commands/protein-report.md` | `/protein-report` skill — protein-centric report |
 | `.claude/commands/pathway-report.md` | `/pathway-report` skill — pathway deep-dive report |
 | `.claude/commands/drug-target-report.md` | `/drug-target-report` skill — druggability assessment |
+| `.claude/commands/lab-notebook.md` | `/lab-notebook` skill — research session lab notebook |
 | `.claude/commands/literature-agent.md` | `/literature-agent` agent — PubMed literature search & summary |
 | `.claude/commands/comparative-genomics-agent.md` | `/comparative-genomics-agent` agent — multi-species gene comparison |
 | `.claude/commands/clinical-variant-agent.md` | `/clinical-variant-agent` agent — full clinical variant workup |
