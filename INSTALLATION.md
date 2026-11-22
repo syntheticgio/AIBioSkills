@@ -2,47 +2,71 @@
 
 ## Prerequisites
 
-1. **NCBI Datasets CLI** - Already installed at `/home/syntheticgio/anaconda3/bin/datasets`
-   - Version: 18.5.3 ✓
-
-2. **Python 3.10+** - Available through Anaconda ✓
+1. **Python 3.10+** — with `pip` or [`uv`](https://docs.astral.sh/uv/)
+2. **NCBI Datasets CLI** *(optional for BioPython and REST API tools; required for the NCBI Datasets CLI tools)* — install following the [NCBI Datasets CLI installation docs](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/)
 
 ## Installation Steps
 
 ### 1. Install the MCP Server
 
-The server is already installed in your conda base environment:
+Clone the repository and install in editable mode using `pip` or `uv`:
+
+#### Option A: Using `pip` and `venv`
 
 ```bash
-cd /home/syntheticgio/Programming/datasets-mcp
-conda run -n base pip install -e .
+git clone https://github.com/syntheticgio/AIBioSkills.git
+cd AIBioSkills
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -e .
 ```
 
-### 2. Verify Installation
-
-Test that everything works:
+#### Option B: Using `uv`
 
 ```bash
+git clone https://github.com/syntheticgio/AIBioSkills.git
+cd AIBioSkills
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+uv pip install -e .
+```
+
+### 2. Optional Environment Variables
+
+- **`SEMANTIC_SCHOLAR_API_KEY`** *(optional)*: Provide a Semantic Scholar API key to obtain higher rate limits when using `semantic_scholar_search`. Without a key, public rate limits apply.
+
+  ```bash
+  export SEMANTIC_SCHOLAR_API_KEY="your-api-key"
+  ```
+
+### 3. Verify Installation
+
+Test that everything works (with your virtual environment activated):
+
+```bash
+# Verify imports
+python -c "from datasets_mcp.server import app; print('OK')"
+
 # Run the test script
-conda run -n base python test_server.py
+python test_server.py
 
-# Test the CLI command
-datasets-mcp-server --help
+# Check that the entry point is on PATH
+which datasets-mcp-server
 ```
 
-Expected output from test script:
+Expected output from `test_server.py`:
 ```
-✓ datasets CLI installed (version 18.5.3)
-✓ MCP server provides 5 tools
+✓ datasets CLI installed (<version>)
+✓ Server provides 45 tools
 ✓ Genome queries working (tested with E. coli)
 ✓ Gene queries working (tested with BRCA1)
 ```
 
-### 3. Configure Claude Desktop
+### 4. Configure Claude Desktop
 
 #### Linux Configuration
 
-Edit: `~/.config/Claude/claude_desktop_config.json`
+Edit `~/.config/Claude/claude_desktop_config.json`:
 
 ```json
 {
@@ -54,26 +78,28 @@ Edit: `~/.config/Claude/claude_desktop_config.json`
 }
 ```
 
-**Note:** If `datasets-mcp-server` is not in your PATH, use the full path:
+**Note:** If `datasets-mcp-server` is not in your global `PATH` (for example, when installed inside a project virtual environment), use the full path to the executable inside `.venv`:
 
 ```json
 {
   "mcpServers": {
     "datasets": {
-      "command": "/home/syntheticgio/anaconda3/bin/datasets-mcp-server"
+      "command": "/path/to/AIBioSkills/.venv/bin/datasets-mcp-server"
     }
   }
 }
 ```
 
-Or run via conda:
+To pass the optional `SEMANTIC_SCHOLAR_API_KEY` for higher Semantic Scholar rate limits, add an `"env"` block:
 
 ```json
 {
   "mcpServers": {
     "datasets": {
-      "command": "conda",
-      "args": ["run", "-n", "base", "datasets-mcp-server"]
+      "command": "/path/to/AIBioSkills/.venv/bin/datasets-mcp-server",
+      "env": {
+        "SEMANTIC_SCHOLAR_API_KEY": "your-api-key"
+      }
     }
   }
 }
@@ -81,16 +107,14 @@ Or run via conda:
 
 #### macOS Configuration
 
-Edit: `~/Library/Application Support/Claude/claude_desktop_config.json`
+Edit `~/Library/Application Support/Claude/claude_desktop_config.json` using the same JSON configuration as above.
 
-Use the same JSON configuration as above.
-
-### 4. Restart Claude Desktop
+### 5. Restart Claude Desktop
 
 After editing the configuration:
 1. Completely quit Claude Desktop (not just close the window)
 2. Restart Claude Desktop
-3. The datasets MCP server should now be available
+3. The `datasets` MCP server should now be available
 
 ## Verification
 
@@ -107,42 +131,43 @@ Once configured, you can test in Claude Desktop by asking:
 1. Check the config file location and syntax (must be valid JSON)
 2. Verify the command path is correct
 3. Check Claude Desktop logs for errors
-4. Try the absolute path to datasets-mcp-server
+4. Try the absolute path to `datasets-mcp-server` (e.g., `/path/to/AIBioSkills/.venv/bin/datasets-mcp-server`)
 
 ### "datasets CLI not found" error
 
-The server checks for `datasets` in PATH. Verify:
+The NCBI Datasets CLI tools check for `datasets` in `PATH`. Verify:
 
 ```bash
 which datasets
-# Should output: /home/syntheticgio/anaconda3/bin/datasets
 ```
 
-If not found, make sure your conda environment is activated when running the server.
+If not found, install it following the [NCBI Datasets CLI installation docs](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/) and make sure its directory is on your `PATH`. (BioPython and REST API tools do not require the `datasets` CLI.)
 
 ### Import errors
 
-If you get module import errors:
+If you get module import errors, reinstall in your active virtual environment from the repository root:
 
 ```bash
-# Reinstall in the correct environment
-cd /home/syntheticgio/Programming/datasets-mcp
-conda run -n base pip install -e .
+pip install -e .
+# Or with uv:
+uv pip install -e .
 ```
 
 ### Network/timeout errors
 
-NCBI datasets requires internet access. Check:
+NCBI Datasets and external bioinformatics APIs require internet access. Check:
 - Internet connection is active
-- No firewall blocking NCBI APIs
-- Try increasing timeout in server.py if needed
+- No firewall is blocking NCBI or external API endpoints
+- Increase timeout in `src/datasets_mcp/server.py` if needed
 
 ## Uninstallation
 
 To remove the MCP server:
 
 ```bash
-conda run -n base pip uninstall datasets-mcp-server
+pip uninstall datasets-mcp-server
+# Or with uv:
+uv pip uninstall datasets-mcp-server
 ```
 
 Then remove the configuration from `claude_desktop_config.json`.
@@ -151,7 +176,7 @@ Then remove the configuration from `claude_desktop_config.json`.
 
 To modify the server:
 
-1. Edit files in `/home/syntheticgio/Programming/datasets-mcp/src/datasets_mcp/`
+1. Edit files in `src/datasets_mcp/`
 2. Changes take effect immediately (editable install with `-e`)
 3. Restart Claude Desktop to pick up changes
 4. Run `python test_server.py` to verify changes
@@ -170,7 +195,7 @@ This provides a web interface to test tool calls.
 
 ### Direct CLI Testing
 
-Test datasets commands directly:
+Test `datasets` commands directly:
 
 ```bash
 # Check version
@@ -186,6 +211,6 @@ datasets summary gene symbol BRCA1 --taxon human
 ## Support
 
 For issues:
-- Server code issues: Check `/home/syntheticgio/Programming/datasets-mcp/README.md`
-- NCBI datasets CLI: https://www.ncbi.nlm.nih.gov/datasets/docs/
+- Server code issues: Check `README.md` in the repository root
+- NCBI Datasets CLI: https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/
 - MCP protocol: https://modelcontextprotocol.io/

@@ -335,7 +335,7 @@ Get tissue-specific gene expression data from GTEx (median TPM across ~54 human 
 
 ### HPO REST API Tools
 
-These tools query the [Human Phenotype Ontology API](https://hpo.jax.org/) and do **not** require the datasets CLI.
+These tools query the [Human Phenotype Ontology API](https://ontology.jax.org/api/hp/) and do **not** require the datasets CLI.
 
 #### `hpo_search`
 Search the Human Phenotype Ontology for phenotype terms, or get genes/diseases associated with a phenotype.
@@ -519,31 +519,31 @@ Design PCR primers for a target region within a template sequence.
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `sequence` | string | yes | Template nucleotide sequence |
-| `target_start` | integer | yes | Start position of the target region (0-based) |
-| `target_length` | integer | yes | Length of the target region |
+| `target_start` | integer | no | Start position of the target region (0-based; default: center of sequence) |
+| `target_length` | integer | no | Length of the target region (default: `200`) |
 | `primer_min_size` | integer | no | Minimum primer length (default: `18`) |
 | `primer_opt_size` | integer | no | Optimal primer length (default: `20`) |
 | `primer_max_size` | integer | no | Maximum primer length (default: `25`) |
 | `primer_min_tm` | number | no | Minimum melting temperature (default: `57.0`) |
 | `primer_opt_tm` | number | no | Optimal melting temperature (default: `60.0`) |
 | `primer_max_tm` | number | no | Maximum melting temperature (default: `63.0`) |
-| `num_primers` | integer | no | Number of primer pairs to return (default: `3`) |
+| `num_primers` | integer | no | Number of primer pairs to return (default: `5`) |
 
 **Returns:** List of primer pairs with left/right primer sequence, start position, length, Tm, GC%, product size, and pair penalty score.
 
 ### PharmGKB REST API Tools
 
-These tools query the [PharmGKB API](https://api.pharmgkb.org/) and do **not** require the datasets CLI.
+These tools query the [ClinPGx API](https://api.clinpgx.org/) (PharmGKB transitioned to ClinPGx) and do **not** require the datasets CLI.
 
 #### `pharmgkb_search`
-Search PharmGKB for pharmacogenomics clinical annotations (gene-drug-variant associations).
+Search PharmGKB (via ClinPGx) for pharmacogenomics clinical annotations (gene-drug-variant associations).
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `gene` | string | no | Gene symbol to search (e.g., `CYP2D6`) |
 | `variant` | string | no | Variant name (e.g., `rs1065852`) |
-| `drug` | string | no | Drug name filter (client-side) |
-| `limit` | integer | no | Max results (default: `20`) |
+| `drug` | string | no | Drug name filter (API-filtered when used alone; client-side when combined with `gene`/`variant`) |
+| `limit` | integer | no | Max results (default: `15`) |
 
 **Returns:** List of clinical annotations with annotation ID, name, genes, variant, chemicals (drugs), annotation types, and level of evidence.
 
@@ -557,7 +557,7 @@ Search for standardized disease terms, definitions, synonyms, and cross-referenc
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `query` | string | yes | Disease name (e.g., `breast cancer`) or DOID (e.g., `DOID:1612`) |
-| `limit` | integer | no | Max results (default: `20`) |
+| `limit` | integer | no | Max results (default: `10`) |
 
 **Returns:** For search: list of diseases with DOID, name, definition, synonyms, and cross-references. For direct DOID lookup: full disease entry with definition, synonyms, xrefs, and parent terms.
 
